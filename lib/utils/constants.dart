@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 
 import 'package:kedasrd_windows/widgets/custom_dialog.dart';
+import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 import 'package:kedasrd_windows/widgets/custom_alert_dialog.dart';
 import 'package:kedasrd_windows/widgets/custom_items_dialog.dart';
 
@@ -138,6 +139,17 @@ class Constants {
       //   );
       // }
     });
+  }
+
+  static openAuthCodeDialog(BuildContext context, Size size, String title) {
+    return openDialog(
+      context: context,
+      screenName: title,
+      title: "Please enter your auth code",
+      btnText1: "Submit",
+      child: const CustomTextInput(hintText: "Enter Code here", isNumber: true),
+      height: size.height / 4,
+    );
   }
 }
 

@@ -25,7 +25,8 @@ enum Screen {
   // Inner Menu Items
   shifts,
   orders,
-  help
+  help,
+  contact,
 }
 
 class DrawerMenuController extends GetxController {
@@ -85,16 +86,8 @@ class DrawerMenuController extends GetxController {
         break;
       case "Restaurant":
         authController.isAdmin
-            ? Constants.openDialog(
-                context: context,
-                screenName: "Drawer",
-                title: "Please enter your auth code",
-                btnText1: "Submit",
-                child: const CustomTextInput(
-                    hintText: "Enter Code here", isNumber: true),
-                height: size.height / 4,
-              )
-            : navigateTo(Screen.restaurant, title);
+            ? navigateTo(Screen.restaurant, title)
+            : Constants.openAuthCodeDialog(context, size, "Home");
         break;
       case "Fast Food":
         navigateTo(Screen.fastfood, title);
@@ -139,6 +132,9 @@ class DrawerMenuController extends GetxController {
       case "Table":
         navigateTo(Screen.tables, title);
         break;
+      case "Contact":
+        navigateTo(Screen.contact, title);
+        break;
     }
   }
 
@@ -167,10 +163,13 @@ class DrawerMenuController extends GetxController {
     }
   }
 
-  void onNewOrderItemTapped(String title) {
+  void onNewOrderItemTapped(
+      String title, BuildContext context, Size size, dynamic authController) {
     switch (title) {
       case "Dine In":
-        navigateTo(Screen.tables, "Tables");
+        authController.isAdmin
+            ? navigateTo(Screen.tables, "Tables")
+            : Constants.openAuthCodeDialog(context, size, "New Order");
         break;
       case "Delivery":
         navigateTo(Screen.pickup, "Delivery");
@@ -229,8 +228,11 @@ class DrawerMenuController extends GetxController {
       case Screen.orders:
         screenTitle.value = "Orders";
         break;
+      case Screen.contact:
+        screenTitle.value = "Contact";
+        break;
       case Screen.help:
-        screenTitle.value = "help";
+        screenTitle.value = "Help";
         break;
     }
   }
@@ -271,7 +273,8 @@ class DrawerMenuController extends GetxController {
           currentScreen.value == Screen.tables ||
           // Inner Inner Items
           currentScreen.value == Screen.shifts ||
-          currentScreen.value == Screen.orders;
+          currentScreen.value == Screen.orders ||
+          currentScreen.value == Screen.contact;
     }
     return false;
   }
@@ -315,6 +318,12 @@ class DrawerMenuController extends GetxController {
         currentParentMenu.value == "Super Market";
   }
 
+  bool isOnlineStoreInnerScreen() {
+    return (currentScreen.value == Screen.onlineStore ||
+            currentScreen.value == Screen.contact) &&
+        currentParentMenu.value == "Online Store";
+  }
+
   bool isInnerSelected(int index) {
     if (index < 10) {
       if (index == 0) {
@@ -326,7 +335,7 @@ class DrawerMenuController extends GetxController {
       } else if (index == 3) {
         return isSuperMarketInnerScreen();
       } else if (index == 4) {
-        return currentScreen.value == Screen.onlineStore;
+        return isOnlineStoreInnerScreen();
       }
     }
 
@@ -400,6 +409,16 @@ class DrawerMenuController extends GetxController {
       }
     }
 
+    // Online Store inner items (50-59)
+    if (index >= 50 && index < 59) {
+      switch (index - 50) {
+        case 0:
+          return currentScreen.value == Screen.contact;
+        default:
+          return false;
+      }
+    }
+
     return false;
   }
 
@@ -410,7 +429,8 @@ class DrawerMenuController extends GetxController {
         currentScreen.value == Screen.kitchen ||
         currentScreen.value == Screen.delivery ||
         currentScreen.value == Screen.pickup ||
-        currentScreen.value == Screen.tables;
+        currentScreen.value == Screen.tables ||
+        currentScreen.value == Screen.contact;
   }
 
   bool shouldShowSearchBar() {
@@ -443,6 +463,8 @@ class DrawerMenuController extends GetxController {
         return isInnerSelected(2);
       case "Super Market":
         return isInnerSelected(3);
+      case "Online Store":
+        return isInnerSelected(4);
       default:
         return false;
     }

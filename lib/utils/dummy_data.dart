@@ -287,6 +287,11 @@ class DummyData {
     // {"icon": Images.exit, "title": "Logout"},
   ];
 
+  static List<dynamic> onlineStoreDrawerItems = [
+    // {"icon": Images.home, "title": "Home"},
+    {"icon": Images.telephone, "title": "Contact"},
+  ];
+
   // List of items in our dropdown menu
   static List<String> currencyItems = [
     "Dollars - USD (USD \$)",

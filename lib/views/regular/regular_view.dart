@@ -17,6 +17,7 @@ import 'package:kedasrd_windows/widgets/custom_close_icon_button.dart';
 import 'package:kedasrd_windows/controllers/cart_controller.dart';
 import 'package:kedasrd_windows/controllers/tables_controller.dart';
 import 'package:kedasrd_windows/controllers/regular_controller.dart';
+import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
 
 class RegularView extends StatefulWidget {
   final String? title;
@@ -27,6 +28,7 @@ class RegularView extends StatefulWidget {
 }
 
 class _RegularViewState extends State<RegularView> {
+  final AuthController authController = Get.find<AuthController>();
   final RegularController controller = Get.put(RegularController());
   final CartController cartController = Get.find<CartController>();
   final TablesController tableController = Get.find<TablesController>();
@@ -67,7 +69,7 @@ class _RegularViewState extends State<RegularView> {
               () => controller.isPaymentMenuVisible.value &&
                       widget.title!.contains("Food")
                   ? paymentMenu(size)
-                  : productList(size),
+                  : updatedProductList(size),
             ),
           ),
         ),
@@ -89,6 +91,107 @@ class _RegularViewState extends State<RegularView> {
           child: cartView(size),
         ),
       ],
+    );
+  }
+
+  Widget updatedProductList(Size size) {
+    return SingleChildScrollView(
+      child: Wrap(
+          runSpacing: 16.0,
+          spacing: 16.0,
+          children: List.generate(
+            DummyData.productList.length,
+            (index) {
+              var data = DummyData.productList[index];
+              return Material(
+                color: Themes.kTransparent,
+                child: InkWell(
+                  hoverColor: Themes.kWhiteColor,
+                  borderRadius: BorderRadius.circular(8.0),
+                  onTap: index % 2.5 == 2
+                      ? null
+                      : () {
+                          cartController.addToCart(data);
+                          CustomSnackBar.showTopRightSnackBar(
+                              context, '${data["title"]} added in cart!');
+                        },
+                  child: Ink(
+                    height: 300.0,
+                    width: size.width / 5.52,
+                    decoration: BoxDecoration(
+                      color: Themes.kWhiteColor,
+                      borderRadius: BorderRadius.circular(8.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Themes.kBlackColor.withOpacity(0.20),
+                          blurRadius: 8.0,
+                          spreadRadius: -3,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(8.0),
+                              topRight: Radius.circular(8.0)),
+                          child: Image.asset(
+                            data["image"],
+                            height: 200,
+                            width: size.width,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 12.0, left: 16.0, right: 16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                data["title"],
+                                style: const TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: Themes.kBlackColor,
+                                ),
+                              ),
+                              const SizedBox(height: 8.0),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "DOP \$${data["price"]}",
+                                    style: const TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.w700,
+                                      color: Themes.kPrimaryColor,
+                                    ),
+                                  ),
+                                  if (index % 2.5 == 2)
+                                    const Text(
+                                      "Out Of Stock",
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.w700,
+                                        color: Themes.kRedColor,
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          )),
     );
   }
 
@@ -168,73 +271,10 @@ class _RegularViewState extends State<RegularView> {
                                       color: Themes.kBlackColor,
                                     ),
                                   ),
-                                  // Container(
-                                  //   width: Get.width / 1.7,
-                                  //   margin: const EdgeInsets.only(top: 6.0),
-                                  //   child: Row(
-                                  //     mainAxisAlignment:
-                                  //         MainAxisAlignment.spaceBetween,
-                                  //     crossAxisAlignment:
-                                  //         CrossAxisAlignment.center,
-                                  //     children: [
-                                  //       Obx(() {
-                                  //         // Check if item exists in cart
-                                  //         final cartItemIndex = cartController
-                                  //             .cartItems
-                                  //             .indexWhere((item) =>
-                                  //                 item.name == data["title"]);
-
-                                  //         if (cartItemIndex != -1) {
-                                  //           // Show quantity controls if item is in cart
-                                  //           return SizedBox(
-                                  //             width: 84.0,
-                                  //             child: Row(
-                                  //               mainAxisAlignment:
-                                  //                   MainAxisAlignment
-                                  //                       .spaceBetween,
-                                  //               children: [
-                                  //                 qtyButton(
-                                  //                     Images.less,
-                                  //                     "Increase",
-                                  //                     cartItemIndex),
-                                  //                 Text(
-                                  //                   "${cartController.cartItems[cartItemIndex].quantity.value}",
-                                  //                   style: const TextStyle(
-                                  //                     fontSize: 15.0,
-                                  //                     fontWeight:
-                                  //                         FontWeight.w500,
-                                  //                     color:
-                                  //                         Themes.kBlackColor,
-                                  //                   ),
-                                  //                 ),
-                                  //                 qtyButton(
-                                  //                     Images.add,
-                                  //                     "Decrease",
-                                  //                     cartItemIndex),
-                                  //               ],
-                                  //             ),
-                                  //           );
-                                  //         } else {
-                                  //           return const SizedBox
-                                  //               .shrink(); // Hide controls if not in cart
-                                  //         }
-                                  //       }),
-                                  //     ],
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                             ],
                           ),
-                          // Obx(() {
-                          // Check if item exists in cart
-                          // final cartItemIndex = cartController.cartItems
-                          //     .indexWhere(
-                          //         (item) => item.name == data["title"]);
-
-                          // if (cartItemIndex == -1 && index % 2.5 != 2) {
-                          // Show controls if item is in cart
-                          // return
                           Positioned(
                             bottom: 0.0,
                             right: 0.0,
@@ -247,11 +287,6 @@ class _RegularViewState extends State<RegularView> {
                               },
                             ),
                           )
-                          // } else {
-                          //   return const SizedBox.shrink();
-                          // }
-                          // }
-                          // ),
                         ],
                       ),
                     ),
@@ -279,33 +314,6 @@ class _RegularViewState extends State<RegularView> {
                 ],
               );
             },
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget qtyButton(String image, String type, int index) {
-    return Material(
-      color: Themes.kTransparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(7.0),
-        onTap: () {
-          // if (type == "Decrease") {
-          //   cartController.updateQuantity(index, true);
-          // } else {
-          //   cartController.updateQuantity(index, false);
-          // }
-        },
-        child: Ink(
-          decoration: BoxDecoration(
-              color: Themes.kPrimaryColor,
-              borderRadius: BorderRadius.circular(7.0)),
-          child: Container(
-            height: 25.0,
-            width: 26.0,
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(image, color: Themes.kWhiteColor),
           ),
         ),
       ),
@@ -346,7 +354,7 @@ class _RegularViewState extends State<RegularView> {
                     child: SingleChildScrollView(
                       child: widget.title!.contains("Food") ||
                               widget.title!.contains("Store")
-                          ? fastFoodCartItemsSection()
+                          ? fastFoodCartItemsSection(size)
                           : cartItemsSection(),
                     ),
                   ),
@@ -398,9 +406,9 @@ class _RegularViewState extends State<RegularView> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            customButton("Save Item"),
+                            customButton("Save Item", size),
                             const SizedBox(width: 8.0),
-                            customButton("Send Order To Kitchen"),
+                            customButton("Send Order To Kitchen", size),
                           ],
                         ),
                       ],
@@ -545,7 +553,7 @@ class _RegularViewState extends State<RegularView> {
           );
   }
 
-  Widget fastFoodCartItemsSection() {
+  Widget fastFoodCartItemsSection(Size size) {
     return Column(
       children: List.generate(
         2,
@@ -574,8 +582,14 @@ class _RegularViewState extends State<RegularView> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
-                      onTap: () => CustomSnackBar.showTopRightSnackBar(
-                          context, 'Item ${index + 1} Removed!'),
+                      onTap: () {
+                        if (authController.isAdmin) {
+                          CustomSnackBar.showTopRightSnackBar(
+                              context, 'Item ${index + 1} Removed!');
+                        } else {
+                          Constants.openAuthCodeDialog(context, size, "Cart");
+                        }
+                      },
                       child: Image.asset(
                         Images.delete,
                         height: 16.0,
@@ -739,7 +753,7 @@ class _RegularViewState extends State<RegularView> {
     );
   }
 
-  Widget customButton(String title) {
+  Widget customButton(String title, Size size) {
     return Material(
       color: Themes.kTransparent,
       child: InkWell(
@@ -748,8 +762,12 @@ class _RegularViewState extends State<RegularView> {
             CustomSnackBar.showTopRightSnackBar(
                 context, 'Save Order Successfully!');
           } else {
-            CustomSnackBar.showTopRightSnackBar(
-                context, 'Order Sent to Kitchen!');
+            if (authController.isAdmin) {
+              CustomSnackBar.showTopRightSnackBar(
+                  context, 'Order Sent to Kitchen!');
+            } else {
+              Constants.openAuthCodeDialog(context, size, "FastFood");
+            }
           }
         },
         child: Ink(

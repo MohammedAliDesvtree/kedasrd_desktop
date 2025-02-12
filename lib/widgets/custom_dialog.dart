@@ -8,7 +8,9 @@ import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/widgets/custom_view_dialog.dart';
 import 'package:kedasrd_windows/widgets/custom_alert_dialog.dart';
 
+import 'package:kedasrd_windows/controllers/drawer_controller.dart';
 import 'package:kedasrd_windows/controllers/tables_controller.dart';
+import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
 
 class CustomDialog extends StatefulWidget {
   final String title;
@@ -33,6 +35,9 @@ class CustomDialog extends StatefulWidget {
 
 class _CustomDialogState extends State<CustomDialog> {
   final TablesController controller = Get.find<TablesController>();
+  final DrawerMenuController drawerMenuController =
+      Get.find<DrawerMenuController>();
+  final AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -165,8 +170,17 @@ class _CustomDialogState extends State<CustomDialog> {
         onTap: () {
           Get.back();
           if (title == "Submit" && widget.title.contains("auth code")) {
-            if (widget.screenName == "Drawer") {
+            if (widget.screenName == "Home") {
               controlAlert(context);
+            } else if (widget.screenName == "FastFood") {
+              // Get.toNamed(Routes.INVOICE);
+            } else if (widget.screenName == "New Order") {
+              drawerMenuController.onMenuInnerItemTapped(
+                  context, size, "Table", authController);
+            } else if (widget.screenName == "Cart") {
+              CustomSnackBar.showTopRightSnackBar(context, 'Item Removed!');
+            } else if (widget.screenName == "Drawer") {
+              // Constants.closeShift(context);
             }
           } else if (title.contains("Options")) {
             Constants.openDialog(
@@ -227,5 +241,5 @@ dynamic openEntryLog(BuildContext context) {
   return showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (context) => CustomViewDialog());
+      builder: (context) => const CustomViewDialog());
 }

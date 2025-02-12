@@ -12,10 +12,10 @@ import 'package:kedasrd_windows/views/restaurant/shifts_view.dart';
 import 'package:kedasrd_windows/views/restaurant/tables_view.dart';
 import 'package:kedasrd_windows/views/restaurant/kitchen_view.dart';
 import 'package:kedasrd_windows/views/restaurant/delivery_view.dart';
+import 'package:kedasrd_windows/views/online_order/contact_view.dart';
 import 'package:kedasrd_windows/views/restaurant/new_order_view.dart';
 import 'package:kedasrd_windows/views/restaurant/restaurant_view.dart';
 import 'package:kedasrd_windows/views/restaurant/active_order_view.dart';
-import 'package:kedasrd_windows/views/online_order/online_order_view.dart';
 import 'package:kedasrd_windows/views/super_market/super_market_view.dart';
 
 import 'package:kedasrd_windows/widgets/custom_dropdowns.dart';
@@ -175,6 +175,8 @@ class _BodyViewState extends State<BodyView> {
         return const ShiftsView();
       case Screen.orders:
         return const OrdersView();
+      case Screen.contact:
+        return const ContactView();
       case Screen.help:
         return const SizedBox.shrink();
     }

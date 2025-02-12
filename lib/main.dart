@@ -9,7 +9,6 @@ import 'package:kedasrd_windows/utils/load_images.dart';
 
 import 'package:kedasrd_windows/views/landing_view.dart';
 import 'package:kedasrd_windows/views/auth/sign_in_view.dart';
-// import 'package:kedasrd_windows/views/online_order/online_order_view.dart';
 
 import 'package:kedasrd_windows/controllers/cart_controller.dart';
 import 'package:kedasrd_windows/controllers/common_controller.dart';

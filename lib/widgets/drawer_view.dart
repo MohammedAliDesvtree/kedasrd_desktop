@@ -232,6 +232,10 @@ class _DrawerViewState extends State<DrawerView> {
         innerItems = DummyData.superMarketDrawerItems;
         startIndex = 40; // Base index for supermarket items
         break;
+      case "Online Store":
+        innerItems = DummyData.onlineStoreDrawerItems;
+        startIndex = 50; // Base index for online store items
+        break;
       default:
         return const SizedBox.shrink();
     }
