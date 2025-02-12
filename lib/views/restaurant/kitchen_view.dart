@@ -129,12 +129,12 @@ class _KitchenViewState extends State<KitchenView> {
           const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     "Qty : 2",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w500,
                       color: Themes.kWhiteColor,
@@ -150,10 +150,10 @@ class _KitchenViewState extends State<KitchenView> {
                   ),
                 ],
               ),
-              const SizedBox(height: 4.0),
+              SizedBox(height: 4.0),
               Text(
                 "Chicharroncitos De Pollo",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14.0,
                   fontWeight: FontWeight.w500,
                   color: Themes.kWhiteColor,

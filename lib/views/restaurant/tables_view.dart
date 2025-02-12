@@ -70,7 +70,7 @@ class _TablesViewState extends State<TablesView> {
         context: context,
         title: "Enter Code to Continue",
         btnText1: "Submit",
-        child: const CustomTextInput(hintText: "Enter code"),
+        child: const CustomTextInput(hintText: "Enter code", isNumber: true),
         height: size.height / 4,
       ),
       child: Container(
@@ -185,7 +185,7 @@ class _TablesViewState extends State<TablesView> {
         context: context,
         title: "Enter Code to Continue",
         btnText1: "Submit",
-        child: const CustomTextInput(hintText: "Enter code"),
+        child: const CustomTextInput(hintText: "Enter code", isNumber: true),
         height: size.height / 4,
       ),
       child: Container(

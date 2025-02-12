@@ -136,7 +136,7 @@ class DummyData {
     {
       "icon": Images.onlineOrderIc,
       "image": Images.onlineOrder,
-      "title": "Online Order"
+      "title": "Online Store"
     },
   ];
 

@@ -560,11 +560,11 @@ class CustomItemsDialog extends StatelessWidget {
   Widget inputSection() {
     return const Column(
       children: [
-        CustomTextInput(hintText: "Name"),
+        CustomTextInput(hintText: "Name", isNumber: false),
         SizedBox(height: 16.0),
-        CustomTextInput(hintText: "Tax ID"),
+        CustomTextInput(hintText: "Tax ID", isNumber: true),
         SizedBox(height: 16.0),
-        CustomTextInput(hintText: "Phone Number"),
+        CustomTextInput(hintText: "Phone Number", isNumber: true),
       ],
     );
   }

@@ -14,7 +14,7 @@ enum Screen {
   restaurant,
   fastfood,
   superMarket,
-  onlineOrder,
+  onlineStore,
   // Restaurant Items
   newOrder,
   activeOrder,
@@ -72,7 +72,8 @@ class DrawerMenuController extends GetxController {
     navigateTo(Screen.home, "Home");
   }
 
-  void onMenuInnerItemTapped(BuildContext context, Size size, String title) {
+  void onMenuInnerItemTapped(
+      BuildContext context, Size size, String title, dynamic authController) {
     // Set parent menu based on current context
     if (DummyData.dashboardList.any((item) => item["title"] == title)) {
       currentParentMenu.value = title;
@@ -83,7 +84,17 @@ class DrawerMenuController extends GetxController {
         navigateTo(Screen.regular, title);
         break;
       case "Restaurant":
-        navigateTo(Screen.restaurant, title);
+        authController.isAdmin
+            ? Constants.openDialog(
+                context: context,
+                screenName: "Drawer",
+                title: "Please enter your auth code",
+                btnText1: "Submit",
+                child: const CustomTextInput(
+                    hintText: "Enter Code here", isNumber: true),
+                height: size.height / 4,
+              )
+            : navigateTo(Screen.restaurant, title);
         break;
       case "Fast Food":
         navigateTo(Screen.fastfood, title);
@@ -91,9 +102,8 @@ class DrawerMenuController extends GetxController {
       case "Super Market":
         navigateTo(Screen.superMarket, title);
         break;
-      case "Online Order":
-        // navigateTo(Screen.onlineOrder, title);
-        Get.toNamed("online_order");
+      case "Online Store":
+        navigateTo(Screen.onlineStore, title);
         break;
       // Inner Items
       case "Shifts":
@@ -192,8 +202,8 @@ class DrawerMenuController extends GetxController {
       case Screen.superMarket:
         screenTitle.value = "Supermarket";
         break;
-      case Screen.onlineOrder:
-        screenTitle.value = "Online Order";
+      case Screen.onlineStore:
+        screenTitle.value = "Online Store";
         break;
       case Screen.newOrder:
         screenTitle.value = "New Order";
@@ -233,13 +243,13 @@ class DrawerMenuController extends GetxController {
     return true; // Allow app to close
   }
 
-  void onLogoutTapped(BuildContext context) {
+  void onLogoutTapped(BuildContext context, dynamic authController) {
     Constants.openAlertDialog(
       context: context,
       title: "Logout",
       msg: "Are you sure you want to logout ?",
       toastMsg: "Logout Successfully!",
-      positiveAction: () => onMenuMainItemTapped("Home"),
+      positiveAction: () => authController.logout(),
     );
   }
 
@@ -251,7 +261,7 @@ class DrawerMenuController extends GetxController {
           currentScreen.value == Screen.restaurant ||
           currentScreen.value == Screen.fastfood ||
           currentScreen.value == Screen.superMarket ||
-          currentScreen.value == Screen.onlineOrder ||
+          currentScreen.value == Screen.onlineStore ||
           // Inner Items
           currentScreen.value == Screen.newOrder ||
           currentScreen.value == Screen.activeOrder ||
@@ -316,7 +326,7 @@ class DrawerMenuController extends GetxController {
       } else if (index == 3) {
         return isSuperMarketInnerScreen();
       } else if (index == 4) {
-        return currentScreen.value == Screen.onlineOrder;
+        return currentScreen.value == Screen.onlineStore;
       }
     }
 
@@ -404,7 +414,8 @@ class DrawerMenuController extends GetxController {
   }
 
   bool shouldShowSearchBar() {
-    return currentScreen.value == Screen.regular;
+    return currentScreen.value == Screen.regular ||
+        currentScreen.value == Screen.onlineStore;
   }
 
   bool shouldShowDropdowns() {
@@ -414,7 +425,8 @@ class DrawerMenuController extends GetxController {
   }
 
   bool shouldShowFilter() {
-    return currentScreen.value == Screen.fastfood;
+    return currentScreen.value == Screen.fastfood ||
+        currentScreen.value == Screen.onlineStore;
   }
 
   bool shouldShowCounts() {
@@ -464,7 +476,7 @@ class DrawerMenuController extends GetxController {
         title: "Add Discount",
         btnText1: "Cancel",
         btnText2: "Submit",
-        child: const CustomTextInput(hintText: "Discount"),
+        child: const CustomTextInput(hintText: "Discount", isNumber: true),
         height: size.height / 4,
       );
     } else if (title == "Setting") {
@@ -538,7 +550,10 @@ class DrawerMenuController extends GetxController {
           ),
         ),
         const SizedBox(height: 16.0),
-        const CustomTextInput(hintText: "Observations"),
+        const CustomTextInput(
+          hintText: "Observations",
+          isNumber: false,
+        ),
       ],
     );
   }

@@ -38,7 +38,8 @@ class Constants {
     required BuildContext context,
     required String title,
     btnText1,
-    String? btnText2,
+    String? screenName,
+    btnText2,
     btnText3,
     double? height,
     Widget? child,
@@ -48,6 +49,7 @@ class Constants {
       barrierDismissible: false,
       context: context,
       builder: (context) => CustomDialog(
+        screenName: screenName,
         title: title,
         btnText1: btnText1,
         btnText2: btnText2,

@@ -6,6 +6,7 @@ import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 
 import 'package:kedasrd_windows/controllers/drawer_controller.dart';
+import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
 
 class DrawerView extends StatefulWidget {
   const DrawerView({
@@ -18,6 +19,7 @@ class DrawerView extends StatefulWidget {
 
 class _DrawerViewState extends State<DrawerView> {
   final DrawerMenuController controller = Get.find<DrawerMenuController>();
+  final AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,93 +39,98 @@ class _DrawerViewState extends State<DrawerView> {
           ),
           const SizedBox(height: 12.0),
           Expanded(
-            child: Column(
-              children: List.generate(
-                DummyData.homeDrawerItems.length,
-                (index) {
-                  var data = DummyData.homeDrawerItems[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Obx(
-                      () => Column(
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                height: 50.0,
-                                width: 9.0,
-                                decoration: BoxDecoration(
-                                  color: controller.isMainSelected(index)
-                                      ? Themes.kPrimaryColor
-                                      : Themes.kWhiteColor,
-                                  borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(6.0),
-                                    bottomRight: Radius.circular(6.0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: List.generate(
+                  DummyData.homeDrawerItems.length,
+                  (index) {
+                    var data = DummyData.homeDrawerItems[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Obx(
+                        () => Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  height: 50.0,
+                                  width: 9.0,
+                                  decoration: BoxDecoration(
+                                    color: controller.isMainSelected(index)
+                                        ? Themes.kPrimaryColor
+                                        : Themes.kWhiteColor,
+                                    borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(6.0),
+                                      bottomRight: Radius.circular(6.0),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 24.0),
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () => controller
-                                      .onMenuMainItemTapped(data["title"]),
-                                  child: Container(
-                                    height: 50.0,
-                                    width: size.width,
-                                    padding: const EdgeInsets.only(
-                                        left: 44.0, right: 16.0),
-                                    decoration: BoxDecoration(
-                                      color: controller.isMainSelected(index)
-                                          ? Themes.kPrimaryColor
-                                          : Themes.kWhiteColor,
-                                      borderRadius: BorderRadius.circular(6.0),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          data["title"],
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w700,
-                                            color:
-                                                controller.isMainSelected(index)
-                                                    ? Themes.kWhiteColor
-                                                    : Themes.kDarkColor,
+                                const SizedBox(width: 24.0),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () => controller
+                                        .onMenuMainItemTapped(data["title"]),
+                                    child: Container(
+                                      height: 50.0,
+                                      width: size.width,
+                                      padding: const EdgeInsets.only(
+                                          left: 44.0, right: 16.0),
+                                      decoration: BoxDecoration(
+                                        color: controller.isMainSelected(index)
+                                            ? Themes.kPrimaryColor
+                                            : Themes.kWhiteColor,
+                                        borderRadius:
+                                            BorderRadius.circular(6.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            data["title"],
+                                            style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w700,
+                                              color: controller
+                                                      .isMainSelected(index)
+                                                  ? Themes.kWhiteColor
+                                                  : Themes.kDarkColor,
+                                            ),
                                           ),
-                                        ),
-                                        index != 0
-                                            ? const SizedBox.shrink()
-                                            : Icon(
-                                                controller.isMainSelected(index)
-                                                    ? Icons.keyboard_arrow_down
-                                                    : Icons
-                                                        .keyboard_arrow_right,
-                                                size: 24.0,
-                                                color: controller
-                                                        .isMainSelected(index)
-                                                    ? Themes.kWhiteColor
-                                                    : Themes.kDarkColor,
-                                              ),
-                                      ],
+                                          index != 0
+                                              ? const SizedBox.shrink()
+                                              : Icon(
+                                                  controller
+                                                          .isMainSelected(index)
+                                                      ? Icons
+                                                          .keyboard_arrow_down
+                                                      : Icons
+                                                          .keyboard_arrow_right,
+                                                  size: 24.0,
+                                                  color: controller
+                                                          .isMainSelected(index)
+                                                      ? Themes.kWhiteColor
+                                                      : Themes.kDarkColor,
+                                                ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 24.0),
-                            ],
-                          ),
-                          index != 0
-                              ? const SizedBox.shrink()
-                              : controller.isMainSelected(index)
-                                  ? innerListView(context, size)
-                                  : const SizedBox.shrink(),
-                        ],
+                                const SizedBox(width: 24.0),
+                              ],
+                            ),
+                            index != 0
+                                ? const SizedBox.shrink()
+                                : controller.isMainSelected(index)
+                                    ? innerListView(context, size)
+                                    : const SizedBox.shrink(),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -171,8 +178,8 @@ class _DrawerViewState extends State<DrawerView> {
 
   Widget innerItemView(data, int innerIndex, BuildContext context, size) {
     return GestureDetector(
-      onTap: () =>
-          controller.onMenuInnerItemTapped(context, size, data["title"]),
+      onTap: () => controller.onMenuInnerItemTapped(
+          context, size, data["title"], authController),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
@@ -248,7 +255,7 @@ class _DrawerViewState extends State<DrawerView> {
     return GestureDetector(
       onTap: () {
         if (title == "Logout") {
-          controller.onLogoutTapped(context);
+          controller.onLogoutTapped(context, authController);
         } else {
           controller.onMenuTapped(context, size, title);
         }

@@ -97,7 +97,7 @@ class TablesController extends GetxController {
           title: "Add Discount",
           btnText1: "Cancel",
           btnText2: "Submit",
-          child: const CustomTextInput(hintText: "Discount"),
+          child: const CustomTextInput(hintText: "Discount", isNumber: true),
           height: size.height / 4,
         );
         break;
@@ -140,7 +140,7 @@ class TablesController extends GetxController {
   Widget cashView() {
     return Column(
       children: [
-        const CustomTextInput(hintText: "Amount"),
+        const CustomTextInput(hintText: "Amount", isNumber: true),
         Column(
           children: [
             const SizedBox(height: 18.0),
@@ -162,7 +162,7 @@ class TablesController extends GetxController {
               child: const Column(
                 children: [
                   CustomDigitText(title: "Total", amount: "\$120.87"),
-                  const SizedBox(height: 2.0),
+                  SizedBox(height: 2.0),
                   CustomDigitText(title: "Change", amount: "\$0.00"),
                 ],
               ),
@@ -243,9 +243,9 @@ class TablesController extends GetxController {
         if (title.contains("Card"))
           Column(
             children: [
-              const CustomTextInput(hintText: "Card Number"),
+              const CustomTextInput(hintText: "Card Number", isNumber: true),
               const SizedBox(height: 16.0),
-              const CustomTextInput(hintText: "Expiry Date"),
+              const CustomTextInput(hintText: "Expiry Date", isNumber: false),
               const SizedBox(height: 16.0),
               CustomDropdowns(
                   listData: DummyData.cardItems, hintText: "Select Card Type"),
@@ -255,14 +255,14 @@ class TablesController extends GetxController {
         if (title.contains("Cash"))
           const Column(
             children: [
-              const CustomTextInput(hintText: "Amount"),
-              const SizedBox(height: 16.0),
+              CustomTextInput(hintText: "Amount", isNumber: true),
+              SizedBox(height: 16.0),
             ],
           ),
         CustomDropdowns(
             listData: DummyData.currencyItems, hintText: "Select Currency"),
         const SizedBox(height: 16.0),
-        const CustomTextInput(hintText: "Exchange Rate"),
+        const CustomTextInput(hintText: "Exchange Rate", isNumber: true),
         const SizedBox(height: 16.0),
         CustomDropdowns(listData: DummyData.ncfItems, hintText: "Select NCF"),
         const SizedBox(height: 16.0),
@@ -276,12 +276,13 @@ class TablesController extends GetxController {
         CustomDropdowns(listData: DummyData.taxItems, hintText: "Select Tax"),
         const SizedBox(height: 16.0),
         CustomTextInput(
-            hintText: title == "Receivable" ? "Expire Date" : "Reference"),
+            hintText: title == "Receivable" ? "Expire Date" : "Reference",
+            isNumber: false),
         if (title.contains("Partial"))
           const Column(
             children: [
-              const SizedBox(height: 16.0),
-              CustomTextInput(hintText: "Expire Date"),
+              SizedBox(height: 16.0),
+              CustomTextInput(hintText: "Expire Date", isNumber: false),
             ],
           ),
         if (title == "Cash")
@@ -305,9 +306,9 @@ class TablesController extends GetxController {
                 ),
                 child: const Column(
                   children: [
-                    const CustomDigitText(title: "Total", amount: "\$120.87"),
-                    const SizedBox(height: 6.0),
-                    const CustomDigitText(title: "Change", amount: "\$0.00"),
+                    CustomDigitText(title: "Total", amount: "\$120.87"),
+                    SizedBox(height: 6.0),
+                    CustomDigitText(title: "Change", amount: "\$0.00"),
                   ],
                 ),
               ),
@@ -413,7 +414,7 @@ class TablesController extends GetxController {
       children: [
         const Text(
           "Payment Type",
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.w600,
             color: Themes.kPrimaryColor,

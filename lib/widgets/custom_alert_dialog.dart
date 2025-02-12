@@ -5,11 +5,14 @@ import 'package:kedasrd_windows/utils/themes.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   final String title, msg;
+  final String? positiveBtn, negativeBtn;
   final dynamic positiveAction;
   const CustomAlertDialog({
     super.key,
     required this.title,
     required this.msg,
+    this.positiveBtn,
+    this.negativeBtn,
     required this.positiveAction,
   });
 
@@ -36,8 +39,8 @@ class CustomAlertDialog extends StatelessWidget {
         ),
       ),
       actions: <Widget>[
-        dialogButton("Yes"),
-        dialogButton("No"),
+        dialogButton(negativeBtn ?? "No"),
+        dialogButton(positiveBtn ?? "Yes"),
       ],
     );
   }
@@ -48,7 +51,7 @@ class CustomAlertDialog extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(40.0),
         onTap: () {
-          if (title == "Yes") {
+          if (title == "Yes" || title == positiveBtn) {
             positiveAction();
           } else {
             Get.back();
@@ -56,7 +59,7 @@ class CustomAlertDialog extends StatelessWidget {
         },
         child: Ink(
           decoration: BoxDecoration(
-              color: title == "Yes"
+              color: (title == "Yes" || title == positiveBtn)
                   ? Themes.kPrimaryColor
                   : Themes.kPrimaryColor.withOpacity(0.5),
               borderRadius: BorderRadius.circular(40.0)),

@@ -88,4 +88,9 @@ class Images {
   static const String fastFoodIc = "lib/assets/icons/fast-food.png";
   static const String superMarketIc = "lib/assets/icons/super-market.png";
   static const String onlineOrderIc = "lib/assets/icons/online-order.png";
+
+  static const String passShow = "lib/assets/icons/show.png";
+  static const String passHide = "lib/assets/icons/hide.png";
+
+  static const String cloudUpload = "lib/assets/icons/cloud_upload.png";
 }

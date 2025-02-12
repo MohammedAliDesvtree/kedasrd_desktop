@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kedasrd_windows/controllers/drawer_controller.dart';
-import 'package:kedasrd_windows/utils/constants.dart';
+import 'package:flutter/material.dart';
 
 import 'package:kedasrd_windows/widgets/custom_close_icon_button.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
+import 'package:kedasrd_windows/utils/constants.dart';
+
+import 'package:kedasrd_windows/controllers/drawer_controller.dart';
+import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
 
 class DeliveryView extends StatefulWidget {
   const DeliveryView({super.key});
@@ -16,6 +18,7 @@ class DeliveryView extends StatefulWidget {
 
 class _DeliveryViewState extends State<DeliveryView> {
   final DrawerMenuController controller = Get.find<DrawerMenuController>();
+  final AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,8 @@ class _DeliveryViewState extends State<DeliveryView> {
 
   Widget customButton(int index, Size size) {
     return GestureDetector(
-      onTap: () => controller.onMenuInnerItemTapped(context, size, "Fast Food"),
+      onTap: () => controller.onMenuInnerItemTapped(
+          context, size, "Fast Food", authController),
       child: Container(
         height: 70.0,
         width: size.width / 3.6,
@@ -78,7 +82,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 3.0),
+                SizedBox(height: 3.0),
                 Row(
                   children: [
                     Text(

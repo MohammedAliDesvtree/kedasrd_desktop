@@ -344,7 +344,8 @@ class _RegularViewState extends State<RegularView> {
                 children: [
                   Expanded(
                     child: SingleChildScrollView(
-                      child: widget.title!.contains("Food")
+                      child: widget.title!.contains("Food") ||
+                              widget.title!.contains("Store")
                           ? fastFoodCartItemsSection()
                           : cartItemsSection(),
                     ),
@@ -416,11 +417,11 @@ class _RegularViewState extends State<RegularView> {
   Widget inputSection() {
     return const Column(
       children: [
-        CustomTextInput(hintText: "Name"),
+        CustomTextInput(hintText: "Name", isNumber: false),
         SizedBox(height: 16.0),
-        CustomTextInput(hintText: "Tax ID"),
+        CustomTextInput(hintText: "Tax ID", isNumber: true),
         SizedBox(height: 16.0),
-        CustomTextInput(hintText: "Phone Number"),
+        CustomTextInput(hintText: "Phone Number", isNumber: true),
       ],
     );
   }
