@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
-import 'package:kedasrd_windows/utils/themes.dart';
 
 import 'package:kedasrd_windows/widgets/custom_dropdowns.dart';
 import 'package:kedasrd_windows/widgets/custom_text_input.dart';
@@ -522,6 +521,7 @@ class DrawerMenuController extends GetxController {
         title: title,
         btnText1: "Proceed",
         height: size.height / 1.5,
+        scroll: const AlwaysScrollableScrollPhysics(),
         child: inputSection(tablesController),
       );
     } else if (title.contains("Close")) {
@@ -546,86 +546,88 @@ class DrawerMenuController extends GetxController {
   Widget inputSection(dynamic tablesController) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(DummyData.settingItems.length, (index) {
-            var data = DummyData.settingItems[index];
-            return Column(
-              children: [
-                Material(
-                  color: Themes.kTransparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(52.0),
-                    onTap: () => tablesController.selectTab(index),
-                    child: Obx(
-                      () {
-                        return Ink(
-                          child: Container(
-                            height: 48.0,
-                            width: 48.0,
-                            padding: const EdgeInsets.all(12.0),
-                            child: Image.asset(
-                              data["icon"],
-                              height: 24.0,
-                              width: 24.0,
-                              color: tablesController.selectedTabIndex.value ==
-                                      index
-                                  ? Themes.kPrimaryColor
-                                  : Themes.kGreyColor,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 0.0),
-                Obx(
-                  () => Text(
-                    data["title"],
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w500,
-                      color: tablesController.selectedTabIndex.value == index
-                          ? Themes.kPrimaryColor
-                          : Themes.kGreyColor,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          }),
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: List.generate(DummyData.settingItems.length, (index) {
+        //     var data = DummyData.settingItems[index];
+        //     return Column(
+        //       children: [
+        //         Material(
+        //           color: Themes.kTransparent,
+        //           child: InkWell(
+        //             borderRadius: BorderRadius.circular(52.0),
+        //             onTap: () => tablesController.selectTab(index),
+        //             child: Obx(
+        //               () {
+        //                 return Ink(
+        //                   child: Container(
+        //                     height: 48.0,
+        //                     width: 48.0,
+        //                     padding: const EdgeInsets.all(12.0),
+        //                     child: Image.asset(
+        //                       data["icon"],
+        //                       height: 24.0,
+        //                       width: 24.0,
+        //                       color: tablesController.selectedTabIndex.value ==
+        //                               index
+        //                           ? Themes.kPrimaryColor
+        //                           : Themes.kGreyColor,
+        //                     ),
+        //                   ),
+        //                 );
+        //               },
+        //             ),
+        //           ),
+        //         ),
+        //         const SizedBox(height: 0.0),
+        //         Obx(
+        //           () => Text(
+        //             data["title"],
+        //             style: TextStyle(
+        //               fontSize: 14.0,
+        //               fontWeight: FontWeight.w500,
+        //               color: tablesController.selectedTabIndex.value == index
+        //                   ? Themes.kPrimaryColor
+        //                   : Themes.kGreyColor,
+        //             ),
+        //           ),
+        //         ),
+        //       ],
+        //     );
+        //   }),
+        // ),
+        // const SizedBox(height: 16.0),
+        // Expanded6(
+        //   child: ListView(
+        //     children: [
+        //       Obx(() => buildSelectedView(DummyData
+        //           .settingItems[tablesController.selectedTabIndex.value])),
+        //       const SizedBox(height: 16.0),
+        //     ],
+        //   ),
+        // ),
+        CustomDropdowns(listData: DummyData.ncfItems, hintText: "NCF"),
         const SizedBox(height: 16.0),
-        ListView(
-          children: [
-            Obx(() => buildSelectedView(DummyData
-                .settingItems[tablesController.selectedTabIndex.value])),
-            const SizedBox(height: 16.0),
-          ],
-        ),
-        // CustomDropdowns(listData: DummyData.ncfItems, hintText: "NCF"),
-        // const SizedBox(height: 16.0),
-        // CustomDropdowns(
-        //     listData: DummyData.bankAccountItems, hintText: "Bank Account"),
-        // const SizedBox(height: 16.0),
-        // CustomDropdowns(
-        //     listData: DummyData.walletBankAccountItems,
-        //     hintText: "Wallet Bank Account"),
-        // const SizedBox(height: 16.0),
-        // CustomDropdowns(
-        //     listData: DummyData.templateItems, hintText: "Template"),
-        // const SizedBox(height: 16.0),
-        // CustomDropdowns(
-        //     listData: DummyData.templateSelectionItems,
-        //     hintText: "Template Selection"),
-        // const SizedBox(height: 16.0),
-        // CustomDropdowns(
-        //     listData: DummyData.printerItems, hintText: "Default Printer"),
-        // const SizedBox(height: 16.0),
-        // CustomDropdowns(
-        //     listData: DummyData.orderOfShowingItems,
-        //     hintText: "Order of showing"),
+        CustomDropdowns(
+            listData: DummyData.bankAccountItems, hintText: "Bank Account"),
+        const SizedBox(height: 16.0),
+        CustomDropdowns(
+            listData: DummyData.walletBankAccountItems,
+            hintText: "Wallet Bank Account"),
+        const SizedBox(height: 16.0),
+        CustomDropdowns(
+            listData: DummyData.templateItems, hintText: "Template"),
+        const SizedBox(height: 16.0),
+        CustomDropdowns(
+            listData: DummyData.templateSelectionItems,
+            hintText: "Template Selection"),
+        const SizedBox(height: 16.0),
+        CustomDropdowns(
+            listData: DummyData.printerItems, hintText: "Default Printer"),
+        const SizedBox(height: 16.0),
+        CustomDropdowns(
+            listData: DummyData.orderOfShowingItems,
+            hintText: "Order of showing"),
       ],
     );
   }
