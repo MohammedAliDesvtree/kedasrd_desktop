@@ -7,6 +7,7 @@ import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 
 import 'package:kedasrd_windows/controllers/drawer_controller.dart';
+import 'package:kedasrd_windows/controllers/tables_controller.dart';
 import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
 
 class DeliveryView extends StatefulWidget {
@@ -18,6 +19,7 @@ class DeliveryView extends StatefulWidget {
 
 class _DeliveryViewState extends State<DeliveryView> {
   final DrawerMenuController controller = Get.find<DrawerMenuController>();
+  final TablesController tablesController = Get.find<TablesController>();
   final AuthController authController = Get.find<AuthController>();
 
   @override
@@ -36,7 +38,7 @@ class _DeliveryViewState extends State<DeliveryView> {
   Widget customButton(int index, Size size) {
     return GestureDetector(
       onTap: () => controller.onMenuInnerItemTapped(
-          context, size, "Fast Food", authController),
+          context, size, "Fast Food", authController, tablesController),
       child: Container(
         height: 70.0,
         width: size.width / 3.6,

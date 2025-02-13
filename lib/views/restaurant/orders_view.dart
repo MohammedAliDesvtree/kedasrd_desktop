@@ -5,6 +5,7 @@ import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 
 import 'package:kedasrd_windows/controllers/drawer_controller.dart';
+import 'package:kedasrd_windows/controllers/tables_controller.dart';
 import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
 
 class OrdersView extends StatefulWidget {
@@ -16,6 +17,7 @@ class OrdersView extends StatefulWidget {
 
 class _OrdersViewState extends State<OrdersView> {
   final AuthController authController = Get.find<AuthController>();
+  final TablesController tablesController = Get.find<TablesController>();
   final DrawerMenuController controller = Get.find<DrawerMenuController>();
 
   @override
@@ -33,7 +35,12 @@ class _OrdersViewState extends State<OrdersView> {
             child: InkWell(
               borderRadius: BorderRadius.circular(8.0),
               onTap: () => controller.onMenuTapped(
-                  context, size, data["title"], authController),
+                context,
+                size,
+                data["title"],
+                authController,
+                tablesController,
+              ),
               child: Ink(
                 decoration: BoxDecoration(
                     color: Themes.kPrimaryColor,

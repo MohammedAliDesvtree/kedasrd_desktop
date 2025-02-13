@@ -5,6 +5,7 @@ import 'package:kedasrd_windows/utils/dummy_data.dart';
 
 import 'package:kedasrd_windows/widgets/wrap_list.dart';
 
+import 'package:kedasrd_windows/controllers/tables_controller.dart';
 import 'package:kedasrd_windows/controllers/drawer_controller.dart';
 import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
 
@@ -18,8 +19,9 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final DrawerMenuController controller = Get.find<DrawerMenuController>();
   final AuthController authController = Get.find<AuthController>();
+  final TablesController tablesController = Get.find<TablesController>();
+  final DrawerMenuController controller = Get.find<DrawerMenuController>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class _HomeViewState extends State<HomeView> {
     return WrapList(
       data: DummyData.dashboardList,
       onItemTap: (title) => controller.onMenuInnerItemTapped(
-          context, size, title, authController),
+          context, size, title, authController, tablesController),
     );
   }
 }
