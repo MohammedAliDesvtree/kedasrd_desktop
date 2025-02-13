@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
+import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 
@@ -516,13 +517,14 @@ class DrawerMenuController extends GetxController {
         height: size.height / 4,
       );
     } else if (title == "Setting") {
+      tablesController.resetTab();
       Constants.openDialog(
         context: context,
         title: title,
         btnText1: "Proceed",
         height: size.height / 1.5,
         scroll: const AlwaysScrollableScrollPhysics(),
-        child: inputSection(tablesController),
+        child: inputSection(tablesController, size),
       );
     } else if (title.contains("Close")) {
       authController.isAdmin
@@ -543,99 +545,79 @@ class DrawerMenuController extends GetxController {
     }
   }
 
-  Widget inputSection(dynamic tablesController) {
+  Widget inputSection(dynamic tablesController, Size size) {
     return Column(
       children: [
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: List.generate(DummyData.settingItems.length, (index) {
-        //     var data = DummyData.settingItems[index];
-        //     return Column(
-        //       children: [
-        //         Material(
-        //           color: Themes.kTransparent,
-        //           child: InkWell(
-        //             borderRadius: BorderRadius.circular(52.0),
-        //             onTap: () => tablesController.selectTab(index),
-        //             child: Obx(
-        //               () {
-        //                 return Ink(
-        //                   child: Container(
-        //                     height: 48.0,
-        //                     width: 48.0,
-        //                     padding: const EdgeInsets.all(12.0),
-        //                     child: Image.asset(
-        //                       data["icon"],
-        //                       height: 24.0,
-        //                       width: 24.0,
-        //                       color: tablesController.selectedTabIndex.value ==
-        //                               index
-        //                           ? Themes.kPrimaryColor
-        //                           : Themes.kGreyColor,
-        //                     ),
-        //                   ),
-        //                 );
-        //               },
-        //             ),
-        //           ),
-        //         ),
-        //         const SizedBox(height: 0.0),
-        //         Obx(
-        //           () => Text(
-        //             data["title"],
-        //             style: TextStyle(
-        //               fontSize: 14.0,
-        //               fontWeight: FontWeight.w500,
-        //               color: tablesController.selectedTabIndex.value == index
-        //                   ? Themes.kPrimaryColor
-        //                   : Themes.kGreyColor,
-        //             ),
-        //           ),
-        //         ),
-        //       ],
-        //     );
-        //   }),
-        // ),
-        // const SizedBox(height: 16.0),
-        // Expanded6(
-        //   child: ListView(
-        //     children: [
-        //       Obx(() => buildSelectedView(DummyData
-        //           .settingItems[tablesController.selectedTabIndex.value])),
-        //       const SizedBox(height: 16.0),
-        //     ],
-        //   ),
-        // ),
-        CustomDropdowns(listData: DummyData.ncfItems, hintText: "NCF"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: List.generate(DummyData.settingItems.length, (index) {
+            var data = DummyData.settingItems[index];
+            return Column(
+              children: [
+                Material(
+                  color: Themes.kTransparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(52.0),
+                    onTap: () => tablesController.selectTab(index),
+                    child: Obx(
+                      () {
+                        return Ink(
+                          child: Container(
+                            height: 48.0,
+                            width: 48.0,
+                            padding: const EdgeInsets.all(12.0),
+                            child: Image.asset(
+                              data["icon"],
+                              height: 24.0,
+                              width: 24.0,
+                              color: tablesController.selectedTabIndex.value ==
+                                      index
+                                  ? Themes.kPrimaryColor
+                                  : Themes.kGreyColor,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 0.0),
+                Obx(
+                  () => Text(
+                    data["title"],
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w500,
+                      color: tablesController.selectedTabIndex.value == index
+                          ? Themes.kPrimaryColor
+                          : Themes.kGreyColor,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }),
+        ),
         const SizedBox(height: 16.0),
-        CustomDropdowns(
-            listData: DummyData.bankAccountItems, hintText: "Bank Account"),
-        const SizedBox(height: 16.0),
-        CustomDropdowns(
-            listData: DummyData.walletBankAccountItems,
-            hintText: "Wallet Bank Account"),
-        const SizedBox(height: 16.0),
-        CustomDropdowns(
-            listData: DummyData.templateItems, hintText: "Template"),
-        const SizedBox(height: 16.0),
-        CustomDropdowns(
-            listData: DummyData.templateSelectionItems,
-            hintText: "Template Selection"),
-        const SizedBox(height: 16.0),
-        CustomDropdowns(
-            listData: DummyData.printerItems, hintText: "Default Printer"),
-        const SizedBox(height: 16.0),
-        CustomDropdowns(
-            listData: DummyData.orderOfShowingItems,
-            hintText: "Order of showing"),
+        SizedBox(
+          height: (size.height / 1.5) / 2, // Fixed height for the content area
+          child: Column(
+            children: [
+              Obx(() => buildSelectedView(DummyData
+                  .settingItems[tablesController!.selectedTabIndex.value])),
+              const SizedBox(height: 16.0),
+            ],
+          ),
+        ),
       ],
     );
   }
 
-  Widget buildSelectedView(String title) {
+  Widget buildSelectedView(Map<String, String> item) {
     return Padding(
+      key: ValueKey(item["title"]),
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: switch (title) {
+      child: switch (item["title"]) {
         "General" => generalView(),
         "Orders" => ordersView(),
         "Kitchen" => kitchenView(),
@@ -650,25 +632,14 @@ class DrawerMenuController extends GetxController {
     return Column(
       children: [
         CustomDropdowns(
-          listData: DummyData.bankAccountItems,
-          hintText: "Bank Account",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('bankAccount', value)
-        ),
+            listData: DummyData.bankAccountItems, hintText: "Bank Account"),
         const SizedBox(height: 14.0),
         CustomDropdowns(
-          listData: DummyData.walletBankAccountItems,
-          hintText: "Wallet Bank Account",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('walletAccount', value)
-        ),
+            listData: DummyData.walletBankAccountItems,
+            hintText: "Wallet Bank Account"),
         const SizedBox(height: 14.0),
         CustomDropdowns(
-          listData: DummyData.agentsItems,
-          hintText: "Select Agent",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('selectAgent', value)
-        ),
+            listData: DummyData.agentsItems, hintText: "Select Agent"),
       ],
     );
   }
@@ -677,32 +648,17 @@ class DrawerMenuController extends GetxController {
     return Column(
       children: [
         CustomDropdowns(
-          listData: DummyData.orderFlowItems,
-          hintText: "Order Flow",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('orderFlow', value)
-        ),
+            listData: DummyData.orderFlowItems, hintText: "Order Flow"),
         const SizedBox(height: 14.0),
         CustomDropdowns(
-          listData: DummyData.templateItems,
-          hintText: "Template",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('template', value)
-        ),
+            listData: DummyData.templateItems, hintText: "Template"),
         const SizedBox(height: 14.0),
         CustomDropdowns(
-          listData: DummyData.selectMsgItems,
-          hintText: "Select Message",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('selectMessage', value)
-        ),
+            listData: DummyData.selectMsgItems, hintText: "Select Message"),
         const SizedBox(height: 14.0),
         CustomDropdowns(
-          listData: DummyData.templateSelectionItems,
-          hintText: "Template Selection",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('templateSelection', value)
-        ),
+            listData: DummyData.templateSelectionItems,
+            hintText: "Template Selection"),
       ],
     );
   }
@@ -711,18 +667,12 @@ class DrawerMenuController extends GetxController {
     return Column(
       children: [
         CustomDropdowns(
-          listData: DummyData.orderOfShowingItems,
-          hintText: "Order of showing",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('orderOfShowing', value)
-        ),
+            listData: DummyData.orderOfShowingItems,
+            hintText: "Order of showing"),
         const SizedBox(height: 14.0),
         CustomDropdowns(
-          listData: DummyData.orderStatusItems,
-          hintText: "Order View Status",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('orderViewStatus', value)
-        ),
+            listData: DummyData.orderStatusItems,
+            hintText: "Order View Status"),
       ],
     );
   }
@@ -731,11 +681,7 @@ class DrawerMenuController extends GetxController {
     return Column(
       children: [
         CustomDropdowns(
-          listData: DummyData.tableModeItems,
-          hintText: "Table Mode",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('tableMode', value)
-        ),
+            listData: DummyData.tableModeItems, hintText: "Table Mode"),
       ],
     );
   }
@@ -744,25 +690,13 @@ class DrawerMenuController extends GetxController {
     return Column(
       children: [
         CustomDropdowns(
-          listData: DummyData.printerItems,
-          hintText: "Default Printer",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('defaultPrinter', value)
-        ),
+            listData: DummyData.printerItems, hintText: "Default Printer"),
         const SizedBox(height: 14.0),
         CustomDropdowns(
-          listData: DummyData.printerList,
-          hintText: "Kitchen Printer",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('kitchenPrinter', value)
-        ),
+            listData: DummyData.printerList, hintText: "Kitchen Printer"),
         const SizedBox(height: 14.0),
         CustomDropdowns(
-          listData: DummyData.printerList,
-          hintText: "Bar Printer",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('barPrinter', value)
-        ),
+            listData: DummyData.printerList, hintText: "Bar Printer"),
       ],
     );
   }
@@ -770,12 +704,7 @@ class DrawerMenuController extends GetxController {
   Widget taxesView() {
     return Column(
       children: [
-        CustomDropdowns(
-          listData: DummyData.tipTaxList,
-          hintText: "Tips Tax",
-          // onChanged: (value) =>
-          //     controller.setDropdownValue('tipsTax', value)
-        ),
+        CustomDropdowns(listData: DummyData.tipTaxList, hintText: "Tips Tax"),
       ],
     );
   }

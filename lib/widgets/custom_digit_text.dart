@@ -1,9 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kedasrd_windows/controllers/cart_controller.dart';
+import 'package:flutter/material.dart';
 
-import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
+
+import 'package:kedasrd_windows/widgets/custom_qty_view.dart';
+
+import 'package:kedasrd_windows/controllers/cart_controller.dart';
+import 'package:kedasrd_windows/controllers/common_controller.dart';
 
 class CustomDigitText extends StatefulWidget {
   final String title, amount;
@@ -15,6 +18,7 @@ class CustomDigitText extends StatefulWidget {
 
 class _CustomDigitTextState extends State<CustomDigitText> {
   final CartController cartController = Get.find<CartController>();
+  final CommonController commonController = Get.find<CommonController>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,17 @@ class _CustomDigitTextState extends State<CustomDigitText> {
         widget.title.contains("%") || widget.title == "Price"
             ? inputView()
             : widget.title.contains("Qty")
-                ? qtyView()
+                ? Obx(
+                    () => CustomQtyView(
+                      screenName: "SuperMarket",
+                      initialValue: commonController
+                          .qtyValues[0], // Use index to get specific quantity
+                      onDecrease: () =>
+                          commonController.updateQuantity(0, false),
+                      onIncrease: () =>
+                          commonController.updateQuantity(0, true),
+                    ),
+                  )
                 : Text(
                     widget.amount,
                     style: const TextStyle(
@@ -74,48 +88,6 @@ class _CustomDigitTextState extends State<CustomDigitText> {
             cartController.setDiscountPercentage(double.tryParse(value) ?? 0.0);
           }
         },
-      ),
-    );
-  }
-
-  Widget qtyView() {
-    return Container(
-      height: 28.0,
-      width: 78.0,
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      decoration: BoxDecoration(
-          color: Themes.kWhiteColor,
-          borderRadius: BorderRadius.circular(5.5),
-          border: Border.all(width: 0.5, color: Themes.kGreyColor)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          qtyButton(Images.less, "Decrease", 0),
-          const Text(
-            "2",
-            style: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w500,
-              color: Themes.kDarkColor,
-            ),
-          ),
-          qtyButton(Images.add, "Increase", 0),
-        ],
-      ),
-    );
-  }
-
-  Widget qtyButton(String image, String type, int index) {
-    return GestureDetector(
-      onTap: () {
-        if (type == "Decrease") {
-        } else {}
-      },
-      child: Image.asset(
-        image,
-        height: 11.0,
-        width: 11.0,
-        color: Themes.kPrimaryColor,
       ),
     );
   }

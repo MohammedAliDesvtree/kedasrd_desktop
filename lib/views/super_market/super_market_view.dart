@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
@@ -5,12 +6,22 @@ import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 
+import 'package:kedasrd_windows/widgets/custom_qty_view.dart';
 import 'package:kedasrd_windows/widgets/custom_tabs_list.dart';
 import 'package:kedasrd_windows/widgets/custom_digit_text.dart';
 import 'package:kedasrd_windows/widgets/custom_icon_button.dart';
 
-class SuperMarketView extends StatelessWidget {
+import 'package:kedasrd_windows/controllers/common_controller.dart';
+
+class SuperMarketView extends StatefulWidget {
   const SuperMarketView({super.key});
+
+  @override
+  State<SuperMarketView> createState() => _SuperMarketViewState();
+}
+
+class _SuperMarketViewState extends State<SuperMarketView> {
+  final CommonController commonController = Get.find<CommonController>();
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +87,21 @@ class SuperMarketView extends StatelessWidget {
                               const SizedBox(width: 8.0),
                               headerText("\$250", size),
                               const SizedBox(width: 8.0),
-                              qtyView(size),
+                              Container(
+                                width: size.width / 8.9,
+                                alignment: Alignment.centerLeft,
+                                child: Obx(
+                                  () => CustomQtyView(
+                                    screenName: "SuperMarket",
+                                    initialValue: commonController.qtyValues[
+                                        index], // Use index to get specific quantity
+                                    onDecrease: () => commonController
+                                        .updateQuantity(index, false),
+                                    onIncrease: () => commonController
+                                        .updateQuantity(index, true),
+                                  ),
+                                ),
+                              ),
                               const SizedBox(width: 8.0),
                               headerText("\$38", size),
                               const SizedBox(width: 8.0),
@@ -222,55 +247,6 @@ class SuperMarketView extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget qtyView(Size size) {
-    return Container(
-      width: size.width / 8.9,
-      alignment: Alignment.centerLeft,
-      child: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Container(
-          height: 28.0,
-          width: 78.0,
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          decoration: BoxDecoration(
-              color: Themes.kWhiteColor,
-              borderRadius: BorderRadius.circular(5.5),
-              border: Border.all(width: 0.5, color: Themes.kGreyColor)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              qtyButton(Images.less, "Decrease", 0),
-              const Text(
-                "2",
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w500,
-                  color: Themes.kDarkColor,
-                ),
-              ),
-              qtyButton(Images.add, "Increase", 0),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget qtyButton(String image, String type, int index) {
-    return GestureDetector(
-      onTap: () {
-        if (type == "Decrease") {
-        } else {}
-      },
-      child: Image.asset(
-        image,
-        height: 11.0,
-        width: 11.0,
-        color: Themes.kPrimaryColor,
       ),
     );
   }

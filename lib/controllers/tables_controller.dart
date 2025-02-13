@@ -1,17 +1,20 @@
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:kedasrd_windows/utils/constants.dart';
-import 'package:kedasrd_windows/utils/dummy_data.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
+import 'package:kedasrd_windows/utils/constants.dart';
+import 'package:kedasrd_windows/utils/dummy_data.dart';
+
 import 'package:kedasrd_windows/widgets/custom_digit_text.dart';
 import 'package:kedasrd_windows/widgets/custom_dropdowns.dart';
 import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 
 class TablesController extends GetxController {
   RxList<int> randomNumbers = <int>[].obs;
-  RxInt selectedTabIndex = (-1).obs;
+  final RxInt selectedTabIndex = 0.obs;
+  final int maxTabIndex = 5; // Based on the length of settingItems
 
   @override
   void onInit() {
@@ -49,7 +52,15 @@ class TablesController extends GetxController {
   }
 
   void selectTab(int index) {
-    selectedTabIndex.value = index;
+    // Ensure index is within bounds
+    if (index >= 0 && index <= maxTabIndex) {
+      selectedTabIndex.value = index;
+    }
+  }
+
+  void resetTab() {
+    // Reset to initial state (0 index)
+    selectedTabIndex.value = 0;
   }
 
   void onTabTapped(String title, Size size, BuildContext context) {

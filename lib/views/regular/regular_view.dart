@@ -7,6 +7,7 @@ import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 
 import 'package:kedasrd_windows/widgets/custom_dropdowns.dart';
+import 'package:kedasrd_windows/widgets/custom_qty_view.dart';
 import 'package:kedasrd_windows/widgets/custom_searchbar.dart';
 import 'package:kedasrd_windows/widgets/custom_pay_button.dart';
 import 'package:kedasrd_windows/widgets/custom_add_button.dart';
@@ -699,53 +700,14 @@ class _RegularViewState extends State<RegularView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: 86.0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomIconButton(
-                              icon: Images.less,
-                              size: 26.0,
-                              radius: 6.0,
-                              onTap: () =>
-                                  cartController.updateQuantity(data.id, false),
-                            ),
-                            // Obx(
-                            //   () => AnimatedSwitcher(
-                            //     duration:
-                            //         const Duration(milliseconds: 300),
-                            //     transitionBuilder: (Widget child,
-                            //         Animation<double> animation) {
-                            //       return SlideTransition(
-                            //         position: Tween<Offset>(
-                            //           begin: const Offset(
-                            //               0, 0.5), // Start from below
-                            //           end: Offset.zero,
-                            //         ).animate(animation),
-                            //         child: child,
-                            //       );
-                            //     },
-                            // child:
-                            Obx(
-                              () => Text(
-                                "${data.quantity.value}",
-                                style: const TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Themes.kBlackColor,
-                                ),
-                              ),
-                            ),
-                            // ),
-                            CustomIconButton(
-                              icon: Images.add,
-                              size: 26.0,
-                              radius: 6.0,
-                              onTap: () =>
-                                  cartController.updateQuantity(data.id, true),
-                            ),
-                          ],
+                      Obx(
+                        () => CustomQtyView(
+                          screenName: "POS Cart",
+                          initialValue: data.quantity.value,
+                          onDecrease: () =>
+                              cartController.updateQuantity(data.id, false),
+                          onIncrease: () =>
+                              cartController.updateQuantity(data.id, true),
                         ),
                       ),
                       Obx(
