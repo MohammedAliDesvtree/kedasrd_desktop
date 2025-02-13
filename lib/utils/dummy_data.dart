@@ -251,6 +251,7 @@ class DummyData {
     {"icon": Images.newOrderIc, "title": "New Order"},
     {"icon": Images.checkout, "title": "Active Order"},
     {"icon": Images.kitchenIc, "title": "Kitchen"},
+    {"icon": Images.bar, "title": "Bar"},
     {"icon": Images.table, "title": "Table"},
     {"icon": Images.category, "title": "Categories"},
     {"icon": Images.list, "title": "Orders"},
@@ -425,5 +426,22 @@ class DummyData {
     "Order #141332 in restaurant and fastfood pos has been deleted it exceeded the limit of 48 hours",
     "Order #141332 in restaurant and fastfood pos has been deleted it exceeded the limit of 48 hours",
     "Order #141332 in restaurant and fastfood pos has been deleted it exceeded the limit of 48 hours",
+  ];
+
+  static List<String> extraItems = [
+    'Paneer',
+    'Black Olives',
+    'Red Peppers',
+    'Mashroom',
+    'Cheeze',
+    "Vegitable",
+    "Chicken"
+  ];
+
+  static List<String> formulaItems = ["No result found"];
+
+  static List<String> tableModeItems = [
+    "Only Table by Section",
+    "All Tables",
   ];
 }

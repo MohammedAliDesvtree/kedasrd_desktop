@@ -9,6 +9,7 @@ import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 
 import 'package:kedasrd_windows/controllers/common_controller.dart';
+import 'package:kedasrd_windows/controllers/drawer_controller.dart';
 
 class CustomViewDialog extends StatefulWidget {
   const CustomViewDialog({super.key});
@@ -19,6 +20,8 @@ class CustomViewDialog extends StatefulWidget {
 
 class _CustomViewDialogState extends State<CustomViewDialog> {
   final CommonController commonController = Get.find<CommonController>();
+  final DrawerMenuController drawerMenuController =
+      Get.find<DrawerMenuController>();
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +58,11 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
                     children: [
                       // Image.asset(Images.kedasLogo, height: 96.0),
                       // const SizedBox(height: 16.0),
-                      // inputSection(),
-                      uploadPhotoSection(size),
+                      Obx(
+                        () => commonController.isEntryLog.value
+                            ? inputSection()
+                            : uploadPhotoSection(size),
+                      ),
                       const SizedBox(height: 64.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -248,7 +254,9 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
         borderRadius: BorderRadius.circular(6.0),
         onTap: () {
           if (title == "Submit") {
+            commonController.updateView(drawerMenuController);
           } else {
+            commonController.isEntryLog.value = true;
             Get.back();
           }
         },

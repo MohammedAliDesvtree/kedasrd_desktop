@@ -94,4 +94,6 @@ class Images {
 
   static const String cloudUpload = "lib/assets/icons/cloud_upload.png";
   static const String telephone = "lib/assets/icons/telephone.png";
+
+  static const String bar = "lib/assets/icons/cutlery.png";
 }

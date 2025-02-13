@@ -151,6 +151,88 @@ class Constants {
       height: size.height / 4,
     );
   }
+
+  static openCloseShiftDialog(BuildContext context, Size size, String title) {
+    return openDialog(
+      context: context,
+      title: title,
+      btnText1: "Submit",
+      btnText2: "Close and Print",
+      height: size.height / 2.5,
+      child: closeShift(context),
+    );
+  }
+
+  static Widget customView(Size size, Widget child) {
+    return Container(
+      width: size.width / 4,
+      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 16.0),
+      decoration: BoxDecoration(
+        color: Themes.kGreyColor.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: child,
+    );
+  }
+}
+
+Widget closeShift(BuildContext context) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Container(
+        height: 132.0,
+        margin: const EdgeInsets.only(top: 0.0, left: 0.0, right: 0.0),
+        padding: const EdgeInsets.all(14.0),
+        decoration: BoxDecoration(
+            border: Border.all(width: 0.5, color: Themes.kGreyColor)),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                closeShiftItems("Start Date", "bold"),
+                closeShiftItems("12/24/2024 12:15 AM", "normal"),
+              ],
+            ),
+            Constants.divider(context, 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                closeShiftItems("Initial Base", "bold"),
+                closeShiftItems("DOP \$0.00", "normal"),
+              ],
+            ),
+            Constants.divider(context, 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                closeShiftItems("Total", "bold"),
+                closeShiftItems("DOP \$0.00", "bold"),
+              ],
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(height: 16.0),
+      const CustomTextInput(
+        hintText: "Observations",
+        isNumber: false,
+      ),
+    ],
+  );
+}
+
+Widget closeShiftItems(String title, String type) {
+  return Text(
+    title,
+    style: TextStyle(
+      fontSize: 16.0,
+      fontWeight: type == "bold" ? FontWeight.bold : FontWeight.normal,
+      color: Themes.kBlackColor,
+    ),
+  );
 }
 
 class CustomSnackBar {

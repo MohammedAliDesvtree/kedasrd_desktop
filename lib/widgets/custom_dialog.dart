@@ -5,6 +5,7 @@ import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 
+import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 import 'package:kedasrd_windows/widgets/custom_view_dialog.dart';
 import 'package:kedasrd_windows/widgets/custom_alert_dialog.dart';
 
@@ -59,7 +60,9 @@ class _CustomDialogState extends State<CustomDialog> {
                 children: [
                   Center(
                     child: Text(
-                      widget.title,
+                      widget.btnText2 == "Close and Print"
+                          ? "Close Shift"
+                          : widget.title,
                       style: const TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
@@ -173,14 +176,21 @@ class _CustomDialogState extends State<CustomDialog> {
             if (widget.screenName == "Home") {
               controlAlert(context);
             } else if (widget.screenName == "FastFood") {
-              // Get.toNamed(Routes.INVOICE);
+              Constants.openDialog(
+                context: context,
+                title: "Kitchen Order",
+                btnText1: "",
+                scroll: const AlwaysScrollableScrollPhysics(),
+                child: kitchenView(size),
+                height: size.height / 1.42,
+              );
             } else if (widget.screenName == "New Order") {
               drawerMenuController.onMenuInnerItemTapped(
                   context, size, "Table", authController);
             } else if (widget.screenName == "Cart") {
               CustomSnackBar.showTopRightSnackBar(context, 'Item Removed!');
             } else if (widget.screenName == "Drawer") {
-              // Constants.closeShift(context);
+              Constants.openCloseShiftDialog(context, size, title);
             }
           } else if (title.contains("Options")) {
             Constants.openDialog(
@@ -191,6 +201,19 @@ class _CustomDialogState extends State<CustomDialog> {
               scroll: const AlwaysScrollableScrollPhysics(),
               child: controller.inputSection("Cash", context),
             );
+          } else if (widget.title.contains("Customer")) {
+            if (title.contains("Shopping")) {
+            } else {
+              Constants.openDialog(
+                context: context,
+                title: "Payment Info",
+                btnText1: "Pay",
+                child: payInputSection(),
+                height: size.height / 2.2,
+              );
+            }
+          } else if (title.contains("Product")) {
+            CustomSnackBar.showTopRightSnackBar(context, 'Item Added!');
           }
         },
         child: Ink(
@@ -218,6 +241,20 @@ class _CustomDialogState extends State<CustomDialog> {
     );
   }
 
+  Widget payInputSection() {
+    return const Column(
+      children: [
+        CustomTextInput(hintText: "Name", isNumber: false),
+        SizedBox(height: 16.0),
+        CustomTextInput(hintText: "Card Number", isNumber: true),
+        SizedBox(height: 16.0),
+        CustomTextInput(hintText: "Expiry Date", isNumber: false),
+        SizedBox(height: 16.0),
+        CustomTextInput(hintText: "CVV", isNumber: true),
+      ],
+    );
+  }
+
   dynamic controlAlert(BuildContext context) {
     return showDialog(
       barrierDismissible: false,
@@ -225,7 +262,7 @@ class _CustomDialogState extends State<CustomDialog> {
       builder: (context) => CustomAlertDialog(
         title: "Assistance Control Alert",
         msg:
-            "You have to submit entry yet...\nPress Submit to continue or Cancel\nto go back to enter auth code.",
+            "You have to submit entry yet... Press Submit to\ncontinue or Cancel to go back to enter auth code.",
         positiveBtn: "Submit",
         negativeBtn: "Cancel",
         positiveAction: () => {
@@ -242,4 +279,178 @@ dynamic openEntryLog(BuildContext context) {
       barrierDismissible: false,
       context: context,
       builder: (context) => const CustomViewDialog());
+}
+
+Widget kitchenView(Size size) {
+  return Column(
+    children: [
+      Constants.customView(
+        size,
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Key", "Printed by"),
+                customText("Value", "Elvis Rodriguez"),
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Key", "Date & Time"),
+                customText("Value", "28/01/2025, 05:25 PM"),
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Key", "Table No"),
+                customText("Value", "#4"),
+              ],
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(height: 14.0),
+      Constants.customView(
+        size,
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Key", "Items"),
+                customText("Key", "QTY"),
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Value", "Margerita Pizza"),
+                customText("Value", "2"),
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Value", "Peri Peri French Fries"),
+                customText("Value", "1"),
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Value", "Coca Cola"),
+                customText("Value", "2"),
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Value", "Cheese Ball"),
+                customText("Value", "2"),
+              ],
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(height: 14.0),
+      Constants.customView(
+        size,
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Key", "Sub Total"),
+                customText("Value", "\$847.46"),
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Key", "Tax"),
+                customText("Value", "\$152.00"),
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Key", "Tips"),
+                customText("Value", "\$24.00"),
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Key", "Discount"),
+                customText("Value", "\$50.00"),
+              ],
+            ),
+            Container(
+              height: 1,
+              width: size.width,
+              color: Themes.kBlackColor,
+              margin: const EdgeInsets.symmetric(vertical: 16.0),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Ex", "Total"),
+                customText("Ex", "\$700.00"),
+              ],
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(height: 14.0),
+      Constants.customView(
+        size,
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText("Key", "Payment mode"),
+                customText("Value", "Debit Card"),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+Widget customText(String type, String txt) {
+  return Text(
+    ((type == "Key" && txt == "QTY") || txt.contains("\$"))
+        ? txt
+        : (type == "Key" || type == "Ex")
+            ? "$txt :"
+            : txt,
+    style: TextStyle(
+      fontSize: type == "Key"
+          ? 15.0
+          : type == "Ex"
+              ? 16.0
+              : 14.0,
+      fontWeight: type == "Key"
+          ? FontWeight.w600
+          : type == "Ex"
+              ? FontWeight.w800
+              : FontWeight.w400,
+      color: type == "Key" ? Themes.kPrimaryColor : Themes.kBlackColor,
+    ),
+  );
 }

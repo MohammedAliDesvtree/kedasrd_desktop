@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
-import 'package:kedasrd_windows/utils/themes.dart';
+
 import 'package:kedasrd_windows/widgets/custom_dropdowns.dart';
 import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 
@@ -109,16 +110,16 @@ class DrawerMenuController extends GetxController {
         navigateTo(Screen.newOrder, title);
         break;
       case "Items":
-        onMenuTapped(context, size, title);
+        onMenuTapped(context, size, title, authController);
         break;
       case "Customers":
-        onMenuTapped(context, size, title);
+        onMenuTapped(context, size, title, authController);
         break;
       case "Discard Order":
-        onMenuTapped(context, size, title);
+        onMenuTapped(context, size, title, authController);
         break;
       case "Discount":
-        onMenuTapped(context, size, title);
+        onMenuTapped(context, size, title, authController);
         break;
       case "Kitchen":
         navigateTo(Screen.kitchen, title);
@@ -470,7 +471,8 @@ class DrawerMenuController extends GetxController {
     }
   }
 
-  void onMenuTapped(BuildContext context, Size size, String title) {
+  void onMenuTapped(
+      BuildContext context, Size size, String title, authController) {
     if (title == "Items") {
       Constants.openWideDialog(
         context: context,
@@ -510,14 +512,9 @@ class DrawerMenuController extends GetxController {
         child: inputSection(),
       );
     } else if (title.contains("Close")) {
-      Constants.openDialog(
-        context: context,
-        title: title,
-        btnText1: "Submit",
-        btnText2: "Close and Print",
-        height: size.height / 2.5,
-        child: closeShift(context),
-      );
+      authController.isAdmin
+          ? Constants.openCloseShiftDialog(context, size, title)
+          : Constants.openAuthCodeDialog(context, size, "Drawer");
     } else if (title.contains("Deleted") || title.contains("Draft")) {
       Constants.openWideDialog(
         context: context,
@@ -531,64 +528,6 @@ class DrawerMenuController extends GetxController {
         hintText: "Order",
       );
     }
-  }
-
-  Widget closeShift(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          height: 132.0,
-          margin: const EdgeInsets.only(top: 0.0, left: 0.0, right: 0.0),
-          padding: const EdgeInsets.all(14.0),
-          decoration: BoxDecoration(
-              border: Border.all(width: 0.5, color: Themes.kGreyColor)),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  closeShiftItems("Start Date", "bold"),
-                  closeShiftItems("12/24/2024 12:15 AM", "normal"),
-                ],
-              ),
-              Constants.divider(context, 8.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  closeShiftItems("Initial Base", "bold"),
-                  closeShiftItems("DOP \$0.00", "normal"),
-                ],
-              ),
-              Constants.divider(context, 8.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  closeShiftItems("Total", "bold"),
-                  closeShiftItems("DOP \$0.00", "bold"),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16.0),
-        const CustomTextInput(
-          hintText: "Observations",
-          isNumber: false,
-        ),
-      ],
-    );
-  }
-
-  Widget closeShiftItems(String title, String type) {
-    return Text(
-      title,
-      style: TextStyle(
-        fontSize: 16.0,
-        fontWeight: type == "bold" ? FontWeight.bold : FontWeight.normal,
-        color: Themes.kBlackColor,
-      ),
-    );
   }
 
   Widget inputSection() {

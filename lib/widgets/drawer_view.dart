@@ -261,7 +261,7 @@ class _DrawerViewState extends State<DrawerView> {
         if (title == "Logout") {
           controller.onLogoutTapped(context, authController);
         } else {
-          controller.onMenuTapped(context, size, title);
+          controller.onMenuTapped(context, size, title, authController);
         }
       },
       child: Padding(

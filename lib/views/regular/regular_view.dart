@@ -6,6 +6,7 @@ import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 
+import 'package:kedasrd_windows/widgets/custom_dropdowns.dart';
 import 'package:kedasrd_windows/widgets/custom_searchbar.dart';
 import 'package:kedasrd_windows/widgets/custom_pay_button.dart';
 import 'package:kedasrd_windows/widgets/custom_add_button.dart';
@@ -111,9 +112,22 @@ class _RegularViewState extends State<RegularView> {
                   onTap: index % 2.5 == 2
                       ? null
                       : () {
-                          cartController.addToCart(data);
-                          CustomSnackBar.showTopRightSnackBar(
-                              context, '${data["title"]} added in cart!');
+                          if (widget.title!.contains("Store")) {
+                            Constants.openDialog(
+                              context: context,
+                              title: "",
+                              btnText1: "Add Product",
+                              child: productDetails(data),
+                              height: size.height / 1.6,
+                            );
+                          } else if (widget.title!.contains("Food")) {
+                            CustomSnackBar.showTopRightSnackBar(
+                                context, '${data["title"]} added in cart!');
+                          } else {
+                            cartController.addToCart(data);
+                            CustomSnackBar.showTopRightSnackBar(
+                                context, '${data["title"]} added in cart!');
+                          }
                         },
                   child: Ink(
                     height: 300.0,
@@ -361,44 +375,46 @@ class _RegularViewState extends State<RegularView> {
                   const SizedBox(height: 24.0),
                   digitsView(),
                   const SizedBox(height: 24.0),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: widget.title == "Regular"
-                            ? Obx(
-                                () => CustomPayButton(
-                                  amount: cartController.total.value
-                                      .toStringAsFixed(2),
-                                  onTap: () =>
-                                      CustomSnackBar.showTopRightSnackBar(
-                                          context, 'Payment Successful!'),
-                                ),
-                              )
-                            : CustomPayButton(
-                                amount: "1024.34",
-                                onTap: () => controller
-                                    .isPaymentMenuVisible.value = true,
+                  widget.title!.contains("Store")
+                      ? bottomButton(size)
+                      : Row(
+                          children: [
+                            Expanded(
+                              child: widget.title == "Regular"
+                                  ? Obx(
+                                      () => CustomPayButton(
+                                        amount: cartController.total.value
+                                            .toStringAsFixed(2),
+                                        onTap: () =>
+                                            CustomSnackBar.showTopRightSnackBar(
+                                                context, 'Payment Successful!'),
+                                      ),
+                                    )
+                                  : CustomPayButton(
+                                      amount: "1024.34",
+                                      onTap: () => controller
+                                          .isPaymentMenuVisible.value = true,
+                                    ),
+                            ),
+                            const SizedBox(width: 12.0),
+                            CustomCloseIconButton(
+                              iconColor: Themes.kRedColor,
+                              size: 42.0,
+                              radius: 6.0,
+                              padding: 0.0,
+                              iconPadding: 14.0,
+                              onTap: () => Constants.openAlertDialog(
+                                context: context,
+                                title: "",
+                                msg: "This order will be cancelled.",
+                                toastMsg: 'Order Cancelled!',
+                                positiveAction: () {
+                                  cartController.clearCart();
+                                },
                               ),
-                      ),
-                      const SizedBox(width: 12.0),
-                      CustomCloseIconButton(
-                        iconColor: Themes.kRedColor,
-                        size: 42.0,
-                        radius: 6.0,
-                        padding: 0.0,
-                        iconPadding: 14.0,
-                        onTap: () => Constants.openAlertDialog(
-                          context: context,
-                          title: "",
-                          msg: "This order will be cancelled.",
-                          toastMsg: 'Order Cancelled!',
-                          positiveAction: () {
-                            cartController.clearCart();
-                          },
+                            )
+                          ],
                         ),
-                      )
-                    ],
-                  ),
                   if (widget.title!.contains("Food"))
                     Column(
                       children: [
@@ -851,6 +867,139 @@ class _RegularViewState extends State<RegularView> {
             },
           ),
         ),
+      ],
+    );
+  }
+
+  Widget bottomButton(Size size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        submitButton(size, "Discard Order"),
+        submitButton(size, "Confirm Order"),
+      ],
+    );
+  }
+
+  Widget submitButton(Size size, String title) {
+    return Material(
+      color: Themes.kTransparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(6.0),
+        onTap: () {
+          if (title.contains("Confirm")) {
+            Constants.openDialog(
+              context: context,
+              title: "New Customer",
+              btnText1: "Continue Shopping",
+              btnText2: "Submit Order",
+              child: customerInputSection(),
+              height: size.height / 2.2,
+            );
+          } else {
+            Constants.openAlertDialog(
+              context: context,
+              title: "Discard Order",
+              msg: "Are you sure you want to cancel your cart ?",
+              toastMsg: 'Order Discarded!',
+            );
+          }
+        },
+        child: Ink(
+          decoration: BoxDecoration(
+              color: Themes.kPrimaryColor,
+              borderRadius: BorderRadius.circular(6.0)),
+          child: Container(
+            height: 52.0,
+            width: 500 / 2.3,
+            alignment: Alignment.center,
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w500,
+                color: Themes.kWhiteColor,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget customerInputSection() {
+    return const Column(
+      children: [
+        CustomTextInput(hintText: "Name", isNumber: false),
+        SizedBox(height: 16.0),
+        CustomTextInput(hintText: "Phone Number", isNumber: true),
+        SizedBox(height: 16.0),
+        CustomTextInput(
+            hintText: "Email Address", isNumber: false, isEmail: true),
+        SizedBox(height: 16.0),
+        CustomTextInput(hintText: "Address", isNumber: false),
+      ],
+    );
+  }
+
+  Widget productDetails(dynamic data) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.asset(
+                data["image"],
+                height: 108,
+                width: 154,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(width: 16.0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  data["title"],
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w700,
+                    color: Themes.kDarkColor,
+                  ),
+                ),
+                Text(
+                  "DOP \$${data["price"]}",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w700,
+                    color: Themes.kPrimaryColor,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 16.0),
+        const Text(
+          "Lorem ipsum dolor sit amet consectetur. Gravida vulputate senectus cras id vel. Vulputate tortor turpis fames ut pulvinar sed sagittis. Velit convallis commodo pretium amet suscipit pretium orci.",
+          style: TextStyle(
+            fontSize: 14.0,
+            color: Themes.kBlackColor,
+          ),
+        ),
+        const SizedBox(height: 16.0),
+        CustomDropdowns(
+            isMultiSelect: true,
+            listData: DummyData.extraItems,
+            hintText: "Extra Items"),
+        const SizedBox(height: 16.0),
+        CustomDropdowns(
+            isMultiSelect: true,
+            listData: DummyData.formulaItems,
+            hintText: "Formula Items"),
       ],
     );
   }
