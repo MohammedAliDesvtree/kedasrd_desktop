@@ -45,7 +45,7 @@ void setWindowSizeLimits() async {
 
   WindowOptions windowOptions = const WindowOptions(
     center: true,
-    titleBarStyle: TitleBarStyle.hidden,
+    titleBarStyle: TitleBarStyle.normal,
     // MacOS
     size: Size(1920, 990),
     minimumSize: Size(1920, 990),
