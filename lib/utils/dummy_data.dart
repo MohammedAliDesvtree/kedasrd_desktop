@@ -155,6 +155,7 @@ class DummyData {
   static List<dynamic> activeOrderList = [
     {"image": Images.dineIn, "title": "Dine In"},
     {"image": Images.delivery, "title": "Delivery"},
+    {"image": Images.pickUp, "title": "Pickup"},
   ];
 
   static List<String> filterItems = [

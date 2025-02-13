@@ -166,6 +166,9 @@ class DrawerMenuController extends GetxController {
       case "Delivery":
         navigateTo(Screen.delivery, "Active Orders");
         break;
+      case "Pickup":
+        navigateTo(Screen.pickup, title);
+        break;
     }
   }
 
