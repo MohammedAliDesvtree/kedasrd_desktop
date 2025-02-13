@@ -276,6 +276,7 @@ class DrawerMenuController extends GetxController {
           currentScreen.value == Screen.newOrder ||
           currentScreen.value == Screen.activeOrder ||
           currentScreen.value == Screen.kitchen ||
+          currentScreen.value == Screen.bar ||
           currentScreen.value == Screen.delivery ||
           currentScreen.value == Screen.pickup ||
           currentScreen.value == Screen.tables ||
@@ -299,6 +300,7 @@ class DrawerMenuController extends GetxController {
             currentScreen.value == Screen.newOrder ||
             currentScreen.value == Screen.activeOrder ||
             currentScreen.value == Screen.kitchen ||
+            currentScreen.value == Screen.bar ||
             currentScreen.value == Screen.delivery ||
             currentScreen.value == Screen.pickup ||
             currentScreen.value == Screen.tables ||
@@ -367,14 +369,16 @@ class DrawerMenuController extends GetxController {
         case 2:
           return currentScreen.value == Screen.kitchen;
         case 3:
-          return currentScreen.value == Screen.tables;
+          return currentScreen.value == Screen.bar;
         case 4:
-          return currentScreen.value == Screen.fastfood;
+          return currentScreen.value == Screen.tables;
         case 5:
-          return currentScreen.value == Screen.orders;
+          return currentScreen.value == Screen.fastfood;
         case 6:
-          return currentScreen.value == Screen.shifts;
+          return currentScreen.value == Screen.orders;
         case 7:
+          return currentScreen.value == Screen.shifts;
+        case 8:
           return currentScreen.value == Screen.help;
         default:
           return false;
@@ -435,6 +439,7 @@ class DrawerMenuController extends GetxController {
     return currentScreen.value == Screen.newOrder ||
         currentScreen.value == Screen.activeOrder ||
         currentScreen.value == Screen.kitchen ||
+        currentScreen.value == Screen.bar ||
         currentScreen.value == Screen.delivery ||
         currentScreen.value == Screen.pickup ||
         currentScreen.value == Screen.tables ||
