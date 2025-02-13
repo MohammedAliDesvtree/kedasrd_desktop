@@ -20,6 +20,7 @@ enum Screen {
   newOrder,
   activeOrder,
   kitchen,
+  bar,
   delivery,
   pickup,
   tables,
@@ -124,6 +125,9 @@ class DrawerMenuController extends GetxController {
       case "Kitchen":
         navigateTo(Screen.kitchen, title);
         break;
+      case "Bar":
+        navigateTo(Screen.bar, title);
+        break;
       case "Active Order":
         navigateTo(Screen.activeOrder, title);
         break;
@@ -213,6 +217,9 @@ class DrawerMenuController extends GetxController {
         break;
       case Screen.kitchen:
         screenTitle.value = "Kitchen";
+        break;
+      case Screen.bar:
+        screenTitle.value = "Bar";
         break;
       case Screen.delivery:
         screenTitle.value = "Delivery";

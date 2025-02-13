@@ -7,6 +7,7 @@ import 'package:kedasrd_windows/utils/dummy_data.dart';
 
 import 'package:kedasrd_windows/views/home_view.dart';
 import 'package:kedasrd_windows/views/regular/regular_view.dart';
+import 'package:kedasrd_windows/views/restaurant/bar_view.dart';
 import 'package:kedasrd_windows/views/restaurant/orders_view.dart';
 import 'package:kedasrd_windows/views/restaurant/shifts_view.dart';
 import 'package:kedasrd_windows/views/restaurant/tables_view.dart';
@@ -165,6 +166,8 @@ class _BodyViewState extends State<BodyView> {
         return const ActiveOrderView();
       case Screen.kitchen:
         return const KitchenView();
+      case Screen.bar:
+        return const BarView();
       case Screen.delivery:
         return const DeliveryView();
       case Screen.pickup:
