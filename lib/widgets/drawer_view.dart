@@ -6,6 +6,7 @@ import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 
 import 'package:kedasrd_windows/controllers/drawer_controller.dart';
+import 'package:kedasrd_windows/controllers/tables_controller.dart';
 import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
 
 class DrawerView extends StatefulWidget {
@@ -19,6 +20,7 @@ class DrawerView extends StatefulWidget {
 
 class _DrawerViewState extends State<DrawerView> {
   final DrawerMenuController controller = Get.find<DrawerMenuController>();
+  final TablesController tablesController = Get.find<TablesController>();
   final AuthController authController = Get.find<AuthController>();
 
   @override
@@ -179,7 +181,7 @@ class _DrawerViewState extends State<DrawerView> {
   Widget innerItemView(data, int innerIndex, BuildContext context, size) {
     return GestureDetector(
       onTap: () => controller.onMenuInnerItemTapped(
-          context, size, data["title"], authController),
+          context, size, data["title"], authController, tablesController),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
@@ -261,7 +263,8 @@ class _DrawerViewState extends State<DrawerView> {
         if (title == "Logout") {
           controller.onLogoutTapped(context, authController);
         } else {
-          controller.onMenuTapped(context, size, title, authController);
+          controller.onMenuTapped(
+              context, size, title, authController, tablesController);
         }
       },
       child: Padding(

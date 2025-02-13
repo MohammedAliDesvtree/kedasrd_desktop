@@ -186,7 +186,7 @@ class _CustomDialogState extends State<CustomDialog> {
               );
             } else if (widget.screenName == "New Order") {
               drawerMenuController.onMenuInnerItemTapped(
-                  context, size, "Table", authController);
+                  context, size, "Table", authController, controller);
             } else if (widget.screenName == "Cart") {
               CustomSnackBar.showTopRightSnackBar(context, 'Item Removed!');
             } else if (widget.screenName == "Drawer") {

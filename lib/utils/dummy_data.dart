@@ -444,4 +444,68 @@ class DummyData {
     "Only Table by Section",
     "All Tables",
   ];
+
+  static List<dynamic> settingItems = [
+    {"icon": Images.general, "title": "General"},
+    {"icon": Images.orders, "title": "Orders"},
+    {"icon": Images.kitchenIc, "title": "Kitchen"},
+    {"icon": Images.chair, "title": "Tables"},
+    {"icon": Images.printer, "title": "Printer"},
+    {"icon": Images.taxes, "title": "Taxes"},
+  ];
+
+  static List<String> orderFlowItems = [
+    "Short",
+    "Advance",
+  ];
+
+  static List<String> selectMsgItems = [
+    "DESPEDIDA",
+    "Despedida",
+  ];
+
+  static List<String> orderStatusItems = [
+    "Keep After Printed",
+    "Clean After Printed",
+  ];
+
+  static List<String> printerList = [
+    "POS80 Printer",
+    "TSC TE244",
+    "POS-58-Series",
+    "Microsoft Print to PDF",
+    "EPSON TM-T82X Receipt (1)",
+    "Fax",
+    "XP-80C AOKIA",
+    "OneNote (Desktop)",
+    "NPIA6FAD8 (HP LaserJet MFP M227fdw)",
+    "Microsoft XPS Document Writer",
+    "HPB0227A55598A8 (HP Laser MFP 131 133 135-138)",
+    "EPSON TM-T88IV Receipt",
+    "EPSON L3250 Series",
+    "Epson 80MM",
+    "AnyDesk Printer",
+    "Nitro PDF Creator",
+    "2C-POS80-01-V7 Printer(3)",
+    "XP-80C",
+    "OneNote for Windows 10",
+    "PRINTER COCINA (KITCHEN)",
+    "Enviar a OneNote 16",
+    "2C-POS80-01-V7 Printer Cashier",
+    "XP-80",
+    "Brother MFC-J1010DW Printer",
+    "80mm Series Printer",
+  ];
+
+  static List<String> tipTaxList = [
+    "Custom (0%)",
+    "Propina de Ley (10%)",
+    "ITBIS + (18%)",
+    "ITBIS (18%)",
+    "AFP (2.87%)",
+    "SFS (3.04%)",
+    "ITBIS 2 (18%)",
+    "CDT (2%)",
+    "ISC (10%)",
+  ];
 }

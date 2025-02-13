@@ -6,6 +6,7 @@ import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 
 import 'package:kedasrd_windows/controllers/drawer_controller.dart';
+import 'package:kedasrd_windows/controllers/tables_controller.dart';
 import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
 
 class ShiftsView extends StatefulWidget {
@@ -17,6 +18,7 @@ class ShiftsView extends StatefulWidget {
 
 class _ShiftsViewState extends State<ShiftsView> {
   final AuthController authController = Get.find<AuthController>();
+  final TablesController tablesController = Get.find<TablesController>();
   final DrawerMenuController controller = Get.find<DrawerMenuController>();
 
   @override
@@ -244,7 +246,8 @@ class _ShiftsViewState extends State<ShiftsView> {
           if (title == "Print") {
             CustomSnackBar.showTopRightSnackBar(context, "Printing...");
           } else {
-            controller.onMenuTapped(context, size, title, authController);
+            controller.onMenuTapped(
+                context, size, title, authController, tablesController);
           }
         },
         child: Ink(

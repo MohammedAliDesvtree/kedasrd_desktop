@@ -96,4 +96,7 @@ class Images {
   static const String telephone = "lib/assets/icons/telephone.png";
 
   static const String bar = "lib/assets/icons/cutlery.png";
+
+  static const String general = "lib/assets/icons/general.png";
+  static const String taxes = "lib/assets/icons/taxes.png";
 }
