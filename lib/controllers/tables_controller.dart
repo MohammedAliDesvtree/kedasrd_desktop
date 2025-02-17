@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
@@ -212,7 +213,7 @@ class TablesController extends GetxController {
                     title.contains("Partial"))
                   Column(
                     children: [
-                      titleView(title),
+                      titleView(context, title),
                       const SizedBox(height: 8.0),
                     ],
                   ),
@@ -243,11 +244,11 @@ class TablesController extends GetxController {
           Column(
             children: [
               const SizedBox(height: 16.0),
-              paymentsView(),
+              paymentsView(context),
               const SizedBox(height: 16.0),
-              partialBoxView(),
+              partialBoxView(context),
               const SizedBox(height: 16.0),
-              partialBoxView(),
+              partialBoxView(context),
             ],
           ),
         const SizedBox(height: 16.0),
@@ -329,7 +330,7 @@ class TablesController extends GetxController {
     );
   }
 
-  Widget paymentsView() {
+  Widget paymentsView(BuildContext context) {
     return Container(
       height: 48.0,
       padding: const EdgeInsets.only(left: 16.0),
@@ -337,11 +338,11 @@ class TablesController extends GetxController {
           border: Border.all(width: 0.5, color: Themes.kPrimaryColor)),
       child: Row(
         children: [
-          const Expanded(
+          Expanded(
             child: Text(
               "Payments",
               style: TextStyle(
-                fontSize: 16.0,
+                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                 fontWeight: FontWeight.bold,
                 color: Themes.kPrimaryColor,
               ),
@@ -356,12 +357,12 @@ class TablesController extends GetxController {
               color: Themes.kWhiteColor,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 28.0),
             child: Text(
               "2",
               style: TextStyle(
-                fontSize: 16.0,
+                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                 fontWeight: FontWeight.bold,
                 color: Themes.kPrimaryColor,
               ),
@@ -381,7 +382,7 @@ class TablesController extends GetxController {
     );
   }
 
-  Widget partialBoxView() {
+  Widget partialBoxView(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(14.0),
       decoration: BoxDecoration(
@@ -406,10 +407,10 @@ class TablesController extends GetxController {
               listData: DummyData.bankAccountItems,
               hintText: "Please Select Account"),
           const SizedBox(height: 14.0),
-          const Text(
+          Text(
             "\$60.435",
             style: TextStyle(
-              fontSize: 22.0,
+              fontSize: ResponsiveHelper.getFontSize(context, 22.0),
               fontWeight: FontWeight.bold,
               color: Themes.kBlackColor,
             ),
@@ -419,22 +420,22 @@ class TablesController extends GetxController {
     );
   }
 
-  Widget titleView(String title) {
+  Widget titleView(BuildContext context, String title) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
+        Text(
           "Payment Type",
           style: TextStyle(
-            fontSize: 18.0,
+            fontSize: ResponsiveHelper.getFontSize(context, 18.0),
             fontWeight: FontWeight.w600,
             color: Themes.kPrimaryColor,
           ),
         ),
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 18.0,
+          style: TextStyle(
+            fontSize: ResponsiveHelper.getFontSize(context, 18.0),
             fontWeight: FontWeight.w600,
             color: Themes.kBlackColor,
           ),

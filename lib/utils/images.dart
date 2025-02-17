@@ -99,4 +99,6 @@ class Images {
 
   static const String general = "lib/assets/icons/general.png";
   static const String taxes = "lib/assets/icons/taxes.png";
+
+  static const String pos = "lib/assets/icons/pos.png";
 }

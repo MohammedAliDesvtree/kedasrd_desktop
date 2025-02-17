@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
 
@@ -163,9 +164,10 @@ class Constants {
     );
   }
 
-  static Widget customView(Size size, Widget child) {
+  static Widget customView(BuildContext context, Size size, Widget child) {
     return Container(
-      width: size.width / 4,
+      width:
+          ResponsiveHelper.isTablet(context) ? size.width / 2 : size.width / 4,
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 16.0),
       decoration: BoxDecoration(
@@ -192,24 +194,24 @@ Widget closeShift(BuildContext context) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                closeShiftItems("Start Date", "bold"),
-                closeShiftItems("12/24/2024 12:15 AM", "normal"),
+                closeShiftItems(context, "Start Date", "bold"),
+                closeShiftItems(context, "12/24/2024 12:15 AM", "normal"),
               ],
             ),
             Constants.divider(context, 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                closeShiftItems("Initial Base", "bold"),
-                closeShiftItems("DOP \$0.00", "normal"),
+                closeShiftItems(context, "Initial Base", "bold"),
+                closeShiftItems(context, "DOP \$0.00", "normal"),
               ],
             ),
             Constants.divider(context, 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                closeShiftItems("Total", "bold"),
-                closeShiftItems("DOP \$0.00", "bold"),
+                closeShiftItems(context, "Total", "bold"),
+                closeShiftItems(context, "DOP \$0.00", "bold"),
               ],
             ),
           ],
@@ -224,11 +226,11 @@ Widget closeShift(BuildContext context) {
   );
 }
 
-Widget closeShiftItems(String title, String type) {
+Widget closeShiftItems(BuildContext context, String title, String type) {
   return Text(
     title,
     style: TextStyle(
-      fontSize: 16.0,
+      fontSize: ResponsiveHelper.getFontSize(context, 16.0),
       fontWeight: type == "bold" ? FontWeight.bold : FontWeight.normal,
       color: Themes.kBlackColor,
     ),
@@ -251,8 +253,8 @@ class CustomSnackBar {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
               message,
-              style: const TextStyle(
-                fontSize: 16.0,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                 fontWeight: FontWeight.bold,
                 color: Themes.kWhiteColor,
               ),

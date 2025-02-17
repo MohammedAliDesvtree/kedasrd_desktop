@@ -5,6 +5,7 @@ import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
 import 'package:kedasrd_windows/controllers/auth/sign_in_controller.dart';
@@ -30,8 +31,8 @@ class _SignInViewState extends State<SignInView> {
         child: Align(
           alignment: Alignment.center,
           child: Container(
-            height: size.height / 1.2,
-            width: size.width / 3.0,
+            height: ResponsiveHelper.getLoginContainerHeight(context),
+            width: ResponsiveHelper.getLoginContainerWidth(context),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: Themes.kWhiteColor,
@@ -46,7 +47,8 @@ class _SignInViewState extends State<SignInView> {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.all(48.0),
+              padding: EdgeInsets.all(
+                  ResponsiveHelper.isDesktop(context) ? 48.0 : 24.0),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,21 +59,28 @@ class _SignInViewState extends State<SignInView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Image.asset(Images.kedasLogo, height: 96.0),
+                          Image.asset(
+                            Images.kedasLogo,
+                            height: ResponsiveHelper.isDesktop(context)
+                                ? 96.0
+                                : 72.0,
+                          ),
                           const SizedBox(height: 16.0),
-                          const Text(
+                          Text(
                             "Log into your KEDAS Account",
                             style: TextStyle(
-                              fontSize: 25.0,
+                              fontSize:
+                                  ResponsiveHelper.getFontSize(context, 25.0),
                               fontWeight: FontWeight.w500,
                               color: Themes.kBlackColor,
                             ),
                           ),
                           const SizedBox(height: 4.0),
-                          const Text(
+                          Text(
                             "Hello, Welcome Back !!",
                             style: TextStyle(
-                              fontSize: 16.0,
+                              fontSize:
+                                  ResponsiveHelper.getFontSize(context, 16.0),
                               fontWeight: FontWeight.w400,
                               color: Themes.kGreyColor,
                             ),
@@ -114,12 +123,12 @@ class _SignInViewState extends State<SignInView> {
   Widget forgotPasswordButton() {
     return GestureDetector(
       onTap: () {},
-      child: const Align(
+      child: Align(
         alignment: Alignment.centerRight,
         child: Text(
           "Forgot Password ?",
           style: TextStyle(
-            fontSize: 16.0,
+            fontSize: ResponsiveHelper.getFontSize(context, 16.0),
             fontWeight: FontWeight.w400,
             color: Themes.kPrimaryColor,
           ),
@@ -132,20 +141,20 @@ class _SignInViewState extends State<SignInView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
+        Text(
           "Don’t have an account? ",
           style: TextStyle(
-            fontSize: 18.0,
+            fontSize: ResponsiveHelper.getFontSize(context, 18.0),
             fontWeight: FontWeight.w400,
             color: Themes.kGreyColor,
           ),
         ),
         GestureDetector(
           onTap: () {},
-          child: const Text(
+          child: Text(
             "Sign Up",
             style: TextStyle(
-              fontSize: 18.0,
+              fontSize: ResponsiveHelper.getFontSize(context, 18.0),
               fontWeight: FontWeight.w400,
               color: Themes.kPrimaryColor,
             ),
@@ -171,8 +180,8 @@ class _SignInViewState extends State<SignInView> {
             alignment: Alignment.center,
             child: Text(
               title,
-              style: const TextStyle(
-                fontSize: 16.0,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                 fontWeight: FontWeight.w500,
                 color: Themes.kWhiteColor,
               ),

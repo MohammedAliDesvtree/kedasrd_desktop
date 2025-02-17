@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
@@ -527,7 +528,7 @@ class DrawerMenuController extends GetxController {
         btnText1: "Proceed",
         height: size.height / 1.5,
         scroll: const AlwaysScrollableScrollPhysics(),
-        child: inputSection(tablesController, size),
+        child: inputSection(context, tablesController, size),
       );
     } else if (title.contains("Close")) {
       authController.isAdmin
@@ -548,7 +549,8 @@ class DrawerMenuController extends GetxController {
     }
   }
 
-  Widget inputSection(dynamic tablesController, Size size) {
+  Widget inputSection(
+      BuildContext context, dynamic tablesController, Size size) {
     return Column(
       children: [
         Row(
@@ -589,7 +591,7 @@ class DrawerMenuController extends GetxController {
                   () => Text(
                     data["title"],
                     style: TextStyle(
-                      fontSize: 14.0,
+                      fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                       fontWeight: FontWeight.w500,
                       color: tablesController.selectedTabIndex.value == index
                           ? Themes.kPrimaryColor

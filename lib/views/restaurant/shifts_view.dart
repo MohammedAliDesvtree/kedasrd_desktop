@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 
@@ -116,7 +117,7 @@ class _ShiftsViewState extends State<ShiftsView> {
     return Text(
       title,
       style: TextStyle(
-        fontSize: fontSize,
+        fontSize: ResponsiveHelper.getFontSize(context, fontSize),
         fontWeight: fontWeight,
         color: color,
       ),
@@ -132,8 +133,8 @@ class _ShiftsViewState extends State<ShiftsView> {
           children: [
             Text(
               index == 0 ? "Shifts In Progress" : "Closure No $index",
-              style: const TextStyle(
-                fontSize: 18.0,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 18.0),
                 fontWeight: FontWeight.w700,
                 color: Themes.kDarkColor,
               ),
@@ -147,10 +148,10 @@ class _ShiftsViewState extends State<ShiftsView> {
                     decoration: BoxDecoration(
                         color: Themes.kRedColor,
                         borderRadius: BorderRadius.circular(16.0)),
-                    child: const Text(
+                    child: Text(
                       "Closed",
                       style: TextStyle(
-                        fontSize: 14.0,
+                        fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                         fontWeight: FontWeight.w700,
                         color: Themes.kWhiteColor,
                       ),
@@ -267,8 +268,8 @@ class _ShiftsViewState extends State<ShiftsView> {
                 const SizedBox(width: 12.0),
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 16.0,
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                     fontWeight: FontWeight.w600,
                     color: Themes.kWhiteColor,
                   ),

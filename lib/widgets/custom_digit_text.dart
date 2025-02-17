@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
 
@@ -27,8 +28,8 @@ class _CustomDigitTextState extends State<CustomDigitText> {
       children: [
         Text(
           widget.title,
-          style: const TextStyle(
-            fontSize: 16.0,
+          style: TextStyle(
+            fontSize: ResponsiveHelper.getFontSize(context, 16.0),
             fontWeight: FontWeight.w400,
             color: Themes.kPrimaryColor,
           ),
@@ -49,8 +50,8 @@ class _CustomDigitTextState extends State<CustomDigitText> {
                   )
                 : Text(
                     widget.amount,
-                    style: const TextStyle(
-                      fontSize: 16.0,
+                    style: TextStyle(
+                      fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                       fontWeight: FontWeight.w900,
                       color: Themes.kDarkColor,
                     ),
@@ -72,14 +73,16 @@ class _CustomDigitTextState extends State<CustomDigitText> {
         cursorHeight: 14.0,
         textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,
-        style: const TextStyle(fontSize: 14.0, color: Themes.kBlackColor),
+        style: TextStyle(
+            fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+            color: Themes.kBlackColor),
         // controller: controller.qtyController,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
           border: InputBorder.none,
           hintText: widget.title == "Price" ? "\$500.00" : "0",
           hintStyle: TextStyle(
-            fontSize: 14.0,
+            fontSize: ResponsiveHelper.getFontSize(context, 14.0),
             color: Themes.kGreyColor[500],
           ),
         ),

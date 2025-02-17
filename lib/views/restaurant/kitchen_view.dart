@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 
 import 'package:kedasrd_windows/controllers/kitchen_controller.dart';
@@ -36,7 +37,9 @@ class _KitchenViewState extends State<KitchenView> {
     return Column(
       children: [
         Container(
-          width: size.width / 3.6,
+          width: ResponsiveHelper.isDesktop(context)
+              ? size.width / 3.6
+              : size.width / 4.0,
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
           decoration: BoxDecoration(
             color: Themes.kWhiteColor,
@@ -83,8 +86,8 @@ class _KitchenViewState extends State<KitchenView> {
                   ),
                   child: Text(
                     index % 2 != 0 ? "Table: ${index + 1}" : "Delivery",
-                    style: const TextStyle(
-                      fontSize: 14.0,
+                    style: TextStyle(
+                      fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                       fontWeight: FontWeight.bold,
                       color: Themes.kWhiteColor,
                     ),
@@ -126,7 +129,7 @@ class _KitchenViewState extends State<KitchenView> {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
@@ -135,7 +138,7 @@ class _KitchenViewState extends State<KitchenView> {
                   Text(
                     "Qty : 2",
                     style: TextStyle(
-                      fontSize: 14.0,
+                      fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                       fontWeight: FontWeight.w500,
                       color: Themes.kWhiteColor,
                     ),
@@ -143,18 +146,18 @@ class _KitchenViewState extends State<KitchenView> {
                   Text(
                     "20:55",
                     style: TextStyle(
-                      fontSize: 14.0,
+                      fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                       fontWeight: FontWeight.w500,
                       color: Themes.kWhiteColor,
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 4.0),
+              const SizedBox(height: 4.0),
               Text(
                 "Chicharroncitos De Pollo",
                 style: TextStyle(
-                  fontSize: 14.0,
+                  fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                   fontWeight: FontWeight.w500,
                   color: Themes.kWhiteColor,
                 ),
@@ -193,8 +196,8 @@ class _KitchenViewState extends State<KitchenView> {
                           : index % 3 != 0
                               ? "Done"
                               : "In Progress",
-                      style: const TextStyle(
-                        fontSize: 12.0,
+                      style: TextStyle(
+                        fontSize: ResponsiveHelper.getFontSize(context, 12.0),
                         fontWeight: FontWeight.bold,
                         color: Themes.kWhiteColor,
                       ),
@@ -214,16 +217,16 @@ class _KitchenViewState extends State<KitchenView> {
       children: [
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 14.0,
+          style: TextStyle(
+            fontSize: ResponsiveHelper.getFontSize(context, 14.0),
             fontWeight: FontWeight.w500,
             color: Themes.kPrimaryColor,
           ),
         ),
         Text(
           value,
-          style: const TextStyle(
-            fontSize: 14.0,
+          style: TextStyle(
+            fontSize: ResponsiveHelper.getFontSize(context, 14.0),
             fontWeight: FontWeight.w500,
             color: Themes.kBlackColor,
           ),

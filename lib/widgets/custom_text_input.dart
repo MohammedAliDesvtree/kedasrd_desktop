@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 
 import 'package:kedasrd_windows/controllers/auth/sign_in_controller.dart';
@@ -47,7 +48,7 @@ class _CustomTextInputState extends State<CustomTextInput> {
             borderSide: BorderSide(color: Themes.kDarkColor.withOpacity(0.5))),
         hintText: widget.hintText,
         hintStyle: TextStyle(
-          fontSize: 14.0,
+          fontSize: ResponsiveHelper.getFontSize(context, 14.0),
           fontWeight: FontWeight.w500,
           color: Themes.kGreyColor[500],
         ),

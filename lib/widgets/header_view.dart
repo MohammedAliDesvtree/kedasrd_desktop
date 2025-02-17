@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
@@ -51,10 +52,10 @@ class HeaderView extends StatelessWidget {
                         color: Themes.kRedColor,
                         borderRadius: BorderRadius.circular(14.0),
                       ),
-                      child: const Text(
+                      child: Text(
                         "6",
                         style: TextStyle(
-                          fontSize: 10.0,
+                          fontSize: ResponsiveHelper.getFontSize(context, 10.0),
                           fontWeight: FontWeight.bold,
                           color: Themes.kWhiteColor,
                         ),
@@ -78,14 +79,14 @@ class HeaderView extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 16.0),
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Moni Roy",
                     style: TextStyle(
-                      fontSize: 14.0,
+                      fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                       fontWeight: FontWeight.w700,
                       color: Themes.kBlackColor,
                     ),
@@ -93,7 +94,7 @@ class HeaderView extends StatelessWidget {
                   Text(
                     "Admin",
                     style: TextStyle(
-                      fontSize: 12.0,
+                      fontSize: ResponsiveHelper.getFontSize(context, 12.0),
                       fontWeight: FontWeight.w600,
                       color: Themes.kDarkGreyColor,
                     ),

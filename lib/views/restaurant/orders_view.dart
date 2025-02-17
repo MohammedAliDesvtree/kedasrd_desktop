@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
@@ -47,12 +48,14 @@ class _OrdersViewState extends State<OrdersView> {
                     borderRadius: BorderRadius.circular(8.0)),
                 child: Container(
                   height: 161.0,
-                  width: size.width / 3.6,
+                  width: ResponsiveHelper.isDesktop(context)
+                      ? size.width / 3.6
+                      : size.width / 4.0,
                   alignment: Alignment.center,
                   child: Text(
                     data["title"],
-                    style: const TextStyle(
-                      fontSize: 20.0,
+                    style: TextStyle(
+                      fontSize: ResponsiveHelper.getFontSize(context, 20.0),
                       fontWeight: FontWeight.bold,
                       color: Themes.kWhiteColor,
                     ),

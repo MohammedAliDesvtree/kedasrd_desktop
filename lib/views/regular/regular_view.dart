@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/images.dart';
@@ -77,7 +78,11 @@ class _RegularViewState extends State<RegularView> {
         ),
         const SizedBox(width: 24.0),
         Container(
-          width: 500.0,
+          width: ResponsiveHelper.isDesktop(context)
+              ? 500.0
+              : ResponsiveHelper.isTablet(context)
+                  ? 264.0
+                  : size.width * 0.9,
           decoration: BoxDecoration(
             color: Themes.kWhiteColor,
             borderRadius: BorderRadius.circular(10.0),
@@ -132,7 +137,11 @@ class _RegularViewState extends State<RegularView> {
                         },
                   child: Ink(
                     height: 300.0,
-                    width: size.width / 5.52,
+                    width: ResponsiveHelper.isDesktop(context)
+                        ? size.width / 5.52
+                        : ResponsiveHelper.isTablet(context)
+                            ? size.width / 3.5
+                            : size.width / 2.2,
                     decoration: BoxDecoration(
                       color: Themes.kWhiteColor,
                       borderRadius: BorderRadius.circular(8.0),
@@ -167,8 +176,9 @@ class _RegularViewState extends State<RegularView> {
                             children: [
                               Text(
                                 data["title"],
-                                style: const TextStyle(
-                                  fontSize: 20.0,
+                                style: TextStyle(
+                                  fontSize: ResponsiveHelper.getFontSize(
+                                      context, 20.0),
                                   fontWeight: FontWeight.w700,
                                   color: Themes.kBlackColor,
                                 ),
@@ -180,17 +190,19 @@ class _RegularViewState extends State<RegularView> {
                                 children: [
                                   Text(
                                     "DOP \$${data["price"]}",
-                                    style: const TextStyle(
-                                      fontSize: 20.0,
+                                    style: TextStyle(
+                                      fontSize: ResponsiveHelper.getFontSize(
+                                          context, 20.0),
                                       fontWeight: FontWeight.w700,
                                       color: Themes.kPrimaryColor,
                                     ),
                                   ),
                                   if (index % 2.5 == 2)
-                                    const Text(
+                                    Text(
                                       "Out Of Stock",
                                       style: TextStyle(
-                                        fontSize: 20.0,
+                                        fontSize: ResponsiveHelper.getFontSize(
+                                            context, 20.0),
                                         fontWeight: FontWeight.w700,
                                         color: Themes.kRedColor,
                                       ),
@@ -272,16 +284,18 @@ class _RegularViewState extends State<RegularView> {
                                 children: [
                                   Text(
                                     data["title"],
-                                    style: const TextStyle(
-                                      fontSize: 18.0,
+                                    style: TextStyle(
+                                      fontSize: ResponsiveHelper.getFontSize(
+                                          context, 18.0),
                                       fontWeight: FontWeight.w700,
                                       color: Themes.kBlackColor,
                                     ),
                                   ),
                                   Text(
                                     "DOP \$${data["price"]}",
-                                    style: const TextStyle(
-                                      fontSize: 24.0,
+                                    style: TextStyle(
+                                      fontSize: ResponsiveHelper.getFontSize(
+                                          context, 24.0),
                                       fontWeight: FontWeight.w700,
                                       color: Themes.kBlackColor,
                                     ),
@@ -316,11 +330,11 @@ class _RegularViewState extends State<RegularView> {
                         color: Themes.kBlackColor.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      child: const Text(
+                      child: Text(
                         "Out\nOf\nStock",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 24.0,
+                          fontSize: ResponsiveHelper.getFontSize(context, 24.0),
                           fontWeight: FontWeight.w600,
                           color: Themes.kWhiteColor,
                         ),
@@ -457,11 +471,11 @@ class _RegularViewState extends State<RegularView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
+          Text(
             "Dine In | User : Paloma Medrano",
             textAlign: TextAlign.start,
             style: TextStyle(
-              fontSize: 14.0,
+              fontSize: ResponsiveHelper.getFontSize(context, 14.0),
               fontWeight: FontWeight.w400,
               color: Themes.kBlackColor,
             ),
@@ -501,14 +515,14 @@ class _RegularViewState extends State<RegularView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Paloma Medrano",
                 style: TextStyle(
-                  fontSize: 18.0,
+                  fontSize: ResponsiveHelper.getFontSize(context, 18.0),
                   fontWeight: FontWeight.w500,
                   color: Themes.kDarkColor,
                 ),
@@ -516,7 +530,7 @@ class _RegularViewState extends State<RegularView> {
               Text(
                 "ccmatua@kedasrd.com - 809-536-9566",
                 style: TextStyle(
-                  fontSize: 14.0,
+                  fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                   fontWeight: FontWeight.w400,
                   color: Themes.kDarkColor,
                 ),
@@ -675,8 +689,8 @@ class _RegularViewState extends State<RegularView> {
                       Text(
                         // "Nachitos Ricos ${index + 1}",
                         data.title,
-                        style: const TextStyle(
-                          fontSize: 16.0,
+                        style: TextStyle(
+                          fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                           fontWeight: FontWeight.w500,
                           color: Themes.kDarkColor,
                         ),
@@ -713,8 +727,9 @@ class _RegularViewState extends State<RegularView> {
                       Obx(
                         () => Text(
                           "DOP \$${data.itemTotal.value.toStringAsFixed(2)}",
-                          style: const TextStyle(
-                            fontSize: 16.0,
+                          style: TextStyle(
+                            fontSize:
+                                ResponsiveHelper.getFontSize(context, 16.0),
                             fontWeight: FontWeight.w500,
                             color: Themes.kPrimaryColor,
                           ),
@@ -770,8 +785,8 @@ class _RegularViewState extends State<RegularView> {
                 const SizedBox(width: 4.0),
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 13.0,
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(context, 13.0),
                     fontWeight: FontWeight.w500,
                     color: Themes.kWhiteColor,
                   ),
@@ -816,8 +831,8 @@ class _RegularViewState extends State<RegularView> {
                       alignment: Alignment.center,
                       child: Text(
                         data["title"],
-                        style: const TextStyle(
-                          fontSize: 20.0,
+                        style: TextStyle(
+                          fontSize: ResponsiveHelper.getFontSize(context, 20.0),
                           fontWeight: FontWeight.bold,
                           color: Themes.kWhiteColor,
                         ),
@@ -877,8 +892,8 @@ class _RegularViewState extends State<RegularView> {
             alignment: Alignment.center,
             child: Text(
               title,
-              style: const TextStyle(
-                fontSize: 16.0,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                 fontWeight: FontWeight.w500,
                 color: Themes.kWhiteColor,
               ),
@@ -925,8 +940,8 @@ class _RegularViewState extends State<RegularView> {
                 Text(
                   data["title"],
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20.0,
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(context, 20.0),
                     fontWeight: FontWeight.w700,
                     color: Themes.kDarkColor,
                   ),
@@ -934,8 +949,8 @@ class _RegularViewState extends State<RegularView> {
                 Text(
                   "DOP \$${data["price"]}",
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20.0,
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(context, 20.0),
                     fontWeight: FontWeight.w700,
                     color: Themes.kPrimaryColor,
                   ),
@@ -945,10 +960,10 @@ class _RegularViewState extends State<RegularView> {
           ],
         ),
         const SizedBox(height: 16.0),
-        const Text(
+        Text(
           "Lorem ipsum dolor sit amet consectetur. Gravida vulputate senectus cras id vel. Vulputate tortor turpis fames ut pulvinar sed sagittis. Velit convallis commodo pretium amet suscipit pretium orci.",
           style: TextStyle(
-            fontSize: 14.0,
+            fontSize: ResponsiveHelper.getFontSize(context, 14.0),
             color: Themes.kBlackColor,
           ),
         ),

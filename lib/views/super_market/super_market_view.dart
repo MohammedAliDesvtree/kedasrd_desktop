@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/images.dart';
@@ -168,18 +169,20 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                         const CustomDigitText(title: "No. Items", amount: "03"),
                         Constants.divider(context, 8.0),
                         const SizedBox(height: 8.0),
-                        const Text(
+                        Text(
                           "Payments",
                           style: TextStyle(
-                            fontSize: 30.0,
+                            fontSize:
+                                ResponsiveHelper.getFontSize(context, 30.0),
                             fontWeight: FontWeight.w600,
                             color: Themes.kPrimaryColor,
                           ),
                         ),
-                        const Text(
+                        Text(
                           "\$250.00",
                           style: TextStyle(
-                            fontSize: 30.0,
+                            fontSize:
+                                ResponsiveHelper.getFontSize(context, 30.0),
                             fontWeight: FontWeight.w700,
                             color: Themes.kDarkColor,
                           ),
@@ -209,8 +212,8 @@ class _SuperMarketViewState extends State<SuperMarketView> {
       width: title == "" ? 30.0 : size.width / 8.9,
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 16.0,
+        style: TextStyle(
+          fontSize: ResponsiveHelper.getFontSize(context, 16.0),
           fontWeight: FontWeight.w600,
           color: Themes.kPrimaryColor,
         ),
@@ -235,13 +238,15 @@ class _SuperMarketViewState extends State<SuperMarketView> {
             cursorHeight: 14.0,
             textAlign: TextAlign.center,
             textAlignVertical: TextAlignVertical.center,
-            style: const TextStyle(fontSize: 14.0, color: Themes.kBlackColor),
+            style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                color: Themes.kBlackColor),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
               border: InputBorder.none,
               hintText: "0",
               hintStyle: TextStyle(
-                fontSize: 14.0,
+                fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                 color: Themes.kGreyColor[500],
               ),
             ),

@@ -5,6 +5,7 @@ import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/widgets/custom_dropdowns.dart';
 import 'package:kedasrd_windows/widgets/custom_searchbar.dart';
@@ -28,7 +29,8 @@ class CustomItemsDialog extends StatelessWidget {
     return Dialog(
       child: Container(
         height: size.height / 1.6,
-        width: size.width / 1.8,
+        width:
+            ResponsiveHelper.isTablet(context) ? size.width : size.width / 1.8,
         decoration: BoxDecoration(
             color: Themes.kWhiteColor,
             borderRadius: BorderRadius.circular(8.0)),
@@ -44,8 +46,8 @@ class CustomItemsDialog extends StatelessWidget {
                   Center(
                     child: Text(
                       title,
-                      style: const TextStyle(
-                        fontSize: 24.0,
+                      style: TextStyle(
+                        fontSize: ResponsiveHelper.getFontSize(context, 24.0),
                         fontWeight: FontWeight.bold,
                         color: Themes.kPrimaryColor,
                       ),
@@ -57,9 +59,10 @@ class CustomItemsDialog extends StatelessWidget {
             ),
             // Scrollable Content
             Row(
-              mainAxisAlignment: title.contains("Orders")
-                  ? MainAxisAlignment.center
-                  : MainAxisAlignment.start,
+              // mainAxisAlignment: title.contains("Orders")
+              //     ? MainAxisAlignment.center
+              //     : MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CustomSearchBar(hintText: "Search $hintText"),
                 if (title.contains("Orders") ||
@@ -129,21 +132,21 @@ class CustomItemsDialog extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                headerText("key", "Customer", size),
+                headerText(context, "key", "Customer", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Table", size),
+                headerText(context, "key", "Table", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Order No.", size),
+                headerText(context, "key", "Order No.", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Total", size),
+                headerText(context, "key", "Total", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Status", size),
+                headerText(context, "key", "Status", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Date", size),
+                headerText(context, "key", "Date", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Time", size),
+                headerText(context, "key", "Time", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "", size),
+                headerText(context, "key", "", size),
               ],
             ),
           ),
@@ -162,20 +165,21 @@ class CustomItemsDialog extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          headerText("value", "Paloma Medrano", size),
+                          headerText(context, "value", "Paloma Medrano", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "Table 12 (Chair 5)", size),
+                          headerText(
+                              context, "value", "Table 12 (Chair 5)", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "141212", size),
+                          headerText(context, "value", "141212", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "\$1605", size),
+                          headerText(context, "value", "\$1605", size),
                           const SizedBox(width: 8.0),
-                          headerText("value",
+                          headerText(context, "value",
                               title == "Draft" ? "Draft" : "Deleted", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "01/01/2025", size),
+                          headerText(context, "value", "01/01/2025", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "02:52 AM", size),
+                          headerText(context, "value", "02:52 AM", size),
                           const SizedBox(width: 8.0),
                           actionButton(context, size, index)
                         ],
@@ -201,17 +205,17 @@ class CustomItemsDialog extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                headerText("key", "Item Description", size),
+                headerText(context, "key", "Item Description", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Code", size),
+                headerText(context, "key", "Code", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Price", size),
+                headerText(context, "key", "Price", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Status", size),
+                headerText(context, "key", "Status", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Discount", size),
+                headerText(context, "key", "Discount", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Cart", size),
+                headerText(context, "key", "Cart", size),
               ],
             ),
           ),
@@ -230,18 +234,19 @@ class CustomItemsDialog extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          headerText("value", "Nachitos Ricos", size),
+                          headerText(context, "value", "Nachitos Ricos", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "64913826", size),
+                          headerText(context, "value", "64913826", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "DOP \$512.16", size),
+                          headerText(context, "value", "DOP \$512.16", size),
                           const SizedBox(width: 8.0),
                           headerText(
+                              context,
                               "value",
                               index % 3 != 1 ? "In Stock" : "Out Of Stock",
                               size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "\$0.00", size),
+                          headerText(context, "value", "\$0.00", size),
                           const SizedBox(width: 8.0),
                           Container(
                             width: size.width / 1.8 / 8.2,
@@ -277,17 +282,17 @@ class CustomItemsDialog extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                headerText("key", "Name", size),
+                headerText(context, "key", "Name", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Phone No.", size),
+                headerText(context, "key", "Phone No.", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Mobile", size),
+                headerText(context, "key", "Mobile", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Email", size),
+                headerText(context, "key", "Email", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Tax ID", size),
+                headerText(context, "key", "Tax ID", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Balance", size),
+                headerText(context, "key", "Balance", size),
               ],
             ),
           ),
@@ -306,17 +311,18 @@ class CustomItemsDialog extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          headerText("value", "Paloma Medrano", size),
+                          headerText(context, "value", "Paloma Medrano", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "0276744518", size),
+                          headerText(context, "value", "0276744518", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "9856320147", size),
+                          headerText(context, "value", "9856320147", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "mesa10@kedas.com", size),
+                          headerText(
+                              context, "value", "mesa10@kedas.com", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "131174884", size),
+                          headerText(context, "value", "131174884", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "0.00", size),
+                          headerText(context, "value", "0.00", size),
                         ],
                       ),
                     );
@@ -340,21 +346,21 @@ class CustomItemsDialog extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                headerText("key", "Customer", size),
+                headerText(context, "key", "Customer", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Invoice No.", size),
+                headerText(context, "key", "Invoice No.", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Total", size),
+                headerText(context, "key", "Total", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Status", size),
+                headerText(context, "key", "Status", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "NCF", size),
+                headerText(context, "key", "NCF", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Date", size),
+                headerText(context, "key", "Date", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "Time", size),
+                headerText(context, "key", "Time", size),
                 const SizedBox(width: 8.0),
-                headerText("key", "", size),
+                headerText(context, "key", "", size),
               ],
             ),
           ),
@@ -373,13 +379,14 @@ class CustomItemsDialog extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          headerText("value", "Paloma Medrano", size),
+                          headerText(context, "value", "Paloma Medrano", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "SC009238110", size),
+                          headerText(context, "value", "SC009238110", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "\$512.16", size),
+                          headerText(context, "value", "\$512.16", size),
                           const SizedBox(width: 8.0),
                           headerText(
+                              context,
                               "value",
                               index % 2 != 1
                                   ? "Paid"
@@ -388,11 +395,11 @@ class CustomItemsDialog extends StatelessWidget {
                                       : "Deleted",
                               size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "B0100000147", size),
+                          headerText(context, "value", "B0100000147", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "01/01/2025", size),
+                          headerText(context, "value", "01/01/2025", size),
                           const SizedBox(width: 8.0),
-                          headerText("value", "02:52 AM", size),
+                          headerText(context, "value", "02:52 AM", size),
                           const SizedBox(width: 8.0),
                           actionButton(context, size, index)
                         ],
@@ -470,12 +477,14 @@ class CustomItemsDialog extends StatelessWidget {
           ),
           child: Container(
             height: 52.0,
-            width: size.width / 3 / 3,
+            width: ResponsiveHelper.isTablet(context)
+                ? size.width / 2 / 2
+                : size.width / 3 / 3,
             alignment: Alignment.center,
             child: Text(
               title,
-              style: const TextStyle(
-                fontSize: 16.0,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                 fontWeight: FontWeight.bold,
                 color: Themes.kWhiteColor,
               ),
@@ -499,12 +508,14 @@ class CustomItemsDialog extends StatelessWidget {
               border: Border.all(width: 0.6, color: Themes.kGreyColor)),
           child: Container(
             height: 52.0,
-            width: size.width / 12.2,
+            width: ResponsiveHelper.isTablet(context)
+                ? size.width / 8.0
+                : size.width / 12.2,
             alignment: Alignment.center,
             child: Text(
               title,
-              style: const TextStyle(
-                fontSize: 16.0,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                 fontWeight: FontWeight.bold,
                 color: Themes.kDarkColor,
               ),
@@ -515,7 +526,8 @@ class CustomItemsDialog extends StatelessWidget {
     );
   }
 
-  Widget headerText(String type, String title, Size size) {
+  Widget headerText(
+      BuildContext context, String type, String title, Size size) {
     return SizedBox(
       width: title == ""
           ? 30.0
@@ -528,7 +540,7 @@ class CustomItemsDialog extends StatelessWidget {
       child: Text(
         type == "key" ? title.toUpperCase() : title,
         style: TextStyle(
-          fontSize: 16.0,
+          fontSize: ResponsiveHelper.getFontSize(context, 16.0),
           fontWeight: FontWeight.w600,
           color: title == "Paid" || title == "In Stock"
               ? Themes.kGreenColor

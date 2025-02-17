@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 
 class CustomAddButton extends StatelessWidget {
@@ -50,8 +51,8 @@ class CustomAddButton extends StatelessWidget {
                 const SizedBox(width: 8.0),
                 Text(
                   "Add".toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 13.0,
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(context, 13.0),
                     fontWeight: FontWeight.w700,
                     color: Themes.kWhiteColor,
                   ),

@@ -41,15 +41,21 @@ void main() async {
 
 void setWindowSizeLimits() async {
   await windowManager.ensureInitialized();
-  // final size = await windowManager.getSize();
+  final size = await windowManager.getSize();
 
   WindowOptions windowOptions = const WindowOptions(
     center: true,
+    skipTaskbar: false,
     titleBarStyle: TitleBarStyle.normal,
+    // Minimum size that works well for tablets
+    size: Size(1280, 720),
+    minimumSize: Size(800, 600),
+    // Allow window to be maximized
+    // maximumSize: Size.infinite,
     // MacOS
-    size: Size(1920, 990),
-    minimumSize: Size(1920, 990),
-    maximumSize: Size.infinite,
+    // size: Size(1920, 990),
+    // minimumSize: Size(1920, 990),
+    // maximumSize: Size.infinite,
     // Windows
     // size: Size(1920, 990),
     // minimumSize: Size(1920, 990),
@@ -61,9 +67,15 @@ void setWindowSizeLimits() async {
   );
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.setSize(size);
     await windowManager.show();
     await windowManager.focus();
-    await windowManager.setResizable(false);
+    // Center window
+    await windowManager.center();
+    // Maximize window
+    await windowManager.maximize();
+    // Allow resizing for better responsiveness
+    await windowManager.setResizable(true);
   });
 }
 

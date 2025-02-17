@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   final String title, msg;
@@ -23,8 +24,8 @@ class CustomAlertDialog extends StatelessWidget {
       title: Text(
         title,
         textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontSize: 24.0,
+        style: TextStyle(
+          fontSize: ResponsiveHelper.getFontSize(context, 24.0),
           fontWeight: FontWeight.bold,
           color: Themes.kBlackColor,
         ),
@@ -32,20 +33,20 @@ class CustomAlertDialog extends StatelessWidget {
       content: Text(
         msg,
         textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontSize: 16.0,
+        style: TextStyle(
+          fontSize: ResponsiveHelper.getFontSize(context, 16.0),
           fontWeight: FontWeight.w400,
           color: Themes.kBlackColor,
         ),
       ),
       actions: <Widget>[
-        dialogButton(negativeBtn ?? "No"),
-        dialogButton(positiveBtn ?? "Yes"),
+        dialogButton(context, negativeBtn ?? "No"),
+        dialogButton(context, positiveBtn ?? "Yes"),
       ],
     );
   }
 
-  Widget dialogButton(String title) {
+  Widget dialogButton(BuildContext context, String title) {
     return Material(
       color: Themes.kTransparent,
       child: InkWell(
@@ -69,8 +70,8 @@ class CustomAlertDialog extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               title,
-              style: const TextStyle(
-                fontSize: 16.0,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                 fontWeight: FontWeight.bold,
                 color: Themes.kWhiteColor,
               ),

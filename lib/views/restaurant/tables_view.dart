@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/images.dart';
@@ -215,16 +216,16 @@ class _TablesViewState extends State<TablesView> {
                 Text(
                   "Table ${index + 1}",
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 16.0,
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                     fontWeight: FontWeight.w400,
                     color: Themes.kDarkColor,
                   ),
                 ),
                 Text(
                   "Capacity - $randomNumber",
-                  style: const TextStyle(
-                    fontSize: 14.0,
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                     fontWeight: FontWeight.w400,
                     color: Themes.kPrimaryColor,
                   ),

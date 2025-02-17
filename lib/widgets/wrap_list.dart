@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/controllers/drawer_controller.dart';
 
@@ -24,6 +25,11 @@ class _WrapListState extends State<WrapList> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
+
+    // Calculate item width for 3 items per row with spacing
+    final itemWidth =
+        (size.width - 64) / 3; // Account for padding and spacing between items
+
     return Wrap(
       runSpacing: 16.0,
       spacing: 16.0,
@@ -35,7 +41,9 @@ class _WrapListState extends State<WrapList> {
             onTap: () => widget.onItemTap(data["title"]),
             child: Container(
               height: 161.0,
-              width: size.width / 3.6,
+              width: ResponsiveHelper.isDesktop(context)
+                  ? size.width / 3.6
+                  : size.width / 4.0,
               // padding:
               //     const EdgeInsets.symmetric(horizontal: 16.0),
               decoration:
@@ -46,13 +54,15 @@ class _WrapListState extends State<WrapList> {
                   children: [
                     Image.asset(
                       data["image"],
-                      // height: 161.0,
+                      height: size.height,
                       width: size.width,
-                      fit: BoxFit.fitWidth,
+                      fit: BoxFit.cover,
                     ),
                     Container(
                       // height: 161.0,
-                      width: size.width,
+                      width: ResponsiveHelper.isDesktop(context)
+                          ? size.width / 3.6
+                          : size.width / 4.0,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                             begin: Alignment.topCenter,
@@ -73,8 +83,8 @@ class _WrapListState extends State<WrapList> {
                       child: Text(
                         "${data["title"]}",
                         textAlign: TextAlign.left,
-                        style: const TextStyle(
-                          fontSize: 18.0,
+                        style: TextStyle(
+                          fontSize: ResponsiveHelper.getFontSize(context, 18.0),
                           fontWeight: FontWeight.w500,
                           color: Themes.kWhiteColor,
                         ),

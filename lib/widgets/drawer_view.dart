@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/controllers/drawer_controller.dart';
 import 'package:kedasrd_windows/controllers/tables_controller.dart';
@@ -27,7 +28,7 @@ class _DrawerViewState extends State<DrawerView> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return Container(
-      width: size.width / 8,
+      width: ResponsiveHelper.getDrawerWidth(context),
       color: Themes.kWhiteColor,
       child: Column(
         children: [
@@ -35,8 +36,8 @@ class _DrawerViewState extends State<DrawerView> {
             height: 70.0,
             child: Image.asset(
               Images.kedasPos,
-              height: 24.0,
-              width: 145.0,
+              height: ResponsiveHelper.isDesktop(context) ? 24.0 : 20.0,
+              width: ResponsiveHelper.isDesktop(context) ? 145.0 : 120.0,
             ),
           ),
           const SizedBox(height: 12.0),
@@ -67,7 +68,10 @@ class _DrawerViewState extends State<DrawerView> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 24.0),
+                                SizedBox(
+                                    width: ResponsiveHelper.isDesktop(context)
+                                        ? 24.0
+                                        : 16.0),
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () => controller
@@ -76,7 +80,7 @@ class _DrawerViewState extends State<DrawerView> {
                                       height: 50.0,
                                       width: size.width,
                                       padding: const EdgeInsets.only(
-                                          left: 44.0, right: 16.0),
+                                          left: 16.0, right: 16.0),
                                       decoration: BoxDecoration(
                                         color: controller.isMainSelected(index)
                                             ? Themes.kPrimaryColor
@@ -88,16 +92,31 @@ class _DrawerViewState extends State<DrawerView> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            data["title"],
-                                            style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w700,
-                                              color: controller
-                                                      .isMainSelected(index)
-                                                  ? Themes.kWhiteColor
-                                                  : Themes.kDarkColor,
-                                            ),
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                data["icon"],
+                                                height: 18.0,
+                                                color: Themes.kWhiteColor,
+                                              ),
+                                              const SizedBox(width: 8.0),
+                                              if (ResponsiveHelper.isDesktop(
+                                                  context))
+                                                Text(
+                                                  data["title"],
+                                                  style: TextStyle(
+                                                    fontSize: ResponsiveHelper
+                                                        .getFontSize(
+                                                            context, 14.0),
+                                                    fontWeight: FontWeight.w700,
+                                                    color: controller
+                                                            .isMainSelected(
+                                                                index)
+                                                        ? Themes.kWhiteColor
+                                                        : Themes.kDarkColor,
+                                                  ),
+                                                ),
+                                            ],
                                           ),
                                           index != 0
                                               ? const SizedBox.shrink()
@@ -194,18 +213,19 @@ class _DrawerViewState extends State<DrawerView> {
                   : Themes.kDarkColor,
             ),
             const SizedBox(width: 14.0),
-            Text(
-              data["title"],
-              style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: controller.isInnerSelected(innerIndex)
-                    ? FontWeight.w900
-                    : FontWeight.w600,
-                color: controller.isInnerSelected(innerIndex)
-                    ? Themes.kPrimaryColor
-                    : Themes.kDarkColor,
+            if (ResponsiveHelper.isDesktop(context))
+              Text(
+                data["title"],
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                  fontWeight: controller.isInnerSelected(innerIndex)
+                      ? FontWeight.w900
+                      : FontWeight.w600,
+                  color: controller.isInnerSelected(innerIndex)
+                      ? Themes.kPrimaryColor
+                      : Themes.kDarkColor,
+                ),
               ),
-            ),
           ],
         ),
       ),
@@ -279,8 +299,8 @@ class _DrawerViewState extends State<DrawerView> {
             const SizedBox(width: 14.0),
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 14.0,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                 fontWeight: FontWeight.w600,
                 color: Themes.kDarkColor,
               ),

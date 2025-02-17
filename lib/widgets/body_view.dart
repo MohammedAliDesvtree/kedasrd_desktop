@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/views/home_view.dart';
 import 'package:kedasrd_windows/views/regular/regular_view.dart';
@@ -44,7 +45,7 @@ class _BodyViewState extends State<BodyView> {
     Size size = MediaQuery.sizeOf(context);
     return Container(
       height: size.height - 70.0,
-      padding: const EdgeInsets.all(24.0),
+      padding: ResponsiveHelper.getBodyPadding(context),
       color: Themes.kLightColor,
       child: Obx(() {
         return Column(
@@ -61,62 +62,69 @@ class _BodyViewState extends State<BodyView> {
                   ),
                 Text(
                   widget.title.value,
-                  style: const TextStyle(
-                    fontSize: 32.0,
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(context, 32.0),
                     fontWeight: FontWeight.w700,
                     color: Themes.kDarkColor,
                   ),
                 ),
-                if (controller.shouldShowSearchBar())
-                  const CustomSearchBar(hintText: "Search"),
-                if (controller.shouldShowDropdowns())
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
                     children: [
-                      const SizedBox(width: 16.0),
-                      SizedBox(
-                        width: size.width / 5.8,
-                        child: CustomDropdowns(
-                          listData: DummyData.priceListItems,
-                          hintText: "Price List",
-                          borderRadius: 100.0,
-                          isOutlined: true,
+                      if (controller.shouldShowSearchBar())
+                        const CustomSearchBar(hintText: "Search"),
+                      if (controller.shouldShowDropdowns())
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(width: 16.0),
+                            SizedBox(
+                              width: ResponsiveHelper.getDropdownWidth(context),
+                              child: CustomDropdowns(
+                                listData: DummyData.priceListItems,
+                                hintText: "Price List",
+                                borderRadius: 100.0,
+                                isOutlined: true,
+                              ),
+                            ),
+                            const SizedBox(width: 16.0),
+                            SizedBox(
+                              width: ResponsiveHelper.getDropdownWidth(context),
+                              child: CustomDropdowns(
+                                listData: DummyData.categoryItems,
+                                hintText: "Select Category",
+                                borderRadius: 100.0,
+                                isOutlined: true,
+                              ),
+                            ),
+                            const SizedBox(width: 16.0),
+                            SizedBox(
+                              width: ResponsiveHelper.getDropdownWidth(context),
+                              child: CustomDropdowns(
+                                listData: DummyData.currencyItems,
+                                hintText: "Select Currency",
+                                borderRadius: 100.0,
+                                isOutlined: true,
+                              ),
+                            ),
+                            const SizedBox(width: 16.0),
+                          ],
                         ),
-                      ),
-                      const SizedBox(width: 16.0),
-                      SizedBox(
-                        width: size.width / 5.8,
-                        child: CustomDropdowns(
-                          listData: DummyData.categoryItems,
-                          hintText: "Select Category",
-                          borderRadius: 100.0,
-                          isOutlined: true,
+                      if (controller.shouldShowFilter())
+                        SizedBox(
+                          width: ResponsiveHelper.getDropdownWidth(context),
+                          child: CustomDropdowns(
+                            listData: DummyData.filterItems,
+                            hintText: "Select Filter",
+                            borderRadius: 100.0,
+                            isOutlined: true,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 16.0),
-                      SizedBox(
-                        width: size.width / 5.8,
-                        child: CustomDropdowns(
-                          listData: DummyData.currencyItems,
-                          hintText: "Select Currency",
-                          borderRadius: 100.0,
-                          isOutlined: true,
-                        ),
-                      ),
-                      const SizedBox(width: 16.0),
+                      if (controller.shouldShowCounts()) totalCountView(),
                     ],
                   ),
-                if (controller.shouldShowFilter())
-                  SizedBox(
-                    width: size.width / 5.8,
-                    child: CustomDropdowns(
-                      listData: DummyData.filterItems,
-                      hintText: "Select Filter",
-                      borderRadius: 100.0,
-                      isOutlined: true,
-                    ),
-                  ),
-                if (controller.shouldShowCounts()) totalCountView(),
+                ),
               ],
             ),
             const SizedBox(height: 16.0),
@@ -135,10 +143,10 @@ class _BodyViewState extends State<BodyView> {
       alignment: Alignment.center,
       decoration: BoxDecoration(
           color: Themes.kWhiteColor, borderRadius: BorderRadius.circular(8.0)),
-      child: const Text(
+      child: Text(
         "Total Orders : 16",
         style: TextStyle(
-          fontSize: 20.0,
+          fontSize: ResponsiveHelper.getFontSize(context, 20.0),
           fontWeight: FontWeight.bold,
           color: Themes.kPrimaryColor,
         ),

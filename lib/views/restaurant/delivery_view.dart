@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/widgets/custom_close_icon_button.dart';
 
@@ -41,7 +42,9 @@ class _DeliveryViewState extends State<DeliveryView> {
           context, size, "Fast Food", authController, tablesController),
       child: Container(
         height: 70.0,
-        width: size.width / 3.6,
+        width: ResponsiveHelper.isTablet(context)
+            ? size.width / 2.6
+            : size.width / 3.6,
         padding: const EdgeInsets.only(left: 14.0),
         decoration: BoxDecoration(
           color: Themes.kWhiteColor,
@@ -58,7 +61,7 @@ class _DeliveryViewState extends State<DeliveryView> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Column(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -68,7 +71,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                       "Order Id : ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                         fontWeight: FontWeight.w500,
                         color: Themes.kPrimaryColor,
                       ),
@@ -77,21 +80,21 @@ class _DeliveryViewState extends State<DeliveryView> {
                       "140844",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                         fontWeight: FontWeight.w500,
                         color: Themes.kBlackColor,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 3.0),
+                const SizedBox(height: 3.0),
                 Row(
                   children: [
                     Text(
                       "Customer : ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                         fontWeight: FontWeight.w500,
                         color: Themes.kPrimaryColor,
                       ),
@@ -100,7 +103,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                       "Paloma Medrano",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                         fontWeight: FontWeight.w500,
                         color: Themes.kBlackColor,
                       ),

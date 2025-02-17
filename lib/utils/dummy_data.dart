@@ -236,7 +236,7 @@ class DummyData {
 
   static List<dynamic> homeDrawerItems = [
     // {"icon": Images.shifts, "title": "Dashboard"},
-    {"icon": Images.shifts, "title": "POS"},
+    {"icon": Images.pos, "title": "POS"},
     // {"icon": Images.setting, "title": "Trash"},
   ];
 

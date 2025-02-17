@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
 
@@ -26,8 +27,8 @@ class CustomPayButton extends StatelessWidget {
             child: Text(
               "Pay \$$amount",
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 18.0,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 18.0),
                 fontWeight: FontWeight.w600,
                 color: Themes.kWhiteColor,
               ),

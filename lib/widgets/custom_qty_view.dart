@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 
 class CustomQtyView extends StatelessWidget {
@@ -32,8 +33,8 @@ class CustomQtyView extends StatelessWidget {
           qtyButton(Images.less, onDecrease),
           Text(
             "$initialValue",
-            style: const TextStyle(
-              fontSize: 12.0,
+            style: TextStyle(
+              fontSize: ResponsiveHelper.getFontSize(context, 12.0),
               fontWeight: FontWeight.w500,
               color: Themes.kBlackColor,
             ),

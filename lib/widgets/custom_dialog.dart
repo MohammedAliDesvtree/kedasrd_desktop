@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 
@@ -46,7 +47,9 @@ class _CustomDialogState extends State<CustomDialog> {
     return Dialog(
       child: Container(
         height: widget.height ?? size.height / 2.5,
-        width: size.width / 4,
+        width: ResponsiveHelper.isTablet(context)
+            ? size.width / 1.8
+            : size.width / 4,
         decoration: BoxDecoration(
             color: Themes.kWhiteColor,
             borderRadius: BorderRadius.circular(8.0)),
@@ -63,8 +66,8 @@ class _CustomDialogState extends State<CustomDialog> {
                       widget.btnText2 == "Close and Print"
                           ? "Close Shift"
                           : widget.title,
-                      style: const TextStyle(
-                        fontSize: 24.0,
+                      style: TextStyle(
+                        fontSize: ResponsiveHelper.getFontSize(context, 24.0),
                         fontWeight: FontWeight.bold,
                         color: Themes.kPrimaryColor,
                       ),
@@ -181,7 +184,7 @@ class _CustomDialogState extends State<CustomDialog> {
                 title: "Kitchen Order",
                 btnText1: "",
                 scroll: const AlwaysScrollableScrollPhysics(),
-                child: kitchenView(size),
+                child: kitchenView(context, size),
                 height: size.height / 1.42,
               );
             } else if (widget.screenName == "New Order") {
@@ -224,13 +227,17 @@ class _CustomDialogState extends State<CustomDialog> {
           child: Container(
             height: 52.0,
             width: widget.btnText2 != null && widget.btnText2!.isNotEmpty
-                ? size.width / 3 / 4
-                : size.width / 3 / 3,
+                ? ResponsiveHelper.isTablet(context)
+                    ? size.width / 2 / 3
+                    : size.width / 3 / 4
+                : ResponsiveHelper.isTablet(context)
+                    ? size.width / 2 / 2
+                    : size.width / 3 / 3,
             alignment: Alignment.center,
             child: Text(
               title,
-              style: const TextStyle(
-                fontSize: 16.0,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                 fontWeight: FontWeight.bold,
                 color: Themes.kWhiteColor,
               ),
@@ -281,34 +288,35 @@ dynamic openEntryLog(BuildContext context) {
       builder: (context) => const CustomViewDialog());
 }
 
-Widget kitchenView(Size size) {
+Widget kitchenView(BuildContext context, Size size) {
   return Column(
     children: [
       Constants.customView(
+        context,
         size,
         Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Key", "Printed by"),
-                customText("Value", "Elvis Rodriguez"),
+                customText(context, "Key", "Printed by"),
+                customText(context, "Value", "Elvis Rodriguez"),
               ],
             ),
             const SizedBox(height: 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Key", "Date & Time"),
-                customText("Value", "28/01/2025, 05:25 PM"),
+                customText(context, "Key", "Date & Time"),
+                customText(context, "Value", "28/01/2025, 05:25 PM"),
               ],
             ),
             const SizedBox(height: 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Key", "Table No"),
-                customText("Value", "#4"),
+                customText(context, "Key", "Table No"),
+                customText(context, "Value", "#4"),
               ],
             ),
           ],
@@ -316,46 +324,47 @@ Widget kitchenView(Size size) {
       ),
       const SizedBox(height: 14.0),
       Constants.customView(
+        context,
         size,
         Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Key", "Items"),
-                customText("Key", "QTY"),
+                customText(context, "Key", "Items"),
+                customText(context, "Key", "QTY"),
               ],
             ),
             const SizedBox(height: 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Value", "Margerita Pizza"),
-                customText("Value", "2"),
+                customText(context, "Value", "Margerita Pizza"),
+                customText(context, "Value", "2"),
               ],
             ),
             const SizedBox(height: 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Value", "Peri Peri French Fries"),
-                customText("Value", "1"),
+                customText(context, "Value", "Peri Peri French Fries"),
+                customText(context, "Value", "1"),
               ],
             ),
             const SizedBox(height: 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Value", "Coca Cola"),
-                customText("Value", "2"),
+                customText(context, "Value", "Coca Cola"),
+                customText(context, "Value", "2"),
               ],
             ),
             const SizedBox(height: 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Value", "Cheese Ball"),
-                customText("Value", "2"),
+                customText(context, "Value", "Cheese Ball"),
+                customText(context, "Value", "2"),
               ],
             ),
           ],
@@ -363,38 +372,39 @@ Widget kitchenView(Size size) {
       ),
       const SizedBox(height: 14.0),
       Constants.customView(
+        context,
         size,
         Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Key", "Sub Total"),
-                customText("Value", "\$847.46"),
+                customText(context, "Key", "Sub Total"),
+                customText(context, "Value", "\$847.46"),
               ],
             ),
             const SizedBox(height: 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Key", "Tax"),
-                customText("Value", "\$152.00"),
+                customText(context, "Key", "Tax"),
+                customText(context, "Value", "\$152.00"),
               ],
             ),
             const SizedBox(height: 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Key", "Tips"),
-                customText("Value", "\$24.00"),
+                customText(context, "Key", "Tips"),
+                customText(context, "Value", "\$24.00"),
               ],
             ),
             const SizedBox(height: 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Key", "Discount"),
-                customText("Value", "\$50.00"),
+                customText(context, "Key", "Discount"),
+                customText(context, "Value", "\$50.00"),
               ],
             ),
             Container(
@@ -406,8 +416,8 @@ Widget kitchenView(Size size) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Ex", "Total"),
-                customText("Ex", "\$700.00"),
+                customText(context, "Ex", "Total"),
+                customText(context, "Ex", "\$700.00"),
               ],
             ),
           ],
@@ -415,14 +425,15 @@ Widget kitchenView(Size size) {
       ),
       const SizedBox(height: 14.0),
       Constants.customView(
+        context,
         size,
         Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customText("Key", "Payment mode"),
-                customText("Value", "Debit Card"),
+                customText(context, "Key", "Payment mode"),
+                customText(context, "Value", "Debit Card"),
               ],
             ),
           ],
@@ -432,7 +443,7 @@ Widget kitchenView(Size size) {
   );
 }
 
-Widget customText(String type, String txt) {
+Widget customText(BuildContext context, String type, String txt) {
   return Text(
     ((type == "Key" && txt == "QTY") || txt.contains("\$"))
         ? txt
@@ -440,11 +451,13 @@ Widget customText(String type, String txt) {
             ? "$txt :"
             : txt,
     style: TextStyle(
-      fontSize: type == "Key"
-          ? 15.0
-          : type == "Ex"
-              ? 16.0
-              : 14.0,
+      fontSize: ResponsiveHelper.getFontSize(
+          context,
+          type == "Key"
+              ? 15.0
+              : type == "Ex"
+                  ? 16.0
+                  : 14.0),
       fontWeight: type == "Key"
           ? FontWeight.w600
           : type == "Ex"

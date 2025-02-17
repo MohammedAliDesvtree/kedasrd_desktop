@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 
@@ -30,7 +31,9 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
     return Dialog(
       child: Container(
         height: size.height / 1.2,
-        width: size.width / 3.0,
+        width: ResponsiveHelper.isTablet(context)
+            ? size.width / 1.8
+            : size.width / 3.0,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Themes.kWhiteColor,
@@ -87,10 +90,10 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
       padding: const EdgeInsets.symmetric(horizontal: 28.0),
       child: Column(
         children: [
-          const Text(
+          Text(
             "Employee Entry Log",
             style: TextStyle(
-              fontSize: 24.0,
+              fontSize: ResponsiveHelper.getFontSize(context, 24.0),
               fontWeight: FontWeight.w600,
               color: Themes.kDarkColor,
             ),
@@ -114,7 +117,7 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
           Text(
             "Upload your picture",
             style: TextStyle(
-              fontSize: 14.0,
+              fontSize: ResponsiveHelper.getFontSize(context, 14.0),
               fontWeight: FontWeight.w600,
               color: Themes.kBlackColor.withOpacity(0.6),
             ),
@@ -149,10 +152,10 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
                   ),
                 ),
               ),
-              const Text(
+              Text(
                 "Allow Location",
                 style: TextStyle(
-                  fontSize: 14.0,
+                  fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                   fontWeight: FontWeight.w400,
                   color: Themes.kBlackColor,
                 ),
@@ -167,10 +170,10 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
   Widget uploadPhotoSection(Size size) {
     return Column(
       children: [
-        const Text(
+        Text(
           "Take Your Picture to Finish",
           style: TextStyle(
-            fontSize: 24.0,
+            fontSize: ResponsiveHelper.getFontSize(context, 24.0),
             fontWeight: FontWeight.w600,
             color: Themes.kDarkColor,
           ),
@@ -205,10 +208,10 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
               width: 64.0,
             ),
             const SizedBox(height: 4.0),
-            const Text(
+            Text(
               "Upload Photo",
               style: TextStyle(
-                fontSize: 26.0,
+                fontSize: ResponsiveHelper.getFontSize(context, 26.0),
                 fontWeight: FontWeight.w400,
                 color: Themes.kDarkColor,
               ),
@@ -229,10 +232,10 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
                     height: 38.0,
                     width: 142.0,
                     alignment: Alignment.center,
-                    child: const Text(
+                    child: Text(
                       "Select File...",
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                         fontWeight: FontWeight.w600,
                         color: Themes.kWhiteColor,
                       ),
@@ -271,8 +274,8 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
             alignment: Alignment.center,
             child: Text(
               title,
-              style: const TextStyle(
-                fontSize: 16.0,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                 fontWeight: FontWeight.w600,
                 color: Themes.kWhiteColor,
               ),
