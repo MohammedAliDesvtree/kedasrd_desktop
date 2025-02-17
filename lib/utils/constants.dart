@@ -149,7 +149,7 @@ class Constants {
       title: "Please enter your auth code",
       btnText1: "Submit",
       child: const CustomTextInput(hintText: "Enter Code here", isNumber: true),
-      height: size.height / 4,
+      height: size.height / 2.5,
     );
   }
 

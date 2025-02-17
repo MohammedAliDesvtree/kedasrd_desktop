@@ -27,8 +27,8 @@ class _WrapListState extends State<WrapList> {
     Size size = MediaQuery.sizeOf(context);
 
     // Calculate item width for 3 items per row with spacing
-    final itemWidth =
-        (size.width - 64) / 3; // Account for padding and spacing between items
+    // final itemWidth =
+    //     (size.width - 64) / 3; // Account for padding and spacing between items
 
     return Wrap(
       runSpacing: 16.0,
@@ -42,7 +42,7 @@ class _WrapListState extends State<WrapList> {
             child: Container(
               height: 161.0,
               width: ResponsiveHelper.isDesktop(context)
-                  ? size.width / 3.6
+                  ? size.width / 3.9
                   : size.width / 4.0,
               // padding:
               //     const EdgeInsets.symmetric(horizontal: 16.0),

@@ -49,7 +49,7 @@ class CustomDropdowns extends StatelessWidget {
       // initialItem: listData[0],
       return CustomDropdown<String>.search(
         closedHeaderPadding: EdgeInsets.symmetric(
-            horizontal: isOutlined == true ? 16.0 : 0.0, vertical: 12.0),
+            horizontal: isOutlined == true ? 14.0 : 0.0, vertical: 8.0),
         decoration: isOutlined == true
             ? dropdownDecoration(context)
             : lineDropdownDecoration(context),
@@ -70,7 +70,7 @@ class CustomDropdowns extends StatelessWidget {
         closedBorder: Border.all(width: 0.6, color: Themes.kGreyColor),
         closedBorderRadius: BorderRadius.circular(borderRadius ?? 8.0),
         hintStyle: TextStyle(
-            fontSize: ResponsiveHelper.getFontSize(context, 15.0),
+            fontSize: ResponsiveHelper.getFontSize(context, 14.0),
             fontWeight: FontWeight.bold,
             color: Themes.kGreyColor[400]),
         expandedSuffixIcon:
@@ -109,7 +109,9 @@ class CustomDropdowns extends StatelessWidget {
             const ListItemDecoration(selectedIconColor: Themes.kPrimaryColor),
         searchFieldDecoration: SearchFieldDecoration(
           textStyle: const TextStyle(color: Themes.kBlackColor),
-          hintStyle: TextStyle(color: Themes.kGreyColor[500]),
+          hintStyle: TextStyle(
+              fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+              color: Themes.kGreyColor[500]),
         ));
   }
 

@@ -110,15 +110,15 @@ class TablesController extends GetxController {
           btnText1: "Cancel",
           btnText2: "Submit",
           child: const CustomTextInput(hintText: "Discount", isNumber: true),
-          height: size.height / 4,
+          height: size.height / 2.5,
         );
         break;
       case "Cash":
         Constants.openDialog(
           context: context,
           title: "Payment Type : Cash",
-          btnText1: "Complete Order Now",
-          height: size.height / 2.35,
+          btnText1: "Complete Order",
+          height: size.height / 1.5,
           child: cashView(),
         );
         break;
@@ -324,6 +324,7 @@ class TablesController extends GetxController {
                   ],
                 ),
               ),
+              const SizedBox(height: 16.0),
             ],
           ),
       ],

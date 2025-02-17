@@ -30,7 +30,7 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
 
     return Dialog(
       child: Container(
-        height: size.height / 1.2,
+        height: size.height,
         width: ResponsiveHelper.isTablet(context)
             ? size.width / 1.8
             : size.width / 3.0,
@@ -53,7 +53,7 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 24.0),
+                // const SizedBox(height: 24.0),
                 Align(
                   alignment: Alignment.center,
                   child: Column(
@@ -66,7 +66,7 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
                             ? inputSection()
                             : uploadPhotoSection(size),
                       ),
-                      const SizedBox(height: 64.0),
+                      const SizedBox(height: 44.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -104,8 +104,8 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
             child: InkWell(
               borderRadius: BorderRadius.circular(92.0),
               child: Ink(
-                height: 124.0,
-                width: 124.0,
+                height: 108.0,
+                width: 108.0,
                 decoration: BoxDecoration(
                   color: Themes.kGreyColor.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(92.0),

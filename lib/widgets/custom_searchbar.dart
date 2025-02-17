@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 
 class CustomSearchBar extends StatefulWidget {
@@ -14,11 +15,11 @@ class CustomSearchBar extends StatefulWidget {
 class _CustomSearchBarState extends State<CustomSearchBar> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.sizeOf(context);
     return Container(
-      width: size.width / 5.8,
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      height: 40.0,
+      width: ResponsiveHelper.getDropdownWidth(context),
+      margin: const EdgeInsets.symmetric(horizontal: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       decoration: BoxDecoration(
           color: Themes.kWhiteColor,
           borderRadius: BorderRadius.circular(48.0),
@@ -27,12 +28,12 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
         // controller: controller.searchController,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
-          // contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
+          contentPadding: const EdgeInsets.symmetric(vertical: 16.5),
           border: InputBorder.none,
           hintText: widget.hintText,
-          hintStyle: const TextStyle(color: Themes.kGreyColor),
+          hintStyle: const TextStyle(fontSize: 14.0, color: Themes.kGreyColor),
           prefixIcon: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: Image.asset(
               Images.search,
               height: 24.0,

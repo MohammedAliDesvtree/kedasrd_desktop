@@ -39,7 +39,7 @@ class CustomAddButton extends StatelessWidget {
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(
-                vertical: paddingVR ?? 10.0, horizontal: 16.0),
+                vertical: paddingVR ?? 10.0, horizontal: 14.0),
             child: Row(
               children: [
                 Image.asset(

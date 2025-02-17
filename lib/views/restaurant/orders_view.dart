@@ -49,7 +49,7 @@ class _OrdersViewState extends State<OrdersView> {
                 child: Container(
                   height: 161.0,
                   width: ResponsiveHelper.isDesktop(context)
-                      ? size.width / 3.6
+                      ? size.width / 3.9
                       : size.width / 4.0,
                   alignment: Alignment.center,
                   child: Text(

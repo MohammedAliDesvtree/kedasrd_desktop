@@ -165,7 +165,7 @@ class _DrawerViewState extends State<DrawerView> {
             Images.logout,
             size,
           ),
-          const SizedBox(height: 84.0)
+          const SizedBox(height: 24.0)
         ],
       ),
     );

@@ -46,10 +46,10 @@ class _CustomDialogState extends State<CustomDialog> {
     Size size = MediaQuery.sizeOf(context);
     return Dialog(
       child: Container(
-        height: widget.height ?? size.height / 2.5,
+        height: widget.height ?? size.height / 1.6,
         width: ResponsiveHelper.isTablet(context)
-            ? size.width / 1.8
-            : size.width / 4,
+            ? size.width / 1.6
+            : size.width / 2.8,
         decoration: BoxDecoration(
             color: Themes.kWhiteColor,
             borderRadius: BorderRadius.circular(8.0)),
@@ -185,7 +185,7 @@ class _CustomDialogState extends State<CustomDialog> {
                 btnText1: "",
                 scroll: const AlwaysScrollableScrollPhysics(),
                 child: kitchenView(context, size),
-                height: size.height / 1.42,
+                height: size.height,
               );
             } else if (widget.screenName == "New Order") {
               drawerMenuController.onMenuInnerItemTapped(
@@ -212,7 +212,7 @@ class _CustomDialogState extends State<CustomDialog> {
                 title: "Payment Info",
                 btnText1: "Pay",
                 child: payInputSection(),
-                height: size.height / 2.2,
+                height: size.height / 1.4,
               );
             }
           } else if (title.contains("Product")) {
@@ -229,7 +229,7 @@ class _CustomDialogState extends State<CustomDialog> {
             width: widget.btnText2 != null && widget.btnText2!.isNotEmpty
                 ? ResponsiveHelper.isTablet(context)
                     ? size.width / 2 / 3
-                    : size.width / 3 / 4
+                    : size.width / 3 / 3
                 : ResponsiveHelper.isTablet(context)
                     ? size.width / 2 / 2
                     : size.width / 3 / 3,
@@ -237,7 +237,7 @@ class _CustomDialogState extends State<CustomDialog> {
             child: Text(
               title,
               style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                 fontWeight: FontWeight.bold,
                 color: Themes.kWhiteColor,
               ),

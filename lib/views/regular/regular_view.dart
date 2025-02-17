@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:kedasrd_windows/controllers/common_controller.dart';
 import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
@@ -35,6 +36,7 @@ class _RegularViewState extends State<RegularView> {
   final RegularController controller = Get.put(RegularController());
   final CartController cartController = Get.find<CartController>();
   final TablesController tableController = Get.find<TablesController>();
+  final CommonController commonController = Get.find<CommonController>();
 
   @override
   void initState() {
@@ -79,7 +81,7 @@ class _RegularViewState extends State<RegularView> {
         const SizedBox(width: 24.0),
         Container(
           width: ResponsiveHelper.isDesktop(context)
-              ? 500.0
+              ? 300.0
               : ResponsiveHelper.isTablet(context)
                   ? 264.0
                   : size.width * 0.9,
@@ -136,9 +138,9 @@ class _RegularViewState extends State<RegularView> {
                           }
                         },
                   child: Ink(
-                    height: 300.0,
+                    height: 224.0,
                     width: ResponsiveHelper.isDesktop(context)
-                        ? size.width / 5.52
+                        ? size.width / 5.70
                         : ResponsiveHelper.isTablet(context)
                             ? size.width / 3.5
                             : size.width / 2.2,
@@ -163,14 +165,14 @@ class _RegularViewState extends State<RegularView> {
                               topRight: Radius.circular(8.0)),
                           child: Image.asset(
                             data["image"],
-                            height: 200,
+                            height: 164,
                             width: size.width,
                             fit: BoxFit.cover,
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 12.0, left: 16.0, right: 16.0),
+                              top: 4.0, left: 12.0, right: 12.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -178,12 +180,12 @@ class _RegularViewState extends State<RegularView> {
                                 data["title"],
                                 style: TextStyle(
                                   fontSize: ResponsiveHelper.getFontSize(
-                                      context, 20.0),
+                                      context, 16.0),
                                   fontWeight: FontWeight.w700,
                                   color: Themes.kBlackColor,
                                 ),
                               ),
-                              const SizedBox(height: 8.0),
+                              const SizedBox(height: 4.0),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -192,7 +194,7 @@ class _RegularViewState extends State<RegularView> {
                                     "DOP \$${data["price"]}",
                                     style: TextStyle(
                                       fontSize: ResponsiveHelper.getFontSize(
-                                          context, 20.0),
+                                          context, 16.0),
                                       fontWeight: FontWeight.w700,
                                       color: Themes.kPrimaryColor,
                                     ),
@@ -202,7 +204,7 @@ class _RegularViewState extends State<RegularView> {
                                       "Out Of Stock",
                                       style: TextStyle(
                                         fontSize: ResponsiveHelper.getFontSize(
-                                            context, 20.0),
+                                            context, 16.0),
                                         fontWeight: FontWeight.w700,
                                         color: Themes.kRedColor,
                                       ),
@@ -351,14 +353,17 @@ class _RegularViewState extends State<RegularView> {
 
   Widget cartView(Size size) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
+      padding: const EdgeInsets.symmetric(vertical: 14.0),
       child: Column(
         children: [
           Row(
             children: [
               Obx(
                 () => controller.isSearchVisible.value
-                    ? const CustomSearchBar(hintText: "Search Customer")
+                    ? SizedBox(
+                        width: size.width / 6.0,
+                        child:
+                            const CustomSearchBar(hintText: "Search Customer"))
                     : customerDetails(size),
               ),
               CustomAddButton(
@@ -372,7 +377,7 @@ class _RegularViewState extends State<RegularView> {
               ),
             ],
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 8.0),
           if (widget.title!.contains("Food")) dineInSection(),
           Expanded(
             child: Padding(
@@ -387,9 +392,21 @@ class _RegularViewState extends State<RegularView> {
                           : cartItemsSection(),
                     ),
                   ),
-                  const SizedBox(height: 24.0),
-                  digitsView(),
-                  const SizedBox(height: 24.0),
+                  const SizedBox(height: 14.0),
+                  totalView(),
+                  const SizedBox(height: 10.0),
+                  Obx(() {
+                    if (commonController.isDigitsViewVisible.value) {
+                      return Column(
+                        children: [
+                          digitsView(),
+                          const SizedBox(height: 16.0),
+                        ],
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  }),
                   widget.title!.contains("Store")
                       ? bottomButton(size)
                       : Row(
@@ -433,7 +450,7 @@ class _RegularViewState extends State<RegularView> {
                   if (widget.title!.contains("Food"))
                     Column(
                       children: [
-                        const SizedBox(height: 16.0),
+                        const SizedBox(height: 8.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -467,7 +484,7 @@ class _RegularViewState extends State<RegularView> {
 
   Widget dineInSection() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+      padding: const EdgeInsets.only(left: 14.0, right: 14.0, bottom: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -496,10 +513,10 @@ class _RegularViewState extends State<RegularView> {
 
   Widget customerDetails(Size size) {
     return Container(
-      height: 70.0,
-      width: size.width / 5.8,
-      padding: const EdgeInsets.only(left: 16.0),
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+      height: 72.0,
+      width: size.width / 6.8,
+      padding: const EdgeInsets.only(left: 12.0),
+      margin: const EdgeInsets.symmetric(horizontal: 12.0),
       decoration: BoxDecoration(
         color: Themes.kWhiteColor,
         borderRadius: BorderRadius.circular(10.0),
@@ -522,15 +539,23 @@ class _RegularViewState extends State<RegularView> {
               Text(
                 "Paloma Medrano",
                 style: TextStyle(
-                  fontSize: ResponsiveHelper.getFontSize(context, 18.0),
-                  fontWeight: FontWeight.w500,
+                  fontSize: ResponsiveHelper.getFontSize(context, 15.0),
+                  fontWeight: FontWeight.w600,
                   color: Themes.kDarkColor,
                 ),
               ),
               Text(
-                "ccmatua@kedasrd.com - 809-536-9566",
+                "ccmatua@kedasrd.com",
                 style: TextStyle(
-                  fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                  fontSize: ResponsiveHelper.getFontSize(context, 12.0),
+                  fontWeight: FontWeight.w400,
+                  color: Themes.kDarkColor,
+                ),
+              ),
+              Text(
+                "809-536-9566",
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getFontSize(context, 12.0),
                   fontWeight: FontWeight.w400,
                   color: Themes.kDarkColor,
                 ),
@@ -546,42 +571,108 @@ class _RegularViewState extends State<RegularView> {
     );
   }
 
-  Widget digitsView() {
-    return widget.title == "Regular"
-        ? Obx(
-            () => Column(
+  Widget totalView() {
+    return GestureDetector(
+      onTap: () => commonController.isDigitsViewVisible.value =
+          !commonController.isDigitsViewVisible.value,
+      child: Container(
+        height: 42.0,
+        padding: const EdgeInsets.symmetric(horizontal: 14.0),
+        margin: const EdgeInsets.symmetric(horizontal: 2.0),
+        decoration: BoxDecoration(
+          color: Themes.kWhiteColor,
+          borderRadius: BorderRadius.circular(8.0),
+          boxShadow: [
+            BoxShadow(
+              color: Themes.kBlackColor.withOpacity(0.20),
+              blurRadius: 8.0,
+              spreadRadius: -3,
+              offset: const Offset(0, 0),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
               children: [
-                CustomDigitText(
-                  title: "Subtotal",
-                  amount:
-                      "\$${cartController.subtotal.value.toStringAsFixed(2)}",
-                ),
-                Constants.divider(context, 8.0),
-                CustomDigitText(
-                  title: "Taxes",
-                  amount: "\$${cartController.tax.value.toStringAsFixed(2)}",
-                ),
-                Constants.divider(context, 8.0),
-                const CustomDigitText(title: "Disc %", amount: "0"),
-                Constants.divider(context, 8.0),
-                CustomDigitText(
-                  title: "Total",
-                  amount: "\$${cartController.total.value.toStringAsFixed(2)}",
+                Obx(
+                  () => Text(
+                    "${cartController.cartItems.length} Items",
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold,
+                      color: Themes.kBlackColor,
+                    ),
+                  ),
                 ),
               ],
             ),
-          )
-        : Column(
-            children: [
-              const CustomDigitText(title: "Subtotal", amount: "\$847.46"),
-              Constants.divider(context, 8.0),
-              const CustomDigitText(title: "Taxes", amount: "\$152.54"),
-              Constants.divider(context, 8.0),
-              const CustomDigitText(title: "Disc %", amount: "0"),
-              Constants.divider(context, 8.0),
-              const CustomDigitText(title: "Total", amount: "\$1,024.32"),
-            ],
-          );
+            Image.asset(
+              Images.downArrow,
+              height: 14.0,
+              width: 14.0,
+              color: Themes.kPrimaryColor,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget digitsView() {
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      margin: const EdgeInsets.symmetric(horizontal: 0.0),
+      decoration: BoxDecoration(
+        color: Themes.kWhiteColor,
+        borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          BoxShadow(
+            color: Themes.kBlackColor.withOpacity(0.20),
+            blurRadius: 8.0,
+            spreadRadius: -3,
+            offset: const Offset(0, 0),
+          ),
+        ],
+      ),
+      child: widget.title == "Regular"
+          ? Obx(
+              () => Column(
+                children: [
+                  CustomDigitText(
+                    title: "Subtotal",
+                    amount:
+                        "\$${cartController.subtotal.value.toStringAsFixed(2)}",
+                  ),
+                  Constants.divider(context, 4.0),
+                  CustomDigitText(
+                    title: "Taxes",
+                    amount: "\$${cartController.tax.value.toStringAsFixed(2)}",
+                  ),
+                  Constants.divider(context, 4.0),
+                  const CustomDigitText(title: "Disc %", amount: "0"),
+                  Constants.divider(context, 4.0),
+                  CustomDigitText(
+                    title: "Total",
+                    amount:
+                        "\$${cartController.total.value.toStringAsFixed(2)}",
+                  ),
+                ],
+              ),
+            )
+          : Column(
+              children: [
+                const CustomDigitText(title: "Subtotal", amount: "\$847.46"),
+                Constants.divider(context, 4.0),
+                const CustomDigitText(title: "Taxes", amount: "\$152.54"),
+                Constants.divider(context, 4.0),
+                const CustomDigitText(title: "Disc %", amount: "0"),
+                Constants.divider(context, 4.0),
+                const CustomDigitText(title: "Total", amount: "\$1,024.32"),
+              ],
+            ),
+    );
   }
 
   Widget fastFoodCartItemsSection(Size size) {
@@ -591,9 +682,9 @@ class _RegularViewState extends State<RegularView> {
         (index) {
           return Container(
             margin: const EdgeInsets.only(
-                left: 2.0, right: 2.0, top: 2, bottom: 8.0),
+                left: 2.0, right: 2.0, top: 2, bottom: 6.0),
             padding:
-                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
             decoration: BoxDecoration(
               color: Themes.kWhiteColor,
               borderRadius: BorderRadius.circular(8.0),
@@ -623,31 +714,32 @@ class _RegularViewState extends State<RegularView> {
                       },
                       child: Image.asset(
                         Images.delete,
-                        height: 16.0,
+                        height: 15.0,
+                        width: 15.0,
                         color: Themes.kPrimaryColor,
                       ),
                     ),
-                    const SizedBox(width: 12.0),
+                    const SizedBox(width: 10.0),
                     GestureDetector(
                       onTapDown: (details) => Constants.openPopupMenu(context,
                           details, DummyData.cartSingleItems, "Regular - Item"),
                       child: Image.asset(
                         Images.more,
-                        height: 14.0,
+                        height: 13.0,
                         color: Themes.kPrimaryColor,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 10.0),
+                const SizedBox(height: 4.0),
                 const CustomDigitText(title: "Items", amount: "Nachitos Ricos"),
-                Constants.divider(context, 8.0),
+                Constants.divider(context, 4.0),
                 const CustomDigitText(title: "Qty", amount: "0"),
-                Constants.divider(context, 8.0),
+                Constants.divider(context, 4.0),
                 const CustomDigitText(title: "Price", amount: "0"),
-                Constants.divider(context, 8.0),
+                Constants.divider(context, 4.0),
                 const CustomDigitText(title: "Disc %", amount: "0"),
-                Constants.divider(context, 8.0),
+                Constants.divider(context, 4.0),
                 const CustomDigitText(title: "Total", amount: "\$500.00"),
               ],
             ),
@@ -666,9 +758,9 @@ class _RegularViewState extends State<RegularView> {
             var data = cartController.cartItems[index];
             return Container(
               margin: const EdgeInsets.only(
-                  left: 2.0, right: 2.0, top: 2.0, bottom: 8.0),
+                  left: 2.0, right: 2.0, top: 2.0, bottom: 6.0),
               padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
               decoration: BoxDecoration(
                 color: Themes.kWhiteColor,
                 borderRadius: BorderRadius.circular(8.0),
@@ -690,7 +782,7 @@ class _RegularViewState extends State<RegularView> {
                         // "Nachitos Ricos ${index + 1}",
                         data.title,
                         style: TextStyle(
-                          fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                          fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                           fontWeight: FontWeight.w500,
                           color: Themes.kDarkColor,
                         ),
@@ -702,9 +794,9 @@ class _RegularViewState extends State<RegularView> {
                               context, '${data.title} Removed!');
                         },
                         child: Image.asset(
-                          Images.bin,
-                          height: 18.0,
-                          width: 18.0,
+                          Images.delete,
+                          height: 15.0,
+                          width: 15.0,
                           color: Themes.kPrimaryColor,
                         ),
                       ),
@@ -729,7 +821,7 @@ class _RegularViewState extends State<RegularView> {
                           "DOP \$${data.itemTotal.value.toStringAsFixed(2)}",
                           style: TextStyle(
                             fontSize:
-                                ResponsiveHelper.getFontSize(context, 16.0),
+                                ResponsiveHelper.getFontSize(context, 13.0),
                             fontWeight: FontWeight.w500,
                             color: Themes.kPrimaryColor,
                           ),
@@ -807,41 +899,50 @@ class _RegularViewState extends State<RegularView> {
           icon: Images.leftArrow,
           onTap: () => controller.isPaymentMenuVisible.value = false,
         ),
-        const SizedBox(height: 24.0),
-        Wrap(
-          runSpacing: 16.0,
-          spacing: 16.0,
-          children: List.generate(
-            DummyData.superMarketCartDeskItems.length,
-            (index) {
-              var data = DummyData.superMarketCartDeskItems[index];
-              return Material(
-                color: Themes.kTransparent,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8.0),
-                  onTap: () =>
-                      tableController.onTabTapped(data["title"], size, context),
-                  child: Ink(
-                    decoration: BoxDecoration(
-                        color: Themes.kPrimaryColor,
-                        borderRadius: BorderRadius.circular(8.0)),
-                    child: Container(
-                      height: 161.0,
-                      width: size.width / 3.6 / 1.49,
-                      alignment: Alignment.center,
-                      child: Text(
-                        data["title"],
-                        style: TextStyle(
-                          fontSize: ResponsiveHelper.getFontSize(context, 20.0),
-                          fontWeight: FontWeight.bold,
-                          color: Themes.kWhiteColor,
+        const SizedBox(height: 16.0),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Wrap(
+              runSpacing: 16.0,
+              spacing: 16.0,
+              children: List.generate(
+                DummyData.superMarketCartDeskItems.length,
+                (index) {
+                  var data = DummyData.superMarketCartDeskItems[index];
+                  return Material(
+                    color: Themes.kTransparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(8.0),
+                      onTap: () => tableController.onTabTapped(
+                          data["title"], size, context),
+                      child: Ink(
+                        decoration: BoxDecoration(
+                            color: Themes.kPrimaryColor,
+                            borderRadius: BorderRadius.circular(8.0)),
+                        child: Container(
+                          height: 150.0,
+                          width: ResponsiveHelper.isDesktop(context)
+                              ? size.width / 5.70
+                              : ResponsiveHelper.isTablet(context)
+                                  ? size.width / 3.5
+                                  : size.width / 2.2,
+                          alignment: Alignment.center,
+                          child: Text(
+                            data["title"],
+                            style: TextStyle(
+                              fontSize:
+                                  ResponsiveHelper.getFontSize(context, 20.0),
+                              fontWeight: FontWeight.bold,
+                              color: Themes.kWhiteColor,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              );
-            },
+                  );
+                },
+              ),
+            ),
           ),
         ),
       ],
@@ -871,7 +972,7 @@ class _RegularViewState extends State<RegularView> {
               btnText1: "Continue Shopping",
               btnText2: "Submit Order",
               child: customerInputSection(),
-              height: size.height / 2.2,
+              height: size.height / 1.3,
             );
           } else {
             Constants.openAlertDialog(
@@ -887,13 +988,14 @@ class _RegularViewState extends State<RegularView> {
               color: Themes.kPrimaryColor,
               borderRadius: BorderRadius.circular(6.0)),
           child: Container(
-            height: 52.0,
-            width: 500 / 2.3,
+            height: 42.0,
+            // width: 500 / 2.3,
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             alignment: Alignment.center,
             child: Text(
               title,
               style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                 fontWeight: FontWeight.w500,
                 color: Themes.kWhiteColor,
               ),

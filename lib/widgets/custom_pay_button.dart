@@ -28,7 +28,7 @@ class CustomPayButton extends StatelessWidget {
               "Pay \$$amount",
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 18.0),
+                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                 fontWeight: FontWeight.w600,
                 color: Themes.kWhiteColor,
               ),

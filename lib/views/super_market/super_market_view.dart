@@ -34,8 +34,8 @@ class _SuperMarketViewState extends State<SuperMarketView> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 14.0, horizontal: 14.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 14.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -61,15 +61,15 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: List.generate(
-                      3,
+                      4,
                       (index) {
                         return Container(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 14.0, horizontal: 14.0),
-                          margin: const EdgeInsets.only(bottom: 14.0),
+                              vertical: 6.0, horizontal: 14.0),
+                          margin: const EdgeInsets.only(bottom: 8.0),
                           decoration: BoxDecoration(
                             color: Themes.kWhiteColor,
-                            borderRadius: BorderRadius.circular(10.0),
+                            borderRadius: BorderRadius.circular(8.0),
                             boxShadow: [
                               BoxShadow(
                                 color: Themes.kBlackColor.withOpacity(0.05),
@@ -89,7 +89,7 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                               headerText("\$250", size),
                               const SizedBox(width: 8.0),
                               Container(
-                                width: size.width / 8.9,
+                                width: size.width / 10.9,
                                 alignment: Alignment.centerLeft,
                                 child: Obx(
                                   () => CustomQtyView(
@@ -122,98 +122,219 @@ class _SuperMarketViewState extends State<SuperMarketView> {
             ],
           ),
         ),
-        Container(
-          width: size.width,
-          padding: const EdgeInsets.all(24.0),
-          decoration: BoxDecoration(
-            color: Themes.kWhiteColor,
-            borderRadius: BorderRadius.circular(10.0),
-            boxShadow: [
-              BoxShadow(
-                color: Themes.kBlackColor.withOpacity(0.05),
-                blurRadius: 8.0,
-                spreadRadius: -3,
-                offset: const Offset(0, 0),
+        totalView(),
+        const SizedBox(height: 8.0),
+        Obx(() {
+          if (commonController.isDigitsViewVisible.value) {
+            return Column(
+              children: [
+                digitsView(size, context),
+                const SizedBox(height: 8.0),
+              ],
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
+        }),
+        bottomButton(size),
+        // const SizedBox(height: 24.0),
+        // CustomTabsList(
+        //     data: DummyData.superMarketCartDeskItems,
+        //     type: "Super Market Cart"),
+        // const SizedBox(height: 24.0),
+        // CustomTabsList(
+        //     data: DummyData.superMarketButtonItems, type: "Super Market"),
+        // const SizedBox(height: 16.0),
+      ],
+    );
+  }
+
+  Widget digitsView(Size size, BuildContext context) {
+    return Container(
+      width: size.width,
+      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 14.0),
+      decoration: BoxDecoration(
+        color: Themes.kWhiteColor,
+        borderRadius: BorderRadius.circular(10.0),
+        boxShadow: [
+          BoxShadow(
+            color: Themes.kBlackColor.withOpacity(0.05),
+            blurRadius: 8.0,
+            spreadRadius: -3,
+            offset: const Offset(0, 0),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    const CustomDigitText(
+                        title: "Subtotal", amount: "\$211.86"),
+                    Constants.divider(context, 8.0),
+                    const CustomDigitText(title: "Tax", amount: "\$38.14"),
+                    Constants.divider(context, 8.0),
+                    const CustomDigitText(title: "Discount", amount: "\$0.00"),
+                    Constants.divider(context, 8.0),
+                    const CustomDigitText(
+                        title: "Other Discount", amount: "\$0.00"),
+                    Constants.divider(context, 8.0),
+                    const CustomDigitText(title: "Tips Tax", amount: "\$0.00"),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 100.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CustomDigitText(title: "No. Items", amount: "03"),
+                    Constants.divider(context, 8.0),
+                    const SizedBox(height: 8.0),
+                    Text(
+                      "Payments",
+                      style: TextStyle(
+                        fontSize: ResponsiveHelper.getFontSize(context, 30.0),
+                        fontWeight: FontWeight.w600,
+                        color: Themes.kPrimaryColor,
+                      ),
+                    ),
+                    Text(
+                      "\$250.00",
+                      style: TextStyle(
+                        fontSize: ResponsiveHelper.getFontSize(context, 30.0),
+                        fontWeight: FontWeight.w700,
+                        color: Themes.kDarkColor,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      children: [
-                        const CustomDigitText(
-                            title: "Subtotal", amount: "\$211.86"),
-                        Constants.divider(context, 8.0),
-                        const CustomDigitText(title: "Tax", amount: "\$38.14"),
-                        Constants.divider(context, 8.0),
-                        const CustomDigitText(
-                            title: "Discount", amount: "\$0.00"),
-                        Constants.divider(context, 8.0),
-                        const CustomDigitText(
-                            title: "Other Discount", amount: "\$0.00"),
-                        Constants.divider(context, 8.0),
-                        const CustomDigitText(
-                            title: "Tips Tax", amount: "\$0.00"),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 100.0),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const CustomDigitText(title: "No. Items", amount: "03"),
-                        Constants.divider(context, 8.0),
-                        const SizedBox(height: 8.0),
-                        Text(
-                          "Payments",
-                          style: TextStyle(
-                            fontSize:
-                                ResponsiveHelper.getFontSize(context, 30.0),
-                            fontWeight: FontWeight.w600,
-                            color: Themes.kPrimaryColor,
-                          ),
-                        ),
-                        Text(
-                          "\$250.00",
-                          style: TextStyle(
-                            fontSize:
-                                ResponsiveHelper.getFontSize(context, 30.0),
-                            fontWeight: FontWeight.w700,
-                            color: Themes.kDarkColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+        ],
+      ),
+    );
+  }
+
+  Widget totalView() {
+    return GestureDetector(
+      onTap: () => commonController.isDigitsViewVisible.value =
+          !commonController.isDigitsViewVisible.value,
+      child: Container(
+        height: 42.0,
+        padding: const EdgeInsets.symmetric(horizontal: 14.0),
+        margin: const EdgeInsets.symmetric(horizontal: 2.0),
+        decoration: BoxDecoration(
+          color: Themes.kWhiteColor,
+          borderRadius: BorderRadius.circular(8.0),
+          boxShadow: [
+            BoxShadow(
+              color: Themes.kBlackColor.withOpacity(0.20),
+              blurRadius: 8.0,
+              spreadRadius: -3,
+              offset: const Offset(0, 0),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              "4 Items",
+              style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
+                color: Themes.kBlackColor,
               ),
-              const SizedBox(height: 24.0),
-              CustomTabsList(
-                  data: DummyData.superMarketCartDeskItems,
-                  type: "Super Market Cart"),
-            ],
+            ),
+            Image.asset(
+              Images.downArrow,
+              height: 14.0,
+              width: 14.0,
+              color: Themes.kPrimaryColor,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget bottomButton(Size size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        submitButton(size, "More Functions"),
+        const SizedBox(width: 8.0),
+        submitButton(size, "Payment Options"),
+      ],
+    );
+  }
+
+  Widget submitButton(Size size, String title) {
+    return Material(
+      color: Themes.kTransparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(6.0),
+        onTap: () {
+          if (title.contains("More")) {
+            Constants.openDialog(
+              context: context,
+              title: title,
+              child: moreOptions(),
+              height: size.height / 2.2,
+            );
+          } else {
+            // Constants.openAlertDialog(
+            //   context: context,
+            //   title: "Discard Order",
+            //   msg: "Are you sure you want to cancel your cart ?",
+            //   toastMsg: 'Order Discarded!',
+            // );
+          }
+        },
+        child: Ink(
+          decoration: BoxDecoration(
+              color: Themes.kPrimaryColor,
+              borderRadius: BorderRadius.circular(6.0)),
+          child: Container(
+            height: 42.0,
+            width: 148.0,
+            // padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            alignment: Alignment.center,
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                fontWeight: FontWeight.w500,
+                color: Themes.kWhiteColor,
+              ),
+            ),
           ),
         ),
-        const SizedBox(height: 24.0),
-        CustomTabsList(
-            data: DummyData.superMarketButtonItems, type: "Super Market"),
-        const SizedBox(height: 16.0),
-      ],
+      ),
+    );
+  }
+
+  Widget moreOptions() {
+    return CustomTabsList(
+      data: DummyData.superMarketCartDeskItems,
+      type: "Super Market Cart",
+      width: 98.0,
     );
   }
 
   Widget headerText(String title, Size size) {
     return SizedBox(
-      width: title == "" ? 30.0 : size.width / 8.9,
+      width: title == "" ? 30.0 : size.width / 10.9,
       child: Text(
         title,
         style: TextStyle(
-          fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+          fontSize: ResponsiveHelper.getFontSize(context, 14.0),
           fontWeight: FontWeight.w600,
           color: Themes.kPrimaryColor,
         ),
@@ -223,7 +344,7 @@ class _SuperMarketViewState extends State<SuperMarketView> {
 
   Widget inputView(Size size) {
     return Container(
-      width: size.width / 8.9,
+      width: size.width / 10.9,
       alignment: Alignment.centerLeft,
       child: FittedBox(
         fit: BoxFit.scaleDown,
@@ -242,7 +363,7 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                 fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                 color: Themes.kBlackColor),
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
+              contentPadding: const EdgeInsets.symmetric(vertical: 13.0),
               border: InputBorder.none,
               hintText: "0",
               hintStyle: TextStyle(

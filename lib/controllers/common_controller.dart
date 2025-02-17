@@ -8,6 +8,8 @@ class CommonController extends GetxController {
   // Instead of single RxInt
   RxList<int> qtyValues = <int>[].obs;
 
+  RxBool isDigitsViewVisible = false.obs;
+
   void locationAllowed() {
     isLocationAllow.value = !isLocationAllow.value;
   }
@@ -46,5 +48,11 @@ class CommonController extends GetxController {
     super.onInit();
     // Assuming you have a list of items with length itemCount
     initQuantities(12);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    isDigitsViewVisible = false.obs;
   }
 }

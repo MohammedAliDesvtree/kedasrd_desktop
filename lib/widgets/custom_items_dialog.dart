@@ -28,9 +28,9 @@ class CustomItemsDialog extends StatelessWidget {
     Size size = MediaQuery.sizeOf(context);
     return Dialog(
       child: Container(
-        height: size.height / 1.6,
+        height: size.height / 1.2,
         width:
-            ResponsiveHelper.isTablet(context) ? size.width : size.width / 1.8,
+            ResponsiveHelper.isTablet(context) ? size.width : size.width / 1.2,
         decoration: BoxDecoration(
             color: Themes.kWhiteColor,
             borderRadius: BorderRadius.circular(8.0)),
@@ -484,7 +484,7 @@ class CustomItemsDialog extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                 fontWeight: FontWeight.bold,
                 color: Themes.kWhiteColor,
               ),
@@ -510,7 +510,7 @@ class CustomItemsDialog extends StatelessWidget {
             height: 52.0,
             width: ResponsiveHelper.isTablet(context)
                 ? size.width / 8.0
-                : size.width / 12.2,
+                : size.width / 10.0,
             alignment: Alignment.center,
             child: Text(
               title,

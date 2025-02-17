@@ -14,7 +14,7 @@ class HeaderView extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return Container(
-      height: 70.0,
+      height: 58.0,
       width: size.width,
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       color: Themes.kWhiteColor,
@@ -37,7 +37,7 @@ class HeaderView extends StatelessWidget {
                         details, DummyData.notificationItems, "Notifications"),
                     child: const Icon(
                       Icons.notifications,
-                      size: 28.0,
+                      size: 24.0,
                       color: Themes.kPrimaryColor,
                     ),
                   ),
@@ -45,8 +45,8 @@ class HeaderView extends StatelessWidget {
                     top: -2.0,
                     right: -2.0,
                     child: Container(
-                      height: 16.0,
-                      width: 16.0,
+                      height: 14.0,
+                      width: 14.0,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Themes.kRedColor,
@@ -55,7 +55,7 @@ class HeaderView extends StatelessWidget {
                       child: Text(
                         "6",
                         style: TextStyle(
-                          fontSize: ResponsiveHelper.getFontSize(context, 10.0),
+                          fontSize: ResponsiveHelper.getFontSize(context, 8.0),
                           fontWeight: FontWeight.bold,
                           color: Themes.kWhiteColor,
                         ),
@@ -66,15 +66,15 @@ class HeaderView extends StatelessWidget {
               ),
               const SizedBox(width: 16.0),
               Container(
-                height: 44.0,
-                width: 44.0,
+                height: 38.0,
+                width: 38.0,
                 decoration: BoxDecoration(
                   color: Themes.kGreyColor[300],
                   borderRadius: BorderRadius.circular(44.0),
                 ),
                 child: const Icon(
                   Icons.person,
-                  size: 24.0,
+                  size: 22.0,
                   color: Themes.kGreyColor,
                 ),
               ),
@@ -86,7 +86,7 @@ class HeaderView extends StatelessWidget {
                   Text(
                     "Moni Roy",
                     style: TextStyle(
-                      fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                      fontSize: ResponsiveHelper.getFontSize(context, 12.0),
                       fontWeight: FontWeight.w700,
                       color: Themes.kBlackColor,
                     ),
@@ -94,7 +94,7 @@ class HeaderView extends StatelessWidget {
                   Text(
                     "Admin",
                     style: TextStyle(
-                      fontSize: ResponsiveHelper.getFontSize(context, 12.0),
+                      fontSize: ResponsiveHelper.getFontSize(context, 10.0),
                       fontWeight: FontWeight.w600,
                       color: Themes.kDarkGreyColor,
                     ),

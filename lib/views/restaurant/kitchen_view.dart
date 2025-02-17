@@ -38,7 +38,7 @@ class _KitchenViewState extends State<KitchenView> {
       children: [
         Container(
           width: ResponsiveHelper.isDesktop(context)
-              ? size.width / 3.6
+              ? size.width / 3.9
               : size.width / 4.0,
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
           decoration: BoxDecoration(

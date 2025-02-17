@@ -44,7 +44,7 @@ class _DeliveryViewState extends State<DeliveryView> {
         height: 70.0,
         width: ResponsiveHelper.isTablet(context)
             ? size.width / 2.6
-            : size.width / 3.6,
+            : size.width / 3.9,
         padding: const EdgeInsets.only(left: 14.0),
         decoration: BoxDecoration(
           color: Themes.kWhiteColor,

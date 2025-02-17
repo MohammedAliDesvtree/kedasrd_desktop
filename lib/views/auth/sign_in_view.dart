@@ -181,7 +181,7 @@ class _SignInViewState extends State<SignInView> {
             child: Text(
               title,
               style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                 fontWeight: FontWeight.w500,
                 color: Themes.kWhiteColor,
               ),

@@ -368,9 +368,9 @@ class DrawerMenuController extends GetxController {
     if (index >= 20 && index < 30) {
       switch (index - 20) {
         case 0:
-          return currentScreen.value == Screen.activeOrder;
-        case 1:
           return currentScreen.value == Screen.newOrder;
+        case 1:
+          return currentScreen.value == Screen.activeOrder;
         case 2:
           return currentScreen.value == Screen.kitchen;
         case 3:
@@ -394,9 +394,9 @@ class DrawerMenuController extends GetxController {
     if (index >= 30 && index < 39) {
       switch (index - 30) {
         case 0:
-          return currentScreen.value == Screen.activeOrder;
-        case 1:
           return currentScreen.value == Screen.newOrder;
+        case 1:
+          return currentScreen.value == Screen.activeOrder;
         case 2:
           return currentScreen.value == Screen.kitchen;
         case 3:
@@ -518,7 +518,7 @@ class DrawerMenuController extends GetxController {
         btnText1: "Cancel",
         btnText2: "Submit",
         child: const CustomTextInput(hintText: "Discount", isNumber: true),
-        height: size.height / 4,
+        height: size.height / 2.5,
       );
     } else if (title == "Setting") {
       tablesController.resetTab();
@@ -526,7 +526,7 @@ class DrawerMenuController extends GetxController {
         context: context,
         title: title,
         btnText1: "Proceed",
-        height: size.height / 1.5,
+        height: size.height,
         scroll: const AlwaysScrollableScrollPhysics(),
         child: inputSection(context, tablesController, size),
       );
@@ -605,7 +605,8 @@ class DrawerMenuController extends GetxController {
         ),
         const SizedBox(height: 16.0),
         SizedBox(
-          height: (size.height / 1.5) / 2, // Fixed height for the content area
+          height:
+              (size.height / 1.5) / 1.5, // Fixed height for the content area
           child: Column(
             children: [
               Obx(() => buildSelectedView(DummyData

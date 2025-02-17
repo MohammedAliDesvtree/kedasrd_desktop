@@ -29,7 +29,7 @@ class _TablesViewState extends State<TablesView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTabsList(data: DummyData.tableTabs, type: "Tables"),
-        const SizedBox(height: 64.0),
+        const SizedBox(height: 24.0),
         Obx(() {
           int tableLength = controller.selectedTabIndex.value == 0
               ? 7
@@ -47,15 +47,22 @@ class _TablesViewState extends State<TablesView> {
   }
 
   Widget tablesView(int tableLength, Size size) {
-    return Obx(
-      () => Wrap(
-        key: ValueKey(controller.selectedTabIndex.value),
-        runSpacing: 100.0,
-        spacing: 16.0,
-        children: List.generate(
-          tableLength,
-          (index) =>
-              customNewTables(index, controller.randomNumbers[index], size),
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 32.0),
+          child: Obx(
+            () => Wrap(
+              key: ValueKey(controller.selectedTabIndex.value),
+              runSpacing: 84.0,
+              spacing: 16.0,
+              children: List.generate(
+                tableLength,
+                (index) => customNewTables(
+                    index, controller.randomNumbers[index], size),
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -72,11 +79,11 @@ class _TablesViewState extends State<TablesView> {
         title: "Enter Code to Continue",
         btnText1: "Submit",
         child: const CustomTextInput(hintText: "Enter code", isNumber: true),
-        height: size.height / 4,
+        height: size.height / 2.5,
       ),
       child: Container(
-        height: 140.0, // Increased height to accommodate chairs
-        width: size.width / 4.85,
+        height: 124.0, // Increased height to accommodate chairs
+        width: size.width / 2.85,
         padding: const EdgeInsets.all(16.0),
         // decoration: BoxDecoration(
         //   color: Themes.kWhiteColor,
@@ -187,7 +194,7 @@ class _TablesViewState extends State<TablesView> {
         title: "Enter Code to Continue",
         btnText1: "Submit",
         child: const CustomTextInput(hintText: "Enter code", isNumber: true),
-        height: size.height / 4,
+        height: size.height / 2.5,
       ),
       child: Container(
         height: 86.0,

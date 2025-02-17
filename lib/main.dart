@@ -20,6 +20,10 @@ import 'package:kedasrd_windows/controllers/auth/sign_in_controller.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  if (Constants.isWindows || Constants.isMacOS) {
+    setWindowSizeLimits();
+  }
+
   await preLoadAllImages();
   await GetStorage.init();
 
@@ -32,23 +36,19 @@ void main() async {
   Get.put(TablesController());
   Get.put(CartController());
 
-  if (Constants.isWindows || Constants.isMacOS) {
-    setWindowSizeLimits();
-  }
-
   runApp(const MyApp());
 }
 
 void setWindowSizeLimits() async {
   await windowManager.ensureInitialized();
-  final size = await windowManager.getSize();
+  // final size = await windowManager.getSize();
 
   WindowOptions windowOptions = const WindowOptions(
     center: true,
     skipTaskbar: false,
     titleBarStyle: TitleBarStyle.normal,
     // Minimum size that works well for tablets
-    size: Size(1280, 720),
+    size: Size(1280, 680),
     minimumSize: Size(800, 600),
     // Allow window to be maximized
     // maximumSize: Size.infinite,
@@ -67,8 +67,7 @@ void setWindowSizeLimits() async {
   );
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.setSize(size);
-    await windowManager.show();
+    // await windowManager.setSize(size);
     await windowManager.focus();
     // Center window
     await windowManager.center();
@@ -76,6 +75,7 @@ void setWindowSizeLimits() async {
     await windowManager.maximize();
     // Allow resizing for better responsiveness
     await windowManager.setResizable(true);
+    await windowManager.show();
   });
 }
 

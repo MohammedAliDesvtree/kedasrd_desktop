@@ -29,7 +29,7 @@ class _CustomDigitTextState extends State<CustomDigitText> {
         Text(
           widget.title,
           style: TextStyle(
-            fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+            fontSize: ResponsiveHelper.getFontSize(context, 14.0),
             fontWeight: FontWeight.w400,
             color: Themes.kPrimaryColor,
           ),
@@ -51,7 +51,7 @@ class _CustomDigitTextState extends State<CustomDigitText> {
                 : Text(
                     widget.amount,
                     style: TextStyle(
-                      fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                      fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                       fontWeight: FontWeight.w900,
                       color: Themes.kDarkColor,
                     ),
@@ -62,7 +62,7 @@ class _CustomDigitTextState extends State<CustomDigitText> {
 
   Widget inputView() {
     return Container(
-      height: 28.0,
+      height: 24.0,
       width: widget.title == "Price" ? 74.0 : 36.0,
       // padding: const EdgeInsets.only(bottom: 3.5),
       decoration: BoxDecoration(
@@ -78,11 +78,11 @@ class _CustomDigitTextState extends State<CustomDigitText> {
             color: Themes.kBlackColor),
         // controller: controller.qtyController,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
+          contentPadding: const EdgeInsets.symmetric(vertical: 14.0),
           border: InputBorder.none,
           hintText: widget.title == "Price" ? "\$500.00" : "0",
           hintStyle: TextStyle(
-            fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+            fontSize: ResponsiveHelper.getFontSize(context, 12.0),
             color: Themes.kGreyColor[500],
           ),
         ),
