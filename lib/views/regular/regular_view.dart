@@ -128,7 +128,7 @@ class _RegularViewState extends State<RegularView> {
                                 title: "",
                                 btnText1: "Add Product",
                                 child: productDetails(data),
-                                height: size.height / 1.6,
+                                height: size.height / 1.2,
                               );
                             } else if (widget.title!.contains("Food")) {
                               CustomSnackBar.showTopRightSnackBar(
