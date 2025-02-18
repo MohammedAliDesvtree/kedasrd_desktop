@@ -159,11 +159,31 @@ class Constants {
         );
       }),
     ).then((value) {
-      // if (value != null) {
-      //   ScaffoldMessenger.of(context).showSnackBar(
-      //     SnackBar(content: Text('Selected: Option $value')),
-      //   );
-      // }
+      if (value != null) {
+        // Subtract 1 to convert back to 0-based index
+        String selectedItem = data[value - 1];
+
+        if (selectedItem.contains("Whatsapp")) {
+          CustomSnackBar.showTopRightSnackBar(context, "Sent to Whatsapp!");
+        } else if (selectedItem.contains("Email")) {
+          CustomSnackBar.showTopRightSnackBar(context, "Sent to Email!");
+        } else if (selectedItem.contains("Print")) {
+          CustomSnackBar.showTopRightSnackBar(context, "Pre-Bill Printing...!");
+        } else if (selectedItem.contains("Cart")) {
+          CustomSnackBar.showTopRightSnackBar(context, "Cart Cleared!!");
+        } else if (selectedItem.contains("Extra")) {
+          CustomSnackBar.showTopRightSnackBar(context, "Extra Item Added!");
+        } else if (selectedItem.contains("Notes")) {
+          CustomSnackBar.showTopRightSnackBar(context, "Notes Added!");
+        } else if (selectedItem.contains("Kitchen")) {
+          CustomSnackBar.showTopRightSnackBar(
+              context, "Order Sent to Kitchen!");
+        } else if (selectedItem.contains("Bar")) {
+          CustomSnackBar.showTopRightSnackBar(context, "Order Sent to Bar!");
+        } else if (selectedItem.contains("Remove")) {
+          CustomSnackBar.showTopRightSnackBar(context, "Item Removed!");
+        }
+      }
     });
   }
 
