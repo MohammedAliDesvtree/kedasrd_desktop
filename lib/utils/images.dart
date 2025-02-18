@@ -101,4 +101,10 @@ class Images {
   static const String taxes = "lib/assets/icons/taxes.png";
 
   static const String pos = "lib/assets/icons/pos.png";
+
+  static const String mainRoom = "lib/assets/icons/main_room.png";
+  static const String insideRoom = "lib/assets/icons/inside_room.png";
+  static const String outsideRoom = "lib/assets/icons/outside_room.png";
+  static const String balconySide = "lib/assets/icons/balcony_side.png";
+  static const String nearBalcony = "lib/assets/icons/near_balcony.png";
 }

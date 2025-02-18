@@ -7,7 +7,6 @@ import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 
-import 'package:kedasrd_windows/widgets/custom_tabs_list.dart';
 import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 
 import 'package:kedasrd_windows/controllers/tables_controller.dart';
@@ -28,7 +27,7 @@ class _TablesViewState extends State<TablesView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomTabsList(data: DummyData.tableTabs, type: "Tables"),
+        customTabsList(size),
         const SizedBox(height: 24.0),
         Obx(() {
           int tableLength = controller.selectedTabIndex.value == 0
@@ -43,6 +42,61 @@ class _TablesViewState extends State<TablesView> {
           return tablesView(tableLength, size);
         }),
       ],
+    );
+  }
+
+  Widget customTabsList(Size size) {
+    return SizedBox(
+      width: size.width / 5,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: List.generate(DummyData.tableTabs.length, (index) {
+          var data = DummyData.tableTabs[index];
+          return Column(
+            children: [
+              Material(
+                color: Themes.kTransparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(52.0),
+                  onTap: () => controller.selectTab(index),
+                  child: Obx(
+                    () {
+                      return Ink(
+                        child: Container(
+                          height: 48.0,
+                          width: 48.0,
+                          padding: const EdgeInsets.all(12.0),
+                          child: Image.asset(
+                            data["icon"],
+                            height: 24.0,
+                            width: 24.0,
+                            color: controller.selectedTabIndex.value == index
+                                ? Themes.kPrimaryColor
+                                : Themes.kGreyColor,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 0.0),
+              Obx(
+                () => Text(
+                  data["title"],
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                    fontWeight: FontWeight.w500,
+                    color: controller.selectedTabIndex.value == index
+                        ? Themes.kPrimaryColor
+                        : Themes.kGreyColor,
+                  ),
+                ),
+              ),
+            ],
+          );
+        }),
+      ),
     );
   }
 

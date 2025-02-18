@@ -114,113 +114,142 @@ class _RegularViewState extends State<RegularView> {
               DummyData.productList.length,
               (index) {
                 var data = DummyData.productList[index];
-                return Material(
-                  color: Themes.kTransparent,
-                  child: InkWell(
-                    hoverColor: Themes.kWhiteColor,
-                    borderRadius: BorderRadius.circular(8.0),
-                    onTap: index % 2.5 == 2
-                        ? null
-                        : () {
-                            if (widget.title!.contains("Store")) {
-                              Constants.openDialog(
-                                context: context,
-                                title: "",
-                                btnText1: "Add Product",
-                                child: productDetails(data),
-                                height: size.height / 1.2,
-                              );
-                            } else if (widget.title!.contains("Food")) {
-                              CustomSnackBar.showTopRightSnackBar(
-                                  context, '${data["title"]} added in cart!');
-                            } else {
-                              cartController.addToCart(data);
-                              CustomSnackBar.showTopRightSnackBar(
-                                  context, '${data["title"]} added in cart!');
-                            }
-                          },
-                    child: Ink(
-                      height: 224.0,
-                      width: ResponsiveHelper.isDesktop(context)
-                          ? size.width / 5.70
-                          : ResponsiveHelper.isTablet(context)
-                              ? size.width / 3.5
-                              : size.width / 2.2,
-                      decoration: BoxDecoration(
-                        color: Themes.kWhiteColor,
+                return Stack(
+                  children: [
+                    Material(
+                      color: Themes.kTransparent,
+                      child: InkWell(
+                        hoverColor: Themes.kWhiteColor,
                         borderRadius: BorderRadius.circular(8.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Themes.kBlackColor.withOpacity(0.20),
-                            blurRadius: 8.0,
-                            spreadRadius: -3,
-                            offset: const Offset(0, 0),
+                        onTap: index % 2.5 == 2
+                            ? null
+                            : () {
+                                if (widget.title!.contains("Store")) {
+                                  Constants.openDialog(
+                                    context: context,
+                                    title: "",
+                                    btnText1: "Add Product",
+                                    child: productDetails(data),
+                                    height: size.height / 1.2,
+                                  );
+                                } else if (widget.title!.contains("Food")) {
+                                  CustomSnackBar.showTopRightSnackBar(context,
+                                      '${data["title"]} added in cart!');
+                                } else {
+                                  cartController.addToCart(data);
+                                  CustomSnackBar.showTopRightSnackBar(context,
+                                      '${data["title"]} added in cart!');
+                                }
+                              },
+                        child: Ink(
+                          height: 224.0,
+                          width: ResponsiveHelper.isDesktop(context)
+                              ? size.width / 5.70
+                              : ResponsiveHelper.isTablet(context)
+                                  ? size.width / 3.5
+                                  : size.width / 2.2,
+                          decoration: BoxDecoration(
+                            color: Themes.kWhiteColor,
+                            borderRadius: BorderRadius.circular(8.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Themes.kBlackColor.withOpacity(0.20),
+                                blurRadius: 8.0,
+                                spreadRadius: -3,
+                                offset: const Offset(0, 0),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(8.0),
-                                topRight: Radius.circular(8.0)),
-                            child: Image.asset(
-                              data["image"],
-                              height: 164,
-                              width: size.width,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 4.0, left: 12.0, right: 12.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  data["title"],
-                                  style: TextStyle(
-                                    fontSize: ResponsiveHelper.getFontSize(
-                                        context, 16.0),
-                                    fontWeight: FontWeight.w700,
-                                    color: Themes.kBlackColor,
-                                  ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(8.0),
+                                    topRight: Radius.circular(8.0)),
+                                child: Image.asset(
+                                  data["image"],
+                                  height: 164,
+                                  width: size.width,
+                                  fit: BoxFit.cover,
                                 ),
-                                const SizedBox(height: 4.0),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 4.0, left: 12.0, right: 12.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "DOP \$${data["price"]}",
+                                      data["title"],
                                       style: TextStyle(
                                         fontSize: ResponsiveHelper.getFontSize(
                                             context, 16.0),
                                         fontWeight: FontWeight.w700,
-                                        color: Themes.kPrimaryColor,
+                                        color: Themes.kBlackColor,
                                       ),
                                     ),
-                                    if (index % 2.5 == 2)
-                                      Text(
-                                        "Out Of Stock",
-                                        style: TextStyle(
-                                          fontSize:
-                                              ResponsiveHelper.getFontSize(
-                                                  context, 16.0),
-                                          fontWeight: FontWeight.w700,
-                                          color: Themes.kRedColor,
+                                    const SizedBox(height: 4.0),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "DOP \$${data["price"]}",
+                                          style: TextStyle(
+                                            fontSize:
+                                                ResponsiveHelper.getFontSize(
+                                                    context, 16.0),
+                                            fontWeight: FontWeight.w700,
+                                            color: Themes.kPrimaryColor,
+                                          ),
                                         ),
-                                      ),
+                                        // if (index % 2.5 == 2)
+                                        //   Text(
+                                        //     "Out Of Stock",
+                                        //     style: TextStyle(
+                                        //       fontSize:
+                                        //           ResponsiveHelper.getFontSize(
+                                        //               context, 16.0),
+                                        //       fontWeight: FontWeight.w700,
+                                        //       color: Themes.kRedColor,
+                                        //     ),
+                                        //   ),
+                                      ],
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                    if (index % 2.5 == 2)
+                      Container(
+                        height: 224.0,
+                        width: ResponsiveHelper.isDesktop(context)
+                            ? size.width / 5.70
+                            : ResponsiveHelper.isTablet(context)
+                                ? size.width / 3.5
+                                : size.width / 2.2,
+                        alignment: Alignment.bottomRight,
+                        padding: const EdgeInsets.only(bottom: 16, right: 16.0),
+                        decoration: BoxDecoration(
+                          color: Themes.kBlackColor.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: const Text(
+                          "Out Of Stock",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w600,
+                            color: Themes.kWhiteColor,
+                          ),
+                        ),
+                      ),
+                  ],
                 );
               },
             )),
@@ -749,7 +778,11 @@ class _RegularViewState extends State<RegularView> {
                   ],
                 ),
                 const SizedBox(height: 4.0),
-                const CustomDigitText(title: "Items", amount: "Nachitos Ricos"),
+                CustomDigitText(
+                    title: "Item",
+                    amount: index == 1
+                        ? "Nachitos Ricos"
+                        : "Salted Tahini Chocolate Chunk (1 ud)"),
                 Constants.divider(context, 4.0),
                 const CustomDigitText(title: "Qty", amount: "0"),
                 Constants.divider(context, 4.0),
@@ -796,7 +829,6 @@ class _RegularViewState extends State<RegularView> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        // "Nachitos Ricos ${index + 1}",
                         data.title,
                         style: TextStyle(
                           fontSize: ResponsiveHelper.getFontSize(context, 14.0),
