@@ -81,7 +81,7 @@ class _RegularViewState extends State<RegularView> {
         const SizedBox(width: 6.0),
         Container(
           width: ResponsiveHelper.isDesktop(context)
-              ? 300.0
+              ? 316.0
               : ResponsiveHelper.isTablet(context)
                   ? 264.0
                   : size.width * 0.9,
@@ -144,7 +144,7 @@ class _RegularViewState extends State<RegularView> {
                         child: Ink(
                           height: 224.0,
                           width: ResponsiveHelper.isDesktop(context)
-                              ? size.width / 5.70
+                              ? size.width / 5.85
                               : ResponsiveHelper.isTablet(context)
                                   ? size.width / 3.5
                                   : size.width / 2.2,
@@ -229,12 +229,12 @@ class _RegularViewState extends State<RegularView> {
                       Container(
                         height: 224.0,
                         width: ResponsiveHelper.isDesktop(context)
-                            ? size.width / 5.70
+                            ? size.width / 5.85
                             : ResponsiveHelper.isTablet(context)
                                 ? size.width / 3.5
                                 : size.width / 2.2,
                         alignment: Alignment.bottomRight,
-                        padding: const EdgeInsets.only(bottom: 16, right: 16.0),
+                        padding: const EdgeInsets.only(bottom: 8, right: 10.0),
                         decoration: BoxDecoration(
                           color: Themes.kBlackColor.withOpacity(0.5),
                           borderRadius: BorderRadius.circular(8.0),
@@ -244,7 +244,7 @@ class _RegularViewState extends State<RegularView> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 16.0,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w700,
                             color: Themes.kWhiteColor,
                           ),
                         ),
@@ -253,133 +253,6 @@ class _RegularViewState extends State<RegularView> {
                 );
               },
             )),
-      ),
-    );
-  }
-
-  Widget productList(Size size) {
-    return SingleChildScrollView(
-      child: Obx(
-        () => Wrap(
-          runSpacing: 16.0,
-          spacing: 16.0,
-          children: List.generate(
-            DummyData.productList.length,
-            (index) {
-              var data = DummyData.productList[index];
-              return Stack(
-                children: [
-                  Container(
-                    height: 145.0,
-                    width: size.width / 3.52,
-                    // 5.36,
-                    // 3.52
-                    decoration: BoxDecoration(
-                      color: Themes.kWhiteColor,
-                      borderRadius: BorderRadius.circular(8.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Themes.kBlackColor.withOpacity(0.20),
-                          blurRadius: 8.0,
-                          spreadRadius: -3,
-                          offset: const Offset(0, 0),
-                        ),
-                      ],
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Stack(
-                        children: [
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 140.0,
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      left: -64.0,
-                                      child: ClipRRect(
-                                        borderRadius: const BorderRadius.only(
-                                            topRight: Radius.circular(68.0),
-                                            bottomRight: Radius.circular(68.0)),
-                                        child: Image.asset(
-                                          data["image"],
-                                          height: 146.0,
-                                          width: 174.0,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    data["title"],
-                                    style: TextStyle(
-                                      fontSize: ResponsiveHelper.getFontSize(
-                                          context, 18.0),
-                                      fontWeight: FontWeight.w700,
-                                      color: Themes.kBlackColor,
-                                    ),
-                                  ),
-                                  Text(
-                                    "DOP \$${data["price"]}",
-                                    style: TextStyle(
-                                      fontSize: ResponsiveHelper.getFontSize(
-                                          context, 24.0),
-                                      fontWeight: FontWeight.w700,
-                                      color: Themes.kBlackColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Positioned(
-                            bottom: 0.0,
-                            right: 0.0,
-                            child: CustomAddButton(
-                              isCircular: false,
-                              onTap: () {
-                                cartController.addToCart(data);
-                                CustomSnackBar.showTopRightSnackBar(
-                                    context, '${data["title"]} added in cart!');
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  if (index % 2.5 == 2)
-                    Container(
-                      height: 145.0,
-                      width: size.width / 3.52,
-                      alignment: Alignment.centerRight,
-                      padding: const EdgeInsets.only(right: 144.0),
-                      decoration: BoxDecoration(
-                        color: Themes.kBlackColor.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: Text(
-                        "Out\nOf\nStock",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: ResponsiveHelper.getFontSize(context, 24.0),
-                          fontWeight: FontWeight.w600,
-                          color: Themes.kWhiteColor,
-                        ),
-                      ),
-                    ),
-                ],
-              );
-            },
-          ),
-        ),
       ),
     );
   }
@@ -393,10 +266,8 @@ class _RegularViewState extends State<RegularView> {
             children: [
               Obx(
                 () => controller.isSearchVisible.value
-                    ? SizedBox(
-                        width: size.width / 6.0,
-                        child:
-                            const CustomSearchBar(hintText: "Search Customer"))
+                    ? const Expanded(
+                        child: CustomSearchBar(hintText: "Search Customer"))
                     : customerDetails(size),
               ),
               CustomAddButton(
@@ -408,6 +279,7 @@ class _RegularViewState extends State<RegularView> {
                   child: inputSection(),
                 ),
               ),
+              const SizedBox(width: 10.0),
             ],
           ),
           const SizedBox(height: 8.0),
@@ -553,61 +425,63 @@ class _RegularViewState extends State<RegularView> {
   }
 
   Widget customerDetails(Size size) {
-    return Container(
-      height: 72.0,
-      width: size.width / 6.8,
-      padding: const EdgeInsets.only(left: 12.0),
-      margin: const EdgeInsets.symmetric(horizontal: 12.0),
-      decoration: BoxDecoration(
-        color: Themes.kWhiteColor,
-        borderRadius: BorderRadius.circular(10.0),
-        boxShadow: [
-          BoxShadow(
-            color: Themes.kBlackColor.withOpacity(0.20),
-            blurRadius: 8.0,
-            spreadRadius: -3,
-            offset: const Offset(0, 0),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Paloma Medrano",
-                style: TextStyle(
-                  fontSize: ResponsiveHelper.getFontSize(context, 15.0),
-                  fontWeight: FontWeight.w600,
-                  color: Themes.kDarkColor,
+    return Expanded(
+      child: Container(
+        height: 72.0,
+        // width: size.width / 6.8,
+        padding: const EdgeInsets.only(left: 12.0),
+        margin: const EdgeInsets.symmetric(horizontal: 12.0),
+        decoration: BoxDecoration(
+          color: Themes.kWhiteColor,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            BoxShadow(
+              color: Themes.kBlackColor.withOpacity(0.20),
+              blurRadius: 8.0,
+              spreadRadius: -3,
+              offset: const Offset(0, 0),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Paloma Medrano",
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(context, 15.0),
+                    fontWeight: FontWeight.w600,
+                    color: Themes.kDarkColor,
+                  ),
                 ),
-              ),
-              Text(
-                "ccmatua@kedasrd.com",
-                style: TextStyle(
-                  fontSize: ResponsiveHelper.getFontSize(context, 12.0),
-                  fontWeight: FontWeight.w400,
-                  color: Themes.kDarkColor,
+                Text(
+                  "ccmatua@kedasrd.com",
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(context, 12.0),
+                    fontWeight: FontWeight.w400,
+                    color: Themes.kDarkColor,
+                  ),
                 ),
-              ),
-              Text(
-                "809-536-9566",
-                style: TextStyle(
-                  fontSize: ResponsiveHelper.getFontSize(context, 12.0),
-                  fontWeight: FontWeight.w400,
-                  color: Themes.kDarkColor,
+                Text(
+                  "809-536-9566",
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(context, 12.0),
+                    fontWeight: FontWeight.w400,
+                    color: Themes.kDarkColor,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          CustomCloseIconButton(
-            iconColor: Themes.kRedColor,
-            onTap: () => controller.isSearchVisible.value = true,
-          ),
-        ],
+              ],
+            ),
+            CustomCloseIconButton(
+              iconColor: Themes.kRedColor,
+              onTap: () => controller.isSearchVisible.value = true,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -973,7 +847,7 @@ class _RegularViewState extends State<RegularView> {
                           child: Container(
                             height: 150.0,
                             width: ResponsiveHelper.isDesktop(context)
-                                ? size.width / 5.70
+                                ? size.width / 5.85
                                 : ResponsiveHelper.isTablet(context)
                                     ? size.width / 3.5
                                     : size.width / 2.2,
