@@ -70,8 +70,8 @@ class CustomDropdowns extends StatelessWidget {
         closedBorder: Border.all(width: 0.6, color: Themes.kGreyColor),
         closedBorderRadius: BorderRadius.circular(borderRadius ?? 8.0),
         hintStyle: TextStyle(
-            fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-            fontWeight: FontWeight.bold,
+            fontSize: ResponsiveHelper.getFontSize(context, 13.0),
+            // fontWeight: FontWeight.bold,
             color: Themes.kGreyColor[400]),
         expandedSuffixIcon:
             const Icon(Icons.arrow_drop_up, color: Themes.kPrimaryColor),
@@ -95,8 +95,8 @@ class CustomDropdowns extends StatelessWidget {
             bottom: BorderSide(color: Themes.kBlackColor.withOpacity(0.5))),
         closedBorderRadius: BorderRadius.circular(0.0),
         hintStyle: TextStyle(
-            fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-            fontWeight: FontWeight.w500,
+            fontSize: ResponsiveHelper.getFontSize(context, 13.0),
+            // fontWeight: FontWeight.w500,
             color: Themes.kGreyColor[500]),
         expandedSuffixIcon:
             const Icon(Icons.keyboard_arrow_up, color: Themes.kPrimaryColor),
@@ -110,14 +110,14 @@ class CustomDropdowns extends StatelessWidget {
         searchFieldDecoration: SearchFieldDecoration(
           textStyle: const TextStyle(color: Themes.kBlackColor),
           hintStyle: TextStyle(
-              fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+              fontSize: ResponsiveHelper.getFontSize(context, 13.0),
               color: Themes.kGreyColor[500]),
         ));
   }
 
   TextStyle textStyle(BuildContext context, FontWeight fonWeight) {
     return TextStyle(
-        fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+        fontSize: ResponsiveHelper.getFontSize(context, 13.0),
         fontWeight: fonWeight,
         color: Themes.kBlackColor);
   }

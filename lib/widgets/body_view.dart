@@ -91,7 +91,7 @@ class _BodyViewState extends State<BodyView> {
                             width: ResponsiveHelper.getDropdownWidth(context),
                             child: CustomDropdowns(
                               listData: DummyData.categoryItems,
-                              hintText: "Select Category",
+                              hintText: "Search by item name",
                               borderRadius: 100.0,
                               isOutlined: true,
                             ),
