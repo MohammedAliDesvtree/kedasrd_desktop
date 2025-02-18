@@ -95,6 +95,8 @@ class CustomItemsDialog extends StatelessWidget {
                   ),
               ],
             ),
+            if (title.contains("Ricos") || title.contains("Remove"))
+              extraItemsView(size, context, title),
             if (title == "Items") itemsView(size, context),
             if (title == "Customers") customersView(size, context),
             if (title == "Orders" || title == "All Orders")
@@ -118,6 +120,50 @@ class CustomItemsDialog extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget extraItemsView(Size size, BuildContext context, String title) {
+    return Expanded(
+      child: Column(
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                headerText(context, "key", "Item Description", size),
+                const SizedBox(width: 8.0),
+                headerText(context, "key", "Code", size),
+                const SizedBox(width: 8.0),
+                if (!title.contains("Remove"))
+                  Column(
+                    children: [
+                      headerText(context, "key", "Price", size),
+                      const SizedBox(width: 8.0),
+                    ],
+                  ),
+                headerText(context, "key", "Cart", size),
+              ],
+            ),
+          ),
+          Constants.divider(context, 0.0),
+          const SizedBox(height: 8.0),
+          Expanded(
+            child: Center(
+              child: Text(
+                "No result found!",
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getFontSize(context, 24.0),
+                  fontWeight: FontWeight.w600,
+                  color: Themes.kDarkColor,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -580,7 +626,12 @@ class CustomItemsDialog extends StatelessWidget {
         icon: Images.options,
         size: 24.0,
         onTapDown: (details) => Constants.openPopupMenu(
-            context, details, DummyData.actionItems, "Items"),
+          context,
+          details,
+          DummyData.actionItems,
+          "Items",
+          size,
+        ),
       ),
     );
   }

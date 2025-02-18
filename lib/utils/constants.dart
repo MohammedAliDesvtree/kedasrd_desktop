@@ -133,6 +133,7 @@ class Constants {
     TapDownDetails details,
     dynamic data,
     String title,
+    Size size,
   ) {
     final RenderBox overlay =
         Overlay.of(context).context.findRenderObject() as RenderBox;
@@ -170,18 +171,40 @@ class Constants {
         } else if (selectedItem.contains("Print")) {
           CustomSnackBar.showTopRightSnackBar(context, "Pre-Bill Printing...!");
         } else if (selectedItem.contains("Cart")) {
-          CustomSnackBar.showTopRightSnackBar(context, "Cart Cleared!!");
+          Constants.openAlertDialog(
+            context: context,
+            title: "",
+            msg: "Are you sure you want to clear the cart?",
+            toastMsg: 'Cart Cleared!',
+          );
         } else if (selectedItem.contains("Extra")) {
-          CustomSnackBar.showTopRightSnackBar(context, "Extra Item Added!");
+          Constants.openWideDialog(
+            context: context,
+            title: "Nachitos Ricos",
+            hintText: "Item",
+            btnText1: "Add Extra Items",
+          );
         } else if (selectedItem.contains("Notes")) {
-          CustomSnackBar.showTopRightSnackBar(context, "Notes Added!");
+          Constants.openDialog(
+            context: context,
+            title: "Add Notes",
+            btnText1: "Add",
+            child:
+                const CustomTextInput(hintText: "Add Notes", isNumber: false),
+            height: size.height / 2.5,
+          );
         } else if (selectedItem.contains("Kitchen")) {
           CustomSnackBar.showTopRightSnackBar(
               context, "Order Sent to Kitchen!");
         } else if (selectedItem.contains("Bar")) {
           CustomSnackBar.showTopRightSnackBar(context, "Order Sent to Bar!");
         } else if (selectedItem.contains("Remove")) {
-          CustomSnackBar.showTopRightSnackBar(context, "Item Removed!");
+          Constants.openWideDialog(
+            context: context,
+            title: "Remove Item",
+            hintText: "Item",
+            btnText1: "Add Formula Items",
+          );
         }
       }
     });

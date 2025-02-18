@@ -382,7 +382,7 @@ class _RegularViewState extends State<RegularView> {
             ],
           ),
           const SizedBox(height: 8.0),
-          if (widget.title!.contains("Food")) dineInSection(),
+          if (widget.title!.contains("Food")) dineInSection(size),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 16.0, right: 8.0),
@@ -489,7 +489,7 @@ class _RegularViewState extends State<RegularView> {
     );
   }
 
-  Widget dineInSection() {
+  Widget dineInSection(Size size) {
     return Padding(
       padding: const EdgeInsets.only(left: 14.0, right: 14.0, bottom: 8.0),
       child: Row(
@@ -506,7 +506,12 @@ class _RegularViewState extends State<RegularView> {
           ),
           GestureDetector(
             onTapDown: (details) => Constants.openPopupMenu(
-                context, details, DummyData.cartOptionsItems, "Regular - User"),
+              context,
+              details,
+              DummyData.cartOptionsItems,
+              "Regular - User",
+              size,
+            ),
             child: Image.asset(
               Images.more,
               height: 14.0,
@@ -728,8 +733,13 @@ class _RegularViewState extends State<RegularView> {
                     ),
                     const SizedBox(width: 10.0),
                     GestureDetector(
-                      onTapDown: (details) => Constants.openPopupMenu(context,
-                          details, DummyData.cartSingleItems, "Regular - Item"),
+                      onTapDown: (details) => Constants.openPopupMenu(
+                        context,
+                        details,
+                        DummyData.cartSingleItems,
+                        "Regular - Item",
+                        size,
+                      ),
                       child: Image.asset(
                         Images.more,
                         height: 13.0,

@@ -221,6 +221,8 @@ class _CustomDialogState extends State<CustomDialog> {
             }
           } else if (title.contains("Product")) {
             CustomSnackBar.showTopRightSnackBar(context, 'Item Added!');
+          } else if (title == "Add") {
+            CustomSnackBar.showTopRightSnackBar(context, 'Notes Added!');
           }
         },
         child: Ink(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 class HeaderView extends StatelessWidget {
   const HeaderView({
@@ -33,8 +33,13 @@ class HeaderView extends StatelessWidget {
                 clipBehavior: Clip.none,
                 children: [
                   GestureDetector(
-                    onTapDown: (details) => Constants.openPopupMenu(context,
-                        details, DummyData.notificationItems, "Notifications"),
+                    onTapDown: (details) => Constants.openPopupMenu(
+                      context,
+                      details,
+                      DummyData.notificationItems,
+                      "Notifications",
+                      size,
+                    ),
                     child: const Icon(
                       Icons.notifications,
                       size: 24.0,
