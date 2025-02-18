@@ -26,6 +26,31 @@ class Constants {
   //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
   // }
 
+  static Widget scrollbarView({required Widget child, double? paddingRight}) {
+    // Create a single ScrollController to share
+    final ScrollController controller = ScrollController();
+
+    // Ensure the SingleChildScrollView inside the child uses the same controller
+    if (child is SingleChildScrollView) {
+      child = SingleChildScrollView(
+        controller: controller,
+        child: Padding(
+          padding: EdgeInsets.only(
+              right: paddingRight ?? 24.0), // Add padding for scrollbar
+          child: child.child,
+        ),
+      );
+    }
+
+    return ScrollbarTheme(
+        data: ScrollbarThemeData(
+            thickness: WidgetStateProperty.all(8.0),
+            thumbVisibility: WidgetStateProperty.all(true),
+            thumbColor:
+                WidgetStateProperty.all(Themes.kGreyColor.withOpacity(0.1))),
+        child: Scrollbar(controller: controller, child: child));
+  }
+
   static Widget divider(context, gap) {
     Size size = MediaQuery.sizeOf(context);
     return Container(
@@ -242,7 +267,7 @@ class CustomSnackBar {
     final overlay = Overlay.of(context);
     final overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        top: 94.0, // Adjust position based on the status bar
+        top: 76.0, // Adjust position based on the status bar
         right: 24.0, // Adjust distance from the right edge
         child: Material(
           color: Colors.transparent,

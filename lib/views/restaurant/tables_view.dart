@@ -48,18 +48,20 @@ class _TablesViewState extends State<TablesView> {
 
   Widget tablesView(int tableLength, Size size) {
     return Expanded(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 32.0),
-          child: Obx(
-            () => Wrap(
-              key: ValueKey(controller.selectedTabIndex.value),
-              runSpacing: 84.0,
-              spacing: 16.0,
-              children: List.generate(
-                tableLength,
-                (index) => customNewTables(
-                    index, controller.randomNumbers[index], size),
+      child: Constants.scrollbarView(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 32.0),
+            child: Obx(
+              () => Wrap(
+                key: ValueKey(controller.selectedTabIndex.value),
+                runSpacing: 84.0,
+                spacing: 16.0,
+                children: List.generate(
+                  tableLength,
+                  (index) => customNewTables(
+                      index, controller.randomNumbers[index], size),
+                ),
               ),
             ),
           ),

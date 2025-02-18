@@ -65,6 +65,7 @@ class TablesController extends GetxController {
   }
 
   void onTabTapped(String title, Size size, BuildContext context) {
+    Get.back();
     switch (title) {
       case "Items":
         Constants.openWideDialog(
@@ -139,9 +140,7 @@ class TablesController extends GetxController {
           context: context,
           title: title,
           btnText1: "Proceed",
-          height: title.contains("Partial") || title.contains("Card")
-              ? size.height
-              : size.height - 150,
+          height: size.height,
           scroll: const AlwaysScrollableScrollPhysics(),
           child: inputSection(title, context),
         );

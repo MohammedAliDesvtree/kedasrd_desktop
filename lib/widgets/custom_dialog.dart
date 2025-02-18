@@ -79,11 +79,15 @@ class _CustomDialogState extends State<CustomDialog> {
             ),
             // Scrollable Content
             Expanded(
-              child: SingleChildScrollView(
-                physics: widget.scroll ?? const NeverScrollableScrollPhysics(),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 64.0),
-                  child: widget.child ?? const SizedBox.shrink(),
+              child: Constants.scrollbarView(
+                paddingRight: 0.0,
+                child: SingleChildScrollView(
+                  physics:
+                      widget.scroll ?? const NeverScrollableScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 64.0),
+                    child: widget.child ?? const SizedBox.shrink(),
+                  ),
                 ),
               ),
             ),

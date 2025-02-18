@@ -68,62 +68,59 @@ class _BodyViewState extends State<BodyView> {
                     color: Themes.kDarkColor,
                   ),
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      if (controller.shouldShowSearchBar())
-                        const CustomSearchBar(hintText: "Search"),
-                      if (controller.shouldShowDropdowns())
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(width: 16.0),
-                            SizedBox(
-                              width: ResponsiveHelper.getDropdownWidth(context),
-                              child: CustomDropdowns(
-                                listData: DummyData.priceListItems,
-                                hintText: "Price List",
-                                borderRadius: 100.0,
-                                isOutlined: true,
-                              ),
+                Row(
+                  children: [
+                    if (controller.shouldShowSearchBar())
+                      const CustomSearchBar(hintText: "Search"),
+                    if (controller.shouldShowDropdowns())
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(width: 16.0),
+                          SizedBox(
+                            width: ResponsiveHelper.getDropdownWidth(context),
+                            child: CustomDropdowns(
+                              listData: DummyData.priceListItems,
+                              hintText: "Price List",
+                              borderRadius: 100.0,
+                              isOutlined: true,
                             ),
-                            const SizedBox(width: 16.0),
-                            SizedBox(
-                              width: ResponsiveHelper.getDropdownWidth(context),
-                              child: CustomDropdowns(
-                                listData: DummyData.categoryItems,
-                                hintText: "Select Category",
-                                borderRadius: 100.0,
-                                isOutlined: true,
-                              ),
-                            ),
-                            const SizedBox(width: 16.0),
-                            SizedBox(
-                              width: ResponsiveHelper.getDropdownWidth(context),
-                              child: CustomDropdowns(
-                                listData: DummyData.currencyItems,
-                                hintText: "Select Currency",
-                                borderRadius: 100.0,
-                                isOutlined: true,
-                              ),
-                            ),
-                            const SizedBox(width: 16.0),
-                          ],
-                        ),
-                      if (controller.shouldShowFilter())
-                        SizedBox(
-                          width: ResponsiveHelper.getDropdownWidth(context),
-                          child: CustomDropdowns(
-                            listData: DummyData.filterItems,
-                            hintText: "Select Filter",
-                            borderRadius: 100.0,
-                            isOutlined: true,
                           ),
+                          const SizedBox(width: 16.0),
+                          SizedBox(
+                            width: ResponsiveHelper.getDropdownWidth(context),
+                            child: CustomDropdowns(
+                              listData: DummyData.categoryItems,
+                              hintText: "Select Category",
+                              borderRadius: 100.0,
+                              isOutlined: true,
+                            ),
+                          ),
+                          const SizedBox(width: 16.0),
+                          SizedBox(
+                            width: ResponsiveHelper.getDropdownWidth(context),
+                            child: CustomDropdowns(
+                              listData: DummyData.currencyItems,
+                              hintText: "Select Currency",
+                              borderRadius: 100.0,
+                              isOutlined: true,
+                            ),
+                          ),
+                          const SizedBox(width: 16.0),
+                        ],
+                      ),
+                    if (controller.shouldShowFilter())
+                      SizedBox(
+                        width: ResponsiveHelper.getDropdownWidth(context),
+                        child: CustomDropdowns(
+                          listData: DummyData.filterItems,
+                          hintText: "Select Filter",
+                          borderRadius: 100.0,
+                          isOutlined: true,
                         ),
-                      if (controller.shouldShowCounts()) totalCountView(),
-                    ],
-                  ),
+                      ),
+                    if (controller.shouldShowCounts()) totalCountView(),
+                  ],
                 ),
               ],
             ),

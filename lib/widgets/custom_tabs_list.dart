@@ -38,8 +38,8 @@ class _CustomTabsListState extends State<CustomTabsList> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return Wrap(
-      spacing: 12.0,
-      runSpacing: 12.0,
+      spacing: 8.0,
+      runSpacing: 8.0,
       children: List.generate(
         widget.data.length,
         (index) {
@@ -94,9 +94,9 @@ class _CustomTabsListState extends State<CustomTabsList> {
                           border: Border.all(
                               width: 0.5,
                               color: data["color"] ?? Themes.kPrimaryColor),
-                          borderRadius: BorderRadius.circular(8.0)),
+                          borderRadius: BorderRadius.circular(4.0)),
                       child: Container(
-                        height: 42.0,
+                        height: 48.0,
                         width: widget.width ?? 136.0,
                         alignment: Alignment.center,
                         child: Text(

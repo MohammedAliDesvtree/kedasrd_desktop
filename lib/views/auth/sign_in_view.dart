@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:kedasrd_windows/utils/constants.dart';
 
 import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 
@@ -47,70 +48,74 @@ class _SignInViewState extends State<SignInView> {
               ],
             ),
             child: Padding(
-              padding: EdgeInsets.all(
-                  ResponsiveHelper.isDesktop(context) ? 48.0 : 24.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 24.0),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            Images.kedasLogo,
-                            height: ResponsiveHelper.isDesktop(context)
-                                ? 96.0
-                                : 72.0,
-                          ),
-                          const SizedBox(height: 16.0),
-                          Text(
-                            "Log into your KEDAS Account",
-                            style: TextStyle(
-                              fontSize:
-                                  ResponsiveHelper.getFontSize(context, 25.0),
-                              fontWeight: FontWeight.w500,
-                              color: Themes.kBlackColor,
+              padding: EdgeInsets.only(
+                  top: ResponsiveHelper.isDesktop(context) ? 48.0 : 24.0,
+                  bottom: ResponsiveHelper.isDesktop(context) ? 48.0 : 24.0,
+                  left: ResponsiveHelper.isDesktop(context) ? 48.0 : 24.0,
+                  right: ResponsiveHelper.isDesktop(context) ? 24.0 : 24.0),
+              child: Constants.scrollbarView(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              Images.kedasLogo,
+                              height: ResponsiveHelper.isDesktop(context)
+                                  ? 96.0
+                                  : 72.0,
                             ),
-                          ),
-                          const SizedBox(height: 4.0),
-                          Text(
-                            "Hello, Welcome Back !!",
-                            style: TextStyle(
-                              fontSize:
-                                  ResponsiveHelper.getFontSize(context, 16.0),
-                              fontWeight: FontWeight.w400,
-                              color: Themes.kGreyColor,
+                            const SizedBox(height: 8.0),
+                            Text(
+                              "Log into your KEDAS Account",
+                              style: TextStyle(
+                                fontSize:
+                                    ResponsiveHelper.getFontSize(context, 22.0),
+                                fontWeight: FontWeight.w500,
+                                color: Themes.kBlackColor,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 28.0),
-                        ],
+                            const SizedBox(height: 4.0),
+                            Text(
+                              "Hello, Welcome Back !!",
+                              style: TextStyle(
+                                fontSize:
+                                    ResponsiveHelper.getFontSize(context, 16.0),
+                                fontWeight: FontWeight.w400,
+                                color: Themes.kGreyColor,
+                              ),
+                            ),
+                            const SizedBox(height: 28.0),
+                          ],
+                        ),
                       ),
-                    ),
-                    CustomTextInput(
-                      hintText: "Email Address",
-                      isNumber: false,
-                      isEmail: true,
-                      controller: controller.emailController,
-                    ),
-                    const SizedBox(height: 24.0),
-                    Obx(
-                      () => CustomTextInput(
-                        hintText: "Password",
+                      CustomTextInput(
+                        hintText: "Email Address",
                         isNumber: false,
-                        controller: controller.passwordController,
-                        isSecure: controller.isPasswordShow.value,
+                        isEmail: true,
+                        controller: controller.emailController,
                       ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    forgotPasswordButton(),
-                    const SizedBox(height: 84.0),
-                    submitButton(context, size, "Sign In"),
-                    const SizedBox(height: 28.0),
-                    signUpButton(),
-                  ],
+                      const SizedBox(height: 24.0),
+                      Obx(
+                        () => CustomTextInput(
+                          hintText: "Password",
+                          isNumber: false,
+                          controller: controller.passwordController,
+                          isSecure: controller.isPasswordShow.value,
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      forgotPasswordButton(),
+                      const SizedBox(height: 84.0),
+                      submitButton(context, size, "Sign In"),
+                      const SizedBox(height: 28.0),
+                      signUpButton(),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -58,63 +58,65 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                 ),
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: List.generate(
-                      4,
-                      (index) {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 6.0, horizontal: 14.0),
-                          margin: const EdgeInsets.only(bottom: 8.0),
-                          decoration: BoxDecoration(
-                            color: Themes.kWhiteColor,
-                            borderRadius: BorderRadius.circular(8.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Themes.kBlackColor.withOpacity(0.05),
-                                blurRadius: 8.0,
-                                spreadRadius: -3,
-                                offset: const Offset(0, 0),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              headerText("6479374", size),
-                              const SizedBox(width: 8.0),
-                              headerText("Nachitos Ricos", size),
-                              const SizedBox(width: 8.0),
-                              headerText("\$250", size),
-                              const SizedBox(width: 8.0),
-                              Container(
-                                width: size.width / 10.9,
-                                alignment: Alignment.centerLeft,
-                                child: Obx(
-                                  () => CustomQtyView(
-                                    screenName: "SuperMarket",
-                                    initialValue: commonController.qtyValues[
-                                        index], // Use index to get specific quantity
-                                    onDecrease: () => commonController
-                                        .updateQuantity(index, false),
-                                    onIncrease: () => commonController
-                                        .updateQuantity(index, true),
+                child: Constants.scrollbarView(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: List.generate(
+                        4,
+                        (index) {
+                          return Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 6.0, horizontal: 14.0),
+                            margin: const EdgeInsets.only(bottom: 8.0),
+                            decoration: BoxDecoration(
+                              color: Themes.kWhiteColor,
+                              borderRadius: BorderRadius.circular(8.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Themes.kBlackColor.withOpacity(0.05),
+                                  blurRadius: 8.0,
+                                  spreadRadius: -3,
+                                  offset: const Offset(0, 0),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                headerText("6479374", size),
+                                const SizedBox(width: 8.0),
+                                headerText("Nachitos Ricos", size),
+                                const SizedBox(width: 8.0),
+                                headerText("\$250", size),
+                                const SizedBox(width: 8.0),
+                                Container(
+                                  width: size.width / 10.9,
+                                  alignment: Alignment.centerLeft,
+                                  child: Obx(
+                                    () => CustomQtyView(
+                                      screenName: "SuperMarket",
+                                      initialValue: commonController.qtyValues[
+                                          index], // Use index to get specific quantity
+                                      onDecrease: () => commonController
+                                          .updateQuantity(index, false),
+                                      onIncrease: () => commonController
+                                          .updateQuantity(index, true),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 8.0),
-                              headerText("\$38", size),
-                              const SizedBox(width: 8.0),
-                              inputView(size),
-                              const SizedBox(width: 8.0),
-                              headerText("\$538.00", size),
-                              const SizedBox(width: 8.0),
-                              actionButton(context, size, index),
-                            ],
-                          ),
-                        );
-                      },
+                                const SizedBox(width: 8.0),
+                                headerText("\$38", size),
+                                const SizedBox(width: 8.0),
+                                inputView(size),
+                                const SizedBox(width: 8.0),
+                                headerText("\$538.00", size),
+                                const SizedBox(width: 8.0),
+                                actionButton(context, size, index),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -286,15 +288,15 @@ class _SuperMarketViewState extends State<SuperMarketView> {
               context: context,
               title: title,
               child: moreOptions(),
-              height: size.height / 2.2,
+              height: size.height / 2.0,
             );
           } else {
-            // Constants.openAlertDialog(
-            //   context: context,
-            //   title: "Discard Order",
-            //   msg: "Are you sure you want to cancel your cart ?",
-            //   toastMsg: 'Order Discarded!',
-            // );
+            Constants.openDialog(
+              context: context,
+              title: title,
+              child: paymentOptions(),
+              height: size.height / 2.0,
+            );
           }
         },
         child: Ink(
@@ -325,6 +327,13 @@ class _SuperMarketViewState extends State<SuperMarketView> {
       data: DummyData.superMarketCartDeskItems,
       type: "Super Market Cart",
       width: 98.0,
+    );
+  }
+
+  Widget paymentOptions() {
+    return CustomTabsList(
+      data: DummyData.superMarketButtonItems,
+      type: "Super Market",
     );
   }
 

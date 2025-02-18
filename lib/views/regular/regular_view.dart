@@ -78,7 +78,7 @@ class _RegularViewState extends State<RegularView> {
             ),
           ),
         ),
-        const SizedBox(width: 24.0),
+        const SizedBox(width: 6.0),
         Container(
           width: ResponsiveHelper.isDesktop(context)
               ? 300.0
@@ -104,123 +104,127 @@ class _RegularViewState extends State<RegularView> {
   }
 
   Widget updatedProductList(Size size) {
-    return SingleChildScrollView(
-      child: Wrap(
-          runSpacing: 16.0,
-          spacing: 16.0,
-          children: List.generate(
-            DummyData.productList.length,
-            (index) {
-              var data = DummyData.productList[index];
-              return Material(
-                color: Themes.kTransparent,
-                child: InkWell(
-                  hoverColor: Themes.kWhiteColor,
-                  borderRadius: BorderRadius.circular(8.0),
-                  onTap: index % 2.5 == 2
-                      ? null
-                      : () {
-                          if (widget.title!.contains("Store")) {
-                            Constants.openDialog(
-                              context: context,
-                              title: "",
-                              btnText1: "Add Product",
-                              child: productDetails(data),
-                              height: size.height / 1.6,
-                            );
-                          } else if (widget.title!.contains("Food")) {
-                            CustomSnackBar.showTopRightSnackBar(
-                                context, '${data["title"]} added in cart!');
-                          } else {
-                            cartController.addToCart(data);
-                            CustomSnackBar.showTopRightSnackBar(
-                                context, '${data["title"]} added in cart!');
-                          }
-                        },
-                  child: Ink(
-                    height: 224.0,
-                    width: ResponsiveHelper.isDesktop(context)
-                        ? size.width / 5.70
-                        : ResponsiveHelper.isTablet(context)
-                            ? size.width / 3.5
-                            : size.width / 2.2,
-                    decoration: BoxDecoration(
-                      color: Themes.kWhiteColor,
-                      borderRadius: BorderRadius.circular(8.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Themes.kBlackColor.withOpacity(0.20),
-                          blurRadius: 8.0,
-                          spreadRadius: -3,
-                          offset: const Offset(0, 0),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(8.0),
-                              topRight: Radius.circular(8.0)),
-                          child: Image.asset(
-                            data["image"],
-                            height: 164,
-                            width: size.width,
-                            fit: BoxFit.cover,
+    return Constants.scrollbarView(
+      paddingRight: 0.0,
+      child: SingleChildScrollView(
+        child: Wrap(
+            runSpacing: 16.0,
+            spacing: 16.0,
+            children: List.generate(
+              DummyData.productList.length,
+              (index) {
+                var data = DummyData.productList[index];
+                return Material(
+                  color: Themes.kTransparent,
+                  child: InkWell(
+                    hoverColor: Themes.kWhiteColor,
+                    borderRadius: BorderRadius.circular(8.0),
+                    onTap: index % 2.5 == 2
+                        ? null
+                        : () {
+                            if (widget.title!.contains("Store")) {
+                              Constants.openDialog(
+                                context: context,
+                                title: "",
+                                btnText1: "Add Product",
+                                child: productDetails(data),
+                                height: size.height / 1.6,
+                              );
+                            } else if (widget.title!.contains("Food")) {
+                              CustomSnackBar.showTopRightSnackBar(
+                                  context, '${data["title"]} added in cart!');
+                            } else {
+                              cartController.addToCart(data);
+                              CustomSnackBar.showTopRightSnackBar(
+                                  context, '${data["title"]} added in cart!');
+                            }
+                          },
+                    child: Ink(
+                      height: 224.0,
+                      width: ResponsiveHelper.isDesktop(context)
+                          ? size.width / 5.70
+                          : ResponsiveHelper.isTablet(context)
+                              ? size.width / 3.5
+                              : size.width / 2.2,
+                      decoration: BoxDecoration(
+                        color: Themes.kWhiteColor,
+                        borderRadius: BorderRadius.circular(8.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Themes.kBlackColor.withOpacity(0.20),
+                            blurRadius: 8.0,
+                            spreadRadius: -3,
+                            offset: const Offset(0, 0),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 4.0, left: 12.0, right: 12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                data["title"],
-                                style: TextStyle(
-                                  fontSize: ResponsiveHelper.getFontSize(
-                                      context, 16.0),
-                                  fontWeight: FontWeight.w700,
-                                  color: Themes.kBlackColor,
-                                ),
-                              ),
-                              const SizedBox(height: 4.0),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "DOP \$${data["price"]}",
-                                    style: TextStyle(
-                                      fontSize: ResponsiveHelper.getFontSize(
-                                          context, 16.0),
-                                      fontWeight: FontWeight.w700,
-                                      color: Themes.kPrimaryColor,
-                                    ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(8.0),
+                                topRight: Radius.circular(8.0)),
+                            child: Image.asset(
+                              data["image"],
+                              height: 164,
+                              width: size.width,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 4.0, left: 12.0, right: 12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  data["title"],
+                                  style: TextStyle(
+                                    fontSize: ResponsiveHelper.getFontSize(
+                                        context, 16.0),
+                                    fontWeight: FontWeight.w700,
+                                    color: Themes.kBlackColor,
                                   ),
-                                  if (index % 2.5 == 2)
+                                ),
+                                const SizedBox(height: 4.0),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
                                     Text(
-                                      "Out Of Stock",
+                                      "DOP \$${data["price"]}",
                                       style: TextStyle(
                                         fontSize: ResponsiveHelper.getFontSize(
                                             context, 16.0),
                                         fontWeight: FontWeight.w700,
-                                        color: Themes.kRedColor,
+                                        color: Themes.kPrimaryColor,
                                       ),
                                     ),
-                                ],
-                              ),
-                            ],
+                                    if (index % 2.5 == 2)
+                                      Text(
+                                        "Out Of Stock",
+                                        style: TextStyle(
+                                          fontSize:
+                                              ResponsiveHelper.getFontSize(
+                                                  context, 16.0),
+                                          fontWeight: FontWeight.w700,
+                                          color: Themes.kRedColor,
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-          )),
+                );
+              },
+            )),
+      ),
     );
   }
 
@@ -381,15 +385,18 @@ class _RegularViewState extends State<RegularView> {
           if (widget.title!.contains("Food")) dineInSection(),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.only(left: 16.0, right: 8.0),
               child: Column(
                 children: [
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: widget.title!.contains("Food") ||
-                              widget.title!.contains("Store")
-                          ? fastFoodCartItemsSection(size)
-                          : cartItemsSection(),
+                    child: Constants.scrollbarView(
+                      paddingRight: 16.0,
+                      child: SingleChildScrollView(
+                        child: widget.title!.contains("Food") ||
+                                widget.title!.contains("Store")
+                            ? fastFoodCartItemsSection(size)
+                            : cartItemsSection(),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 14.0),
@@ -901,46 +908,49 @@ class _RegularViewState extends State<RegularView> {
         ),
         const SizedBox(height: 16.0),
         Expanded(
-          child: SingleChildScrollView(
-            child: Wrap(
-              runSpacing: 16.0,
-              spacing: 16.0,
-              children: List.generate(
-                DummyData.superMarketCartDeskItems.length,
-                (index) {
-                  var data = DummyData.superMarketCartDeskItems[index];
-                  return Material(
-                    color: Themes.kTransparent,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(8.0),
-                      onTap: () => tableController.onTabTapped(
-                          data["title"], size, context),
-                      child: Ink(
-                        decoration: BoxDecoration(
-                            color: Themes.kPrimaryColor,
-                            borderRadius: BorderRadius.circular(8.0)),
-                        child: Container(
-                          height: 150.0,
-                          width: ResponsiveHelper.isDesktop(context)
-                              ? size.width / 5.70
-                              : ResponsiveHelper.isTablet(context)
-                                  ? size.width / 3.5
-                                  : size.width / 2.2,
-                          alignment: Alignment.center,
-                          child: Text(
-                            data["title"],
-                            style: TextStyle(
-                              fontSize:
-                                  ResponsiveHelper.getFontSize(context, 20.0),
-                              fontWeight: FontWeight.bold,
-                              color: Themes.kWhiteColor,
+          child: Constants.scrollbarView(
+            paddingRight: 18.0,
+            child: SingleChildScrollView(
+              child: Wrap(
+                runSpacing: 16.0,
+                spacing: 16.0,
+                children: List.generate(
+                  DummyData.superMarketCartDeskItems.length,
+                  (index) {
+                    var data = DummyData.superMarketCartDeskItems[index];
+                    return Material(
+                      color: Themes.kTransparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(8.0),
+                        onTap: () => tableController.onTabTapped(
+                            data["title"], size, context),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              color: Themes.kPrimaryColor,
+                              borderRadius: BorderRadius.circular(8.0)),
+                          child: Container(
+                            height: 150.0,
+                            width: ResponsiveHelper.isDesktop(context)
+                                ? size.width / 5.70
+                                : ResponsiveHelper.isTablet(context)
+                                    ? size.width / 3.5
+                                    : size.width / 2.2,
+                            alignment: Alignment.center,
+                            child: Text(
+                              data["title"],
+                              style: TextStyle(
+                                fontSize:
+                                    ResponsiveHelper.getFontSize(context, 20.0),
+                                fontWeight: FontWeight.bold,
+                                color: Themes.kWhiteColor,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
           ),

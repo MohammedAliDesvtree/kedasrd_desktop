@@ -62,11 +62,14 @@ class _ShiftsViewState extends State<ShiftsView> {
   }
 
   Widget shiftsListView(BuildContext context, Size size) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(controller.totalItemCounts,
-            (index) => shiftItem(context, size, index)),
+    return Constants.scrollbarView(
+      paddingRight: 0.0,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: List.generate(controller.totalItemCounts,
+              (index) => shiftItem(context, size, index)),
+        ),
       ),
     );
   }

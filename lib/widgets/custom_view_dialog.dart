@@ -48,36 +48,40 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(48.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // const SizedBox(height: 24.0),
-                Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Image.asset(Images.kedasLogo, height: 96.0),
-                      // const SizedBox(height: 16.0),
-                      Obx(
-                        () => commonController.isEntryLog.value
-                            ? inputSection()
-                            : uploadPhotoSection(size),
-                      ),
-                      const SizedBox(height: 44.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          customButton("Cancel", context, size),
-                          customButton("Submit", context, size),
-                        ],
-                      ),
-                    ],
+          padding: const EdgeInsets.only(
+              top: 24.0, bottom: 24.0, left: 24.0, right: 16.0),
+          child: Constants.scrollbarView(
+            paddingRight: 4.0,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // const SizedBox(height: 24.0),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Image.asset(Images.kedasLogo, height: 96.0),
+                        // const SizedBox(height: 16.0),
+                        Obx(
+                          () => commonController.isEntryLog.value
+                              ? inputSection()
+                              : uploadPhotoSection(size),
+                        ),
+                        const SizedBox(height: 44.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            customButton("Cancel", context, size),
+                            customButton("Submit", context, size),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

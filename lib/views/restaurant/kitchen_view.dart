@@ -21,13 +21,16 @@ class _KitchenViewState extends State<KitchenView> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    return SingleChildScrollView(
-      child: Wrap(
-        runSpacing: 16.0,
-        spacing: 16.0,
-        children: List.generate(
-          16,
-          (index) => orderView(controller.orders[index], index, size),
+
+    return Constants.scrollbarView(
+      child: SingleChildScrollView(
+        child: Wrap(
+          runSpacing: 16.0,
+          spacing: 16.0,
+          children: List.generate(
+            16,
+            (index) => orderView(controller.orders[index], index, size),
+          ),
         ),
       ),
     );
@@ -38,7 +41,7 @@ class _KitchenViewState extends State<KitchenView> {
       children: [
         Container(
           width: ResponsiveHelper.isDesktop(context)
-              ? size.width / 3.9
+              ? size.width / 4.0
               : size.width / 4.0,
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
           decoration: BoxDecoration(
