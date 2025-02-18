@@ -34,7 +34,7 @@ class _CustomDigitTextState extends State<CustomDigitText> {
             color: Themes.kPrimaryColor,
           ),
         ),
-        const SizedBox(width: 8.0),
+        SizedBox(width: widget.title == "" ? 0.0 : 8.0),
         widget.title.contains("%") || widget.title == "Price"
             ? inputView()
             : widget.title.contains("Qty")
@@ -52,7 +52,8 @@ class _CustomDigitTextState extends State<CustomDigitText> {
                 : Expanded(
                     child: Text(
                       widget.amount,
-                      textAlign: TextAlign.right,
+                      textAlign:
+                          widget.title == "" ? TextAlign.left : TextAlign.right,
                       style: TextStyle(
                         fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                         fontWeight: FontWeight.w900,

@@ -653,7 +653,7 @@ class _RegularViewState extends State<RegularView> {
                 ),
                 const SizedBox(height: 4.0),
                 CustomDigitText(
-                    title: "Item",
+                    title: "",
                     amount: index == 1
                         ? "Nachitos Ricos"
                         : "Salted Tahini Chocolate Chunk (1 ud)"),
