@@ -223,6 +223,13 @@ class _CustomDialogState extends State<CustomDialog> {
             CustomSnackBar.showTopRightSnackBar(context, 'Item Added!');
           } else if (title == "Add") {
             CustomSnackBar.showTopRightSnackBar(context, 'Notes Added!');
+          } else if (widget.screenName == "Shifts") {
+            if (title == "Submit") {
+              CustomSnackBar.showTopRightSnackBar(
+                  context, 'Shift Closed Successfully!');
+            } else if (title.contains("Print")) {
+              CustomSnackBar.showTopRightSnackBar(context, 'Printing...!');
+            }
           }
         },
         child: Ink(

@@ -52,7 +52,8 @@ class _ShiftsViewState extends State<ShiftsView> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 14.0, horizontal: 16.0),
                     color: Themes.kWhiteColor,
-                    child: shiftsDetailsView(context, size)),
+                    child: Obx(() => shiftsDetailsView(
+                        context, size, controller.selectedIndex.value))),
               ],
             ),
           ),
@@ -119,6 +120,7 @@ class _ShiftsViewState extends State<ShiftsView> {
   ) {
     return Text(
       title,
+      textAlign: TextAlign.start,
       style: TextStyle(
         fontSize: ResponsiveHelper.getFontSize(context, fontSize),
         fontWeight: fontWeight,
@@ -181,7 +183,7 @@ class _ShiftsViewState extends State<ShiftsView> {
     );
   }
 
-  Widget shiftsDetailsView(BuildContext context, Size size) {
+  Widget shiftsDetailsView(BuildContext context, Size size, int index) {
     return Column(
       children: [
         Row(
@@ -189,6 +191,7 @@ class _ShiftsViewState extends State<ShiftsView> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 itemBullet(
                     "Start Date", 16.0, FontWeight.w600, Themes.kPrimaryColor),
@@ -198,15 +201,17 @@ class _ShiftsViewState extends State<ShiftsView> {
               ],
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                itemBullet("Initial Base", 16.0, FontWeight.w600,
-                    Themes.kPrimaryColor),
+                itemBullet(index == 0 ? "Initial Base" : "Deadline", 16.0,
+                    FontWeight.w600, Themes.kPrimaryColor),
                 const SizedBox(height: 4.0),
-                itemBullet(
-                    "DOP \$0.00", 14.0, FontWeight.w500, Themes.kDarkColor),
+                itemBullet(index == 0 ? "DOP \$0.00" : "02/05/2025 12:09 AM",
+                    14.0, FontWeight.w500, Themes.kDarkColor),
               ],
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 itemBullet(
                     "Incomes", 16.0, FontWeight.w600, Themes.kPrimaryColor),

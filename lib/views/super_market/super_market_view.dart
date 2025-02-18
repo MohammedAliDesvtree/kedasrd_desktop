@@ -139,14 +139,6 @@ class _SuperMarketViewState extends State<SuperMarketView> {
           }
         }),
         bottomButton(size),
-        // const SizedBox(height: 24.0),
-        // CustomTabsList(
-        //     data: DummyData.superMarketCartDeskItems,
-        //     type: "Super Market Cart"),
-        // const SizedBox(height: 24.0),
-        // CustomTabsList(
-        //     data: DummyData.superMarketButtonItems, type: "Super Market"),
-        // const SizedBox(height: 16.0),
       ],
     );
   }

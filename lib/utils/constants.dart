@@ -227,7 +227,8 @@ class Constants {
       title: title,
       btnText1: "Submit",
       btnText2: "Close and Print",
-      height: size.height / 2.5,
+      screenName: "Shifts",
+      height: size.height / 1.6,
       child: closeShift(context),
     );
   }
