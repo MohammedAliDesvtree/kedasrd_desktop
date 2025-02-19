@@ -31,6 +31,7 @@ class Images {
   // Icons
   static const String backArrow = "lib/assets/icons/back.png";
   static const String leftArrow = "lib/assets/icons/left-arrow.png";
+  static const String rightArrow = "lib/assets/icons/right-arrow.png";
   static const String downArrow = "lib/assets/icons/arrow-down.png";
   static const String downFilledArrow = "lib/assets/icons/down-arrow.png";
 
@@ -107,4 +108,7 @@ class Images {
   static const String outsideRoom = "lib/assets/icons/outside_room.png";
   static const String balconySide = "lib/assets/icons/balcony_side.png";
   static const String nearBalcony = "lib/assets/icons/near_balcony.png";
+
+  static const String pdf = "lib/assets/icons/pdf.png";
+  static const String excel = "lib/assets/icons/excel.png";
 }

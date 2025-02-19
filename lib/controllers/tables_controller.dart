@@ -72,7 +72,7 @@ class TablesController extends GetxController {
           context: context,
           title: title,
           hintText: "Article",
-          btnText1: "Add Product",
+          // btnText1: "Add Product",
         );
         break;
       case "Customers":
@@ -80,7 +80,7 @@ class TablesController extends GetxController {
           context: context,
           title: title,
           hintText: "Client",
-          btnText1: "Add Customer",
+          // btnText1: "Add Customer",
         );
         break;
       case "Orders":

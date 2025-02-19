@@ -182,7 +182,7 @@ class Constants {
             context: context,
             title: "Nachitos Ricos",
             hintText: "Item",
-            btnText1: "Add Extra Items",
+            // btnText1: "Add Extra Items",
           );
         } else if (selectedItem.contains("Notes")) {
           Constants.openDialog(
@@ -203,7 +203,7 @@ class Constants {
             context: context,
             title: "Remove Item",
             hintText: "Item",
-            btnText1: "Add Formula Items",
+            // btnText1: "Add Formula Items",
           );
         }
       }

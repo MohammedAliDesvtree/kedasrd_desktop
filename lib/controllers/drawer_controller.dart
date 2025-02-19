@@ -495,14 +495,14 @@ class DrawerMenuController extends GetxController {
         context: context,
         title: title,
         hintText: "Article",
-        btnText1: "Add Product",
+        // btnText1: "Add Product",
       );
     } else if (title == "Customers") {
       Constants.openWideDialog(
         context: context,
         title: title,
         hintText: "Client",
-        btnText1: "Add Customer",
+        // btnText1: "Add Customer",
       );
     } else if (title == "Discard Order") {
       Constants.openAlertDialog(

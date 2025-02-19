@@ -264,17 +264,22 @@ class _RegularViewState extends State<RegularView> {
                         child: CustomSearchBar(hintText: "Search Customer"))
                     : customerDetails(size),
               ),
-              CustomAddButton(
-                isCircular: true,
-                onTap: () => Constants.openDialog(
-                  context: context,
-                  title: "Add Customer",
-                  btnText1: "Proceed",
-                  child: inputSection(),
-                ),
-              ),
-              const SizedBox(width: 10.0),
+              // CustomAddButton(
+              //   isCircular: true,
+              //   onTap: () => Constants.openDialog(
+              //     context: context,
+              //     title: "Add Customer",
+              //     btnText1: "Proceed",
+              //     child: inputSection(),
+              //   ),
+              // ),
+              // const SizedBox(width: 10.0),
             ],
+          ),
+          const SizedBox(height: 8.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: outlineButton(Images.add, "Add Customer", size, context),
           ),
           const SizedBox(height: 8.0),
           if (widget.title!.contains("Food")) dineInSection(size),
@@ -372,6 +377,62 @@ class _RegularViewState extends State<RegularView> {
     );
   }
 
+  Widget outlineButton(String icon, String title, Size size, context) {
+    return Material(
+      color: Themes.kTransparent,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, // Changes cursor to hand
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8.0),
+          onTap: () => Constants.openDialog(
+            context: context,
+            title: "Add Customer",
+            btnText1: "Proceed",
+            child: inputSection(),
+          ),
+          child: Ink(
+            decoration: BoxDecoration(
+                color: Themes.kPrimaryColor,
+                borderRadius: BorderRadius.circular(8.0),
+                border: Border.all(width: 0.6, color: Themes.kGreyColor)),
+            child: Container(
+              height: 48.0,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              // width: ResponsiveHelper.isTablet(context)
+              //     ? size.width / 8.0
+              //     : size.width / 10.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (icon != "")
+                    Row(
+                      children: [
+                        Image.asset(
+                          icon,
+                          height: 16.0,
+                          width: 16.0,
+                          color: Themes.kWhiteColor,
+                        ),
+                        const SizedBox(width: 8.0),
+                      ],
+                    ),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                      fontWeight: FontWeight.bold,
+                      color: Themes.kWhiteColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget inputSection() {
     return const Column(
       children: [
@@ -456,21 +517,21 @@ class _RegularViewState extends State<RegularView> {
                   ),
                 ),
                 Text(
-                  "ccmatua@kedasrd.com",
+                  "ccmatua@kedasrd.com - 809-536-9566",
                   style: TextStyle(
                     fontSize: ResponsiveHelper.getFontSize(context, 12.0),
                     fontWeight: FontWeight.w400,
                     color: Themes.kDarkColor,
                   ),
                 ),
-                Text(
-                  "809-536-9566",
-                  style: TextStyle(
-                    fontSize: ResponsiveHelper.getFontSize(context, 12.0),
-                    fontWeight: FontWeight.w400,
-                    color: Themes.kDarkColor,
-                  ),
-                ),
+                // Text(
+                //   "809-536-9566",
+                //   style: TextStyle(
+                //     fontSize: ResponsiveHelper.getFontSize(context, 12.0),
+                //     fontWeight: FontWeight.w400,
+                //     color: Themes.kDarkColor,
+                //   ),
+                // ),
               ],
             ),
             CustomCloseIconButton(
