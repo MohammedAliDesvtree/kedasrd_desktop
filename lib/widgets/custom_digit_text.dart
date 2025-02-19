@@ -31,7 +31,9 @@ class _CustomDigitTextState extends State<CustomDigitText> {
           style: TextStyle(
             fontSize: ResponsiveHelper.getFontSize(context, 14.0),
             fontWeight: FontWeight.w400,
-            color: Themes.kPrimaryColor,
+            color: widget.title == "Total"
+                ? Themes.kPrimaryColor
+                : Themes.kBlackColor.withOpacity(0.60),
           ),
         ),
         SizedBox(width: widget.title == "" ? 0.0 : 8.0),
@@ -57,7 +59,9 @@ class _CustomDigitTextState extends State<CustomDigitText> {
                       style: TextStyle(
                         fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                         fontWeight: FontWeight.w900,
-                        color: Themes.kDarkColor,
+                        color: widget.title == "Total"
+                            ? Themes.kPrimaryColor
+                            : Themes.kDarkColor,
                       ),
                     ),
                   ),

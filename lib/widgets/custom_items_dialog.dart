@@ -39,24 +39,29 @@ class CustomItemsDialog extends StatelessWidget {
           children: [
             // Fixed Header
             Container(
-              height: 78.0,
-              padding: const EdgeInsets.only(top: 0.0),
-              child: Stack(
+              height: 74.0,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              decoration: const BoxDecoration(
+                  color: Themes.kHeaderLightColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8.0),
+                      topRight: Radius.circular(8.0))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Center(
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: ResponsiveHelper.getFontSize(context, 24.0),
-                        fontWeight: FontWeight.bold,
-                        color: Themes.kPrimaryColor,
-                      ),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: ResponsiveHelper.getFontSize(context, 22.0),
+                      fontWeight: FontWeight.w500,
+                      color: Themes.kPrimaryColor,
                     ),
                   ),
                   closeButton(),
                 ],
               ),
             ),
+            const SizedBox(height: 16.0),
             // Scrollable Content
             Row(
               // mainAxisAlignment: title.contains("Orders")
@@ -478,41 +483,18 @@ class CustomItemsDialog extends StatelessWidget {
   }
 
   Widget closeButton() {
-    return Positioned(
-      top: 0,
-      right: 0,
-      child: Material(
-        color: Themes.kTransparent,
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click, // Changes cursor to hand
-          child: InkWell(
-            onTap: () => Get.back(),
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(8.0),
-              bottomLeft: Radius.circular(8.0),
-              topLeft: Radius.circular(0.0),
-              bottomRight: Radius.circular(0.0),
-            ),
-            child: Ink(
-              decoration: BoxDecoration(
-                color: Themes.kPrimaryColor.withOpacity(0.1),
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(8.0),
-                  bottomLeft: Radius.circular(8.0),
-                  topLeft: Radius.circular(0.0),
-                  bottomRight: Radius.circular(0.0),
-                ),
-              ),
-              child: Container(
-                height: 54.0,
-                width: 54.0,
-                padding: const EdgeInsets.all(21.0),
-                child: Image.asset(
-                  Images.close,
-                  color: Themes.kPrimaryColor,
-                ),
-              ),
-            ),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click, // Changes cursor to hand
+      child: GestureDetector(
+        onTap: () => Get.back(),
+        child: Container(
+          height: 54.0,
+          width: 54.0,
+          padding: const EdgeInsets.all(21.0),
+          color: Themes.kTransparent,
+          child: Image.asset(
+            Images.close,
+            color: Themes.kPrimaryColor,
           ),
         ),
       ),

@@ -597,27 +597,24 @@ class _RegularViewState extends State<RegularView> {
         (index) {
           return Container(
             margin: const EdgeInsets.only(
-                left: 2.0, right: 2.0, top: 2, bottom: 6.0),
+                left: 0.0, right: 0.0, top: 0.0, bottom: 8.0),
             padding:
                 const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
             decoration: BoxDecoration(
-              color: Themes.kWhiteColor,
-              borderRadius: BorderRadius.circular(8.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Themes.kBlackColor.withOpacity(0.20),
-                  blurRadius: 8.0,
-                  spreadRadius: -3,
-                  offset: const Offset(0, 0),
-                ),
-              ],
-            ),
+                color: Themes.kHeaderLightColor,
+                borderRadius: BorderRadius.circular(8.0),
+                border: Border.all(
+                    width: 1.0, color: Themes.kBlackColor.withOpacity(0.10))),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    CustomDigitText(
+                        title: "",
+                        amount: index == 1
+                            ? "Nachitos Ricos"
+                            : "Salted Tahini Chocolate Chunk (1 ud)"),
                     MouseRegion(
                       cursor:
                           SystemMouseCursors.click, // Changes cursor to hand
@@ -659,19 +656,13 @@ class _RegularViewState extends State<RegularView> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 4.0),
-                CustomDigitText(
-                    title: "",
-                    amount: index == 1
-                        ? "Nachitos Ricos"
-                        : "Salted Tahini Chocolate Chunk (1 ud)"),
-                Constants.divider(context, 4.0),
+                const SizedBox(height: 6.0),
                 const CustomDigitText(title: "Qty", amount: "0"),
-                Constants.divider(context, 4.0),
+                const SizedBox(height: 6.0),
                 const CustomDigitText(title: "Price", amount: "0"),
-                Constants.divider(context, 4.0),
+                const SizedBox(height: 6.0),
                 const CustomDigitText(title: "Disc %", amount: "0"),
-                Constants.divider(context, 4.0),
+                Constants.divider(context, 6.0),
                 const CustomDigitText(title: "Total", amount: "\$500.00"),
               ],
             ),
