@@ -61,7 +61,7 @@ class CustomItemsDialog extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 12.0),
             // Scrollable Content
             Row(
               // mainAxisAlignment: title.contains("Orders")
@@ -100,6 +100,7 @@ class CustomItemsDialog extends StatelessWidget {
                   ),
               ],
             ),
+            const SizedBox(height: 8.0),
             if (title.contains("Ricos") || title.contains("Remove"))
               extraItemsView(size, context, title),
             if (title == "Items") itemsView(size, context),
@@ -202,7 +203,7 @@ class CustomItemsDialog extends StatelessWidget {
             ),
           ),
           Constants.divider(context, 0.0),
-          const SizedBox(height: 8.0),
+          // const SizedBox(height: 8.0),
           Expanded(
             child: Constants.scrollbarView(
               paddingRight: 0.0,
@@ -216,7 +217,7 @@ class CustomItemsDialog extends StatelessWidget {
                             vertical: 8.0, horizontal: 24.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             headerText(
                                 context, "value", "Paloma Medrano", size),
@@ -591,9 +592,10 @@ class CustomItemsDialog extends StatelessWidget {
               ? size.width / 1.8 / 5.0
               : size.width / 1.8 / 8.2,
       child: Text(
-        type == "key" ? title.toUpperCase() : title,
+        title,
         style: TextStyle(
-          fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+          fontSize: ResponsiveHelper.getFontSize(
+              context, type == "key" ? 16.0 : 14.0),
           fontWeight: FontWeight.w600,
           color: title == "Paid" || title == "In Stock"
               ? Themes.kGreenColor

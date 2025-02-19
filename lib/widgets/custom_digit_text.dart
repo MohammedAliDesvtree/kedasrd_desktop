@@ -11,7 +11,13 @@ import 'package:kedasrd_windows/controllers/common_controller.dart';
 
 class CustomDigitText extends StatefulWidget {
   final String title, amount;
-  const CustomDigitText({super.key, required this.title, required this.amount});
+  final String? screenName;
+  const CustomDigitText({
+    super.key,
+    required this.title,
+    required this.amount,
+    this.screenName,
+  });
 
   @override
   State<CustomDigitText> createState() => _CustomDigitTextState();
@@ -42,7 +48,8 @@ class _CustomDigitTextState extends State<CustomDigitText> {
             : widget.title.contains("Qty")
                 ? Obx(
                     () => CustomQtyView(
-                      screenName: "SuperMarket",
+                      screenName:
+                          widget.screenName != "" ? "FastFood" : "SuperMarket",
                       initialValue: commonController
                           .qtyValues[0], // Use index to get specific quantity
                       onDecrease: () =>
@@ -75,7 +82,9 @@ class _CustomDigitTextState extends State<CustomDigitText> {
       width: widget.title == "Price" ? 74.0 : 36.0,
       // padding: const EdgeInsets.only(bottom: 3.5),
       decoration: BoxDecoration(
-          color: Themes.kWhiteColor,
+          color: widget.screenName != ""
+              ? Themes.kHeaderLightColor
+              : Themes.kWhiteColor,
           borderRadius: BorderRadius.circular(6.5),
           border: Border.all(width: 0.5, color: Themes.kGreyColor)),
       child: TextFormField(

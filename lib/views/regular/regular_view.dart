@@ -596,6 +596,7 @@ class _RegularViewState extends State<RegularView> {
         2,
         (index) {
           return Container(
+            height: 184,
             margin: const EdgeInsets.only(
                 left: 0.0, right: 0.0, top: 0.0, bottom: 8.0),
             padding:
@@ -610,11 +611,11 @@ class _RegularViewState extends State<RegularView> {
               children: [
                 Row(
                   children: [
-                    CustomDigitText(
-                        title: "",
-                        amount: index == 1
-                            ? "Nachitos Ricos"
-                            : "Salted Tahini Chocolate Chunk (1 ud)"),
+                    Expanded(
+                      child: Text(index == 1
+                          ? "Nachitos Ricos"
+                          : "Salted Tahini Chocolate Chunk (1 ud)"),
+                    ),
                     MouseRegion(
                       cursor:
                           SystemMouseCursors.click, // Changes cursor to hand
