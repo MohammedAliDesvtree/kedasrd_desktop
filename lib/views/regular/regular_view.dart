@@ -145,9 +145,9 @@ class _RegularViewState extends State<RegularView> {
                                   }
                                 },
                           child: Ink(
-                            height: 224.0,
+                            height: 178.0,
                             width: ResponsiveHelper.isDesktop(context)
-                                ? size.width / 8.50
+                                ? size.width / 8.0
                                 : ResponsiveHelper.isTablet(context)
                                     ? size.width / 3.5
                                     : size.width / 2.2,
@@ -172,7 +172,7 @@ class _RegularViewState extends State<RegularView> {
                                       topRight: Radius.circular(8.0)),
                                   child: Image.asset(
                                     data["image"],
-                                    height: 164,
+                                    height: 124,
                                     width: size.width,
                                     fit: BoxFit.cover,
                                   ),
@@ -189,7 +189,7 @@ class _RegularViewState extends State<RegularView> {
                                         style: TextStyle(
                                           fontSize:
                                               ResponsiveHelper.getFontSize(
-                                                  context, 16.0),
+                                                  context, 14.0),
                                           fontWeight: FontWeight.w700,
                                           color: Themes.kBlackColor,
                                         ),
@@ -204,22 +204,11 @@ class _RegularViewState extends State<RegularView> {
                                             style: TextStyle(
                                               fontSize:
                                                   ResponsiveHelper.getFontSize(
-                                                      context, 16.0),
+                                                      context, 14.0),
                                               fontWeight: FontWeight.w700,
                                               color: Themes.kPrimaryColor,
                                             ),
                                           ),
-                                          // if (index % 2.5 == 2)
-                                          //   Text(
-                                          //     "Out Of Stock",
-                                          //     style: TextStyle(
-                                          //       fontSize:
-                                          //           ResponsiveHelper.getFontSize(
-                                          //               context, 16.0),
-                                          //       fontWeight: FontWeight.w700,
-                                          //       color: Themes.kRedColor,
-                                          //     ),
-                                          //   ),
                                         ],
                                       ),
                                     ],
@@ -233,16 +222,15 @@ class _RegularViewState extends State<RegularView> {
                     ),
                     if (index % 2.5 == 2)
                       Container(
-                        height: 224.0,
+                        height: 178.0,
                         width: ResponsiveHelper.isDesktop(context)
-                            ? size.width / 8.50
+                            ? size.width / 8.0
                             : ResponsiveHelper.isTablet(context)
                                 ? size.width / 3.5
                                 : size.width / 2.2,
-                        alignment: Alignment.bottomRight,
-                        padding: const EdgeInsets.only(bottom: 8, right: 10.0),
+                        alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: Themes.kBlackColor.withOpacity(0.5),
+                          color: Themes.kBlackColor.withOpacity(0.6),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: const Text(
@@ -878,7 +866,7 @@ class _RegularViewState extends State<RegularView> {
                             child: Container(
                               height: 150.0,
                               width: ResponsiveHelper.isDesktop(context)
-                                  ? size.width / 8.50
+                                  ? size.width / 8.0
                                   : ResponsiveHelper.isTablet(context)
                                       ? size.width / 3.5
                                       : size.width / 2.2,

@@ -1,14 +1,25 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
-class HeaderView extends StatelessWidget {
+import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
+
+class HeaderView extends StatefulWidget {
   const HeaderView({
     super.key,
   });
+
+  @override
+  State<HeaderView> createState() => _HeaderViewState();
+}
+
+class _HeaderViewState extends State<HeaderView> {
+  final AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +111,7 @@ class HeaderView extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Admin",
+                    toBeginningOfSentenceCase(authController.currentUser!.role),
                     style: TextStyle(
                       fontSize: ResponsiveHelper.getFontSize(context, 10.0),
                       fontWeight: FontWeight.w600,

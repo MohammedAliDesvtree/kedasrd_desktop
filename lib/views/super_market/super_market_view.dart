@@ -155,6 +155,10 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                     ],
                   ),
                 ),
+                Align(
+                  alignment: Alignment.center,
+                  child: moreOptionsMenu(),
+                ),
                 totalView(),
                 const SizedBox(height: 8.0),
                 Obx(() {
@@ -169,22 +173,10 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                     return const SizedBox.shrink();
                   }
                 }),
-                // const SizedBox(height: 24.0),
-                // CustomTabsList(
-                //     data: DummyData.superMarketCartDeskItems,
-                //     type: "Super Market Cart"),
                 const SizedBox(height: 8.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomTabsList(
-                        data: DummyData.superMarketButtonItems,
-                        type: "Super Market"),
-                    moreOptionsMenu(),
-                  ],
-                ),
-                // const SizedBox(height: 16.0),
-                // bottomButton(size),
+                CustomTabsList(
+                    data: DummyData.superMarketButtonItems,
+                    type: "Super Market"),
               ],
             ),
     );
@@ -203,8 +195,8 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                 color: Themes.kPrimaryColor,
                 borderRadius: BorderRadius.circular(50.0)),
             child: const SizedBox(
-              height: 44.0,
-              width: 44.0,
+              height: 50.0,
+              width: 50.0,
               child: Icon(
                 Icons.menu,
                 size: 24.0,

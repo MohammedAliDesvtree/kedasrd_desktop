@@ -33,7 +33,7 @@ class TablesController extends GetxController {
     final random = Random();
     randomNumbers = List.generate(
       tableLength,
-      (_) => random.nextInt(10) + 1,
+      (_) => random.nextInt(8) + 1,
     ).obs;
   }
 

@@ -73,7 +73,7 @@ class _CustomTabsListState extends State<CustomTabsList> {
                                 borderRadius: BorderRadius.circular(6.0)),
                             child: SizedBox(
                               height: 42.0,
-                              width: 200.0,
+                              width: 136.0,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -85,7 +85,7 @@ class _CustomTabsListState extends State<CustomTabsList> {
                                         ? Themes.kWhiteColor
                                         : Themes.kGreyColor,
                                   ),
-                                  const SizedBox(width: 12.0),
+                                  const SizedBox(width: 8.0),
                                   Text(
                                     data["title"],
                                     style: TextStyle(
@@ -111,8 +111,8 @@ class _CustomTabsListState extends State<CustomTabsList> {
                                 color: data["color"] ?? Themes.kPrimaryColor),
                             borderRadius: BorderRadius.circular(4.0)),
                         child: Container(
-                          height: 48.0,
-                          width: widget.width ?? 200.0,
+                          height: 42.0,
+                          width: widget.width ?? 136.0,
                           alignment: Alignment.center,
                           child: Text(
                             data["title"],
