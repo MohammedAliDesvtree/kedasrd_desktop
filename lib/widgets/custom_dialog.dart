@@ -139,31 +139,34 @@ class _CustomDialogState extends State<CustomDialog> {
       right: 0,
       child: Material(
         color: Themes.kTransparent,
-        child: InkWell(
-          onTap: () => Get.back(),
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(8.0),
-            bottomLeft: Radius.circular(8.0),
-            topLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-          ),
-          child: Ink(
-            decoration: BoxDecoration(
-              color: Themes.kPrimaryColor.withOpacity(0.1),
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(8.0),
-                bottomLeft: Radius.circular(8.0),
-                topLeft: Radius.circular(0.0),
-                bottomRight: Radius.circular(0.0),
-              ),
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click, // Changes cursor to hand
+          child: InkWell(
+            onTap: () => Get.back(),
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(8.0),
+              bottomLeft: Radius.circular(8.0),
+              topLeft: Radius.circular(0.0),
+              bottomRight: Radius.circular(0.0),
             ),
-            child: Container(
-              height: 54.0,
-              width: 54.0,
-              padding: const EdgeInsets.all(21.0),
-              child: Image.asset(
-                Images.close,
-                color: Themes.kPrimaryColor,
+            child: Ink(
+              decoration: BoxDecoration(
+                color: Themes.kPrimaryColor.withOpacity(0.1),
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(8.0),
+                  bottomLeft: Radius.circular(8.0),
+                  topLeft: Radius.circular(0.0),
+                  bottomRight: Radius.circular(0.0),
+                ),
+              ),
+              child: Container(
+                height: 54.0,
+                width: 54.0,
+                padding: const EdgeInsets.all(21.0),
+                child: Image.asset(
+                  Images.close,
+                  color: Themes.kPrimaryColor,
+                ),
               ),
             ),
           ),
@@ -175,84 +178,87 @@ class _CustomDialogState extends State<CustomDialog> {
   Widget submitButton(String title, Size size, context) {
     return Material(
       color: Themes.kTransparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(6.0),
-        onTap: () {
-          Get.back();
-          if (title == "Submit" && widget.title.contains("auth code")) {
-            if (widget.screenName == "Home") {
-              controlAlert(context);
-            } else if (widget.screenName == "FastFood") {
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, // Changes cursor to hand
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6.0),
+          onTap: () {
+            Get.back();
+            if (title == "Submit" && widget.title.contains("auth code")) {
+              if (widget.screenName == "Home") {
+                controlAlert(context);
+              } else if (widget.screenName == "FastFood") {
+                Constants.openDialog(
+                  context: context,
+                  title: "Kitchen Order",
+                  btnText1: "",
+                  scroll: const AlwaysScrollableScrollPhysics(),
+                  child: kitchenView(context, size),
+                  height: size.height,
+                );
+              } else if (widget.screenName == "New Order") {
+                drawerMenuController.onMenuInnerItemTapped(
+                    context, size, "Table", authController, controller);
+              } else if (widget.screenName == "Cart") {
+                CustomSnackBar.showTopRightSnackBar(context, 'Item Removed!');
+              } else if (widget.screenName == "Drawer") {
+                Constants.openCloseShiftDialog(context, size, title);
+              }
+            } else if (title.contains("Options")) {
               Constants.openDialog(
                 context: context,
-                title: "Kitchen Order",
-                btnText1: "",
-                scroll: const AlwaysScrollableScrollPhysics(),
-                child: kitchenView(context, size),
+                title: "Cash",
+                btnText1: "Proceed",
                 height: size.height,
+                scroll: const AlwaysScrollableScrollPhysics(),
+                child: controller.inputSection("Cash", context),
               );
-            } else if (widget.screenName == "New Order") {
-              drawerMenuController.onMenuInnerItemTapped(
-                  context, size, "Table", authController, controller);
-            } else if (widget.screenName == "Cart") {
-              CustomSnackBar.showTopRightSnackBar(context, 'Item Removed!');
-            } else if (widget.screenName == "Drawer") {
-              Constants.openCloseShiftDialog(context, size, title);
+            } else if (widget.title.contains("Customer")) {
+              if (title.contains("Shopping")) {
+              } else {
+                Constants.openDialog(
+                  context: context,
+                  title: "Payment Info",
+                  btnText1: "Pay",
+                  child: payInputSection(),
+                  height: size.height / 1.4,
+                );
+              }
+            } else if (title.contains("Product")) {
+              CustomSnackBar.showTopRightSnackBar(context, 'Item Added!');
+            } else if (title == "Add") {
+              CustomSnackBar.showTopRightSnackBar(context, 'Notes Added!');
+            } else if (widget.screenName == "Shifts") {
+              if (title == "Submit") {
+                CustomSnackBar.showTopRightSnackBar(
+                    context, 'Shift Closed Successfully!');
+              } else if (title.contains("Print")) {
+                CustomSnackBar.showTopRightSnackBar(context, 'Printing...!');
+              }
             }
-          } else if (title.contains("Options")) {
-            Constants.openDialog(
-              context: context,
-              title: "Cash",
-              btnText1: "Proceed",
-              height: size.height,
-              scroll: const AlwaysScrollableScrollPhysics(),
-              child: controller.inputSection("Cash", context),
-            );
-          } else if (widget.title.contains("Customer")) {
-            if (title.contains("Shopping")) {
-            } else {
-              Constants.openDialog(
-                context: context,
-                title: "Payment Info",
-                btnText1: "Pay",
-                child: payInputSection(),
-                height: size.height / 1.4,
-              );
-            }
-          } else if (title.contains("Product")) {
-            CustomSnackBar.showTopRightSnackBar(context, 'Item Added!');
-          } else if (title == "Add") {
-            CustomSnackBar.showTopRightSnackBar(context, 'Notes Added!');
-          } else if (widget.screenName == "Shifts") {
-            if (title == "Submit") {
-              CustomSnackBar.showTopRightSnackBar(
-                  context, 'Shift Closed Successfully!');
-            } else if (title.contains("Print")) {
-              CustomSnackBar.showTopRightSnackBar(context, 'Printing...!');
-            }
-          }
-        },
-        child: Ink(
-          decoration: BoxDecoration(
-            color: Themes.kPrimaryColor,
-            borderRadius: BorderRadius.circular(6.0),
-          ),
-          child: Container(
-            height: 52.0,
-            width: widget.btnText2 != null && widget.btnText2!.isNotEmpty
-                ? ResponsiveHelper.isTablet(context)
-                    ? size.width / 2 / 3
-                    : size.width / 3 / 3
-                : ResponsiveHelper.isTablet(context)
-                    ? size.width / 2 / 2
-                    : size.width / 3 / 3,
-            alignment: Alignment.center,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-                fontWeight: FontWeight.bold,
-                color: Themes.kWhiteColor,
+          },
+          child: Ink(
+            decoration: BoxDecoration(
+              color: Themes.kPrimaryColor,
+              borderRadius: BorderRadius.circular(6.0),
+            ),
+            child: Container(
+              height: 52.0,
+              width: widget.btnText2 != null && widget.btnText2!.isNotEmpty
+                  ? ResponsiveHelper.isTablet(context)
+                      ? size.width / 2 / 3
+                      : size.width / 3 / 3
+                  : ResponsiveHelper.isTablet(context)
+                      ? size.width / 2 / 2
+                      : size.width / 3 / 3,
+              alignment: Alignment.center,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                  fontWeight: FontWeight.bold,
+                  color: Themes.kWhiteColor,
+                ),
               ),
             ),
           ),

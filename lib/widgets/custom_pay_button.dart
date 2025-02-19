@@ -13,24 +13,27 @@ class CustomPayButton extends StatelessWidget {
     Size size = MediaQuery.sizeOf(context);
     return Material(
       color: Themes.kTransparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(6.0),
-        onTap: () => onTap(),
-        child: Ink(
-          decoration: BoxDecoration(
-              color: const Color(0xFF539717),
-              borderRadius: BorderRadius.circular(6.0)),
-          child: Container(
-            height: 42.0,
-            width: size.width,
-            alignment: Alignment.center,
-            child: Text(
-              "Pay \$$amount",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
-                fontWeight: FontWeight.w600,
-                color: Themes.kWhiteColor,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, // Changes cursor to hand
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6.0),
+          onTap: () => onTap(),
+          child: Ink(
+            decoration: BoxDecoration(
+                color: const Color(0xFF539717),
+                borderRadius: BorderRadius.circular(6.0)),
+            child: Container(
+              height: 42.0,
+              width: size.width,
+              alignment: Alignment.center,
+              child: Text(
+                "Pay \$$amount",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                  fontWeight: FontWeight.w600,
+                  color: Themes.kWhiteColor,
+                ),
               ),
             ),
           ),

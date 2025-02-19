@@ -105,14 +105,17 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
           const SizedBox(height: 28.0),
           Material(
             color: Themes.kTransparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(92.0),
-              child: Ink(
-                height: 108.0,
-                width: 108.0,
-                decoration: BoxDecoration(
-                  color: Themes.kGreyColor.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(92.0),
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click, // Changes cursor to hand
+              child: InkWell(
+                borderRadius: BorderRadius.circular(92.0),
+                child: Ink(
+                  height: 108.0,
+                  width: 108.0,
+                  decoration: BoxDecoration(
+                    color: Themes.kGreyColor.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(92.0),
+                  ),
                 ),
               ),
             ),
@@ -140,19 +143,22 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
           Row(
             children: [
               Obx(
-                () => GestureDetector(
-                  onTap: () => commonController.locationAllowed(),
-                  child: Container(
-                    height: 20.0,
-                    width: 20.0,
-                    margin: const EdgeInsets.only(right: 8.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Themes.kBlackColor),
-                      borderRadius: BorderRadius.circular(4.0),
+                () => MouseRegion(
+                  cursor: SystemMouseCursors.click, // Changes cursor to hand
+                  child: GestureDetector(
+                    onTap: () => commonController.locationAllowed(),
+                    child: Container(
+                      height: 20.0,
+                      width: 20.0,
+                      margin: const EdgeInsets.only(right: 8.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Themes.kBlackColor),
+                        borderRadius: BorderRadius.circular(4.0),
+                      ),
+                      child: commonController.isLocationAllow.value
+                          ? const Icon(Icons.check, size: 16.0)
+                          : const SizedBox.shrink(),
                     ),
-                    child: commonController.isLocationAllow.value
-                        ? const Icon(Icons.check, size: 16.0)
-                        : const SizedBox.shrink(),
                   ),
                 ),
               ),
@@ -223,25 +229,28 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
             const SizedBox(height: 12.0),
             Material(
               color: Themes.kTransparent,
-              child: InkWell(
-                borderRadius: BorderRadius.circular(2.5),
-                onTap: () => CustomSnackBar.showTopRightSnackBar(
-                    context, "Picture Selected"),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    color: Themes.kPrimaryColor,
-                    borderRadius: BorderRadius.circular(2.5),
-                  ),
-                  child: Container(
-                    height: 38.0,
-                    width: 142.0,
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Select File...",
-                      style: TextStyle(
-                        fontSize: ResponsiveHelper.getFontSize(context, 16.0),
-                        fontWeight: FontWeight.w600,
-                        color: Themes.kWhiteColor,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click, // Changes cursor to hand
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(2.5),
+                  onTap: () => CustomSnackBar.showTopRightSnackBar(
+                      context, "Picture Selected"),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                      color: Themes.kPrimaryColor,
+                      borderRadius: BorderRadius.circular(2.5),
+                    ),
+                    child: Container(
+                      height: 38.0,
+                      width: 142.0,
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Select File...",
+                        style: TextStyle(
+                          fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                          fontWeight: FontWeight.w600,
+                          color: Themes.kWhiteColor,
+                        ),
                       ),
                     ),
                   ),
@@ -257,31 +266,35 @@ class _CustomViewDialogState extends State<CustomViewDialog> {
   Widget customButton(String title, BuildContext context, Size size) {
     return Material(
       color: Themes.kTransparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(6.0),
-        onTap: () {
-          if (title == "Submit") {
-            commonController.updateView(drawerMenuController);
-          } else {
-            commonController.isEntryLog.value = true;
-            Get.back();
-          }
-        },
-        child: Ink(
-          decoration: BoxDecoration(
-              color:
-                  title == "Cancel" ? Themes.kGreyColor : Themes.kPrimaryColor,
-              borderRadius: BorderRadius.circular(6.0)),
-          child: Container(
-            height: 52.0,
-            width: size.width / 8,
-            alignment: Alignment.center,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
-                fontWeight: FontWeight.w600,
-                color: Themes.kWhiteColor,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, // Changes cursor to hand
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6.0),
+          onTap: () {
+            if (title == "Submit") {
+              commonController.updateView(drawerMenuController);
+            } else {
+              commonController.isEntryLog.value = true;
+              Get.back();
+            }
+          },
+          child: Ink(
+            decoration: BoxDecoration(
+                color: title == "Cancel"
+                    ? Themes.kGreyColor
+                    : Themes.kPrimaryColor,
+                borderRadius: BorderRadius.circular(6.0)),
+            child: Container(
+              height: 52.0,
+              width: size.width / 8,
+              alignment: Alignment.center,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                  fontWeight: FontWeight.w600,
+                  color: Themes.kWhiteColor,
+                ),
               ),
             ),
           ),

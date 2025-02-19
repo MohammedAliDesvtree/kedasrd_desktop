@@ -483,31 +483,34 @@ class CustomItemsDialog extends StatelessWidget {
       right: 0,
       child: Material(
         color: Themes.kTransparent,
-        child: InkWell(
-          onTap: () => Get.back(),
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(8.0),
-            bottomLeft: Radius.circular(8.0),
-            topLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-          ),
-          child: Ink(
-            decoration: BoxDecoration(
-              color: Themes.kPrimaryColor.withOpacity(0.1),
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(8.0),
-                bottomLeft: Radius.circular(8.0),
-                topLeft: Radius.circular(0.0),
-                bottomRight: Radius.circular(0.0),
-              ),
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click, // Changes cursor to hand
+          child: InkWell(
+            onTap: () => Get.back(),
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(8.0),
+              bottomLeft: Radius.circular(8.0),
+              topLeft: Radius.circular(0.0),
+              bottomRight: Radius.circular(0.0),
             ),
-            child: Container(
-              height: 54.0,
-              width: 54.0,
-              padding: const EdgeInsets.all(21.0),
-              child: Image.asset(
-                Images.close,
-                color: Themes.kPrimaryColor,
+            child: Ink(
+              decoration: BoxDecoration(
+                color: Themes.kPrimaryColor.withOpacity(0.1),
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(8.0),
+                  bottomLeft: Radius.circular(8.0),
+                  topLeft: Radius.circular(0.0),
+                  bottomRight: Radius.circular(0.0),
+                ),
+              ),
+              child: Container(
+                height: 54.0,
+                width: 54.0,
+                padding: const EdgeInsets.all(21.0),
+                child: Image.asset(
+                  Images.close,
+                  color: Themes.kPrimaryColor,
+                ),
               ),
             ),
           ),
@@ -519,36 +522,39 @@ class CustomItemsDialog extends StatelessWidget {
   Widget submitButton(String title, Size size, context) {
     return Material(
       color: Themes.kTransparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(6.0),
-        onTap: () {
-          Get.back();
-          if (title.contains("Customer")) {
-            Constants.openDialog(
-              context: context,
-              title: "Add Customer",
-              btnText1: "Proceed",
-              child: inputSection(),
-            );
-          }
-        },
-        child: Ink(
-          decoration: BoxDecoration(
-            color: Themes.kPrimaryColor,
-            borderRadius: BorderRadius.circular(6.0),
-          ),
-          child: Container(
-            height: 52.0,
-            width: ResponsiveHelper.isTablet(context)
-                ? size.width / 2 / 2
-                : size.width / 3 / 3,
-            alignment: Alignment.center,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-                fontWeight: FontWeight.bold,
-                color: Themes.kWhiteColor,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, // Changes cursor to hand
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6.0),
+          onTap: () {
+            Get.back();
+            if (title.contains("Customer")) {
+              Constants.openDialog(
+                context: context,
+                title: "Add Customer",
+                btnText1: "Proceed",
+                child: inputSection(),
+              );
+            }
+          },
+          child: Ink(
+            decoration: BoxDecoration(
+              color: Themes.kPrimaryColor,
+              borderRadius: BorderRadius.circular(6.0),
+            ),
+            child: Container(
+              height: 52.0,
+              width: ResponsiveHelper.isTablet(context)
+                  ? size.width / 2 / 2
+                  : size.width / 3 / 3,
+              alignment: Alignment.center,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                  fontWeight: FontWeight.bold,
+                  color: Themes.kWhiteColor,
+                ),
               ),
             ),
           ),
@@ -560,26 +566,29 @@ class CustomItemsDialog extends StatelessWidget {
   Widget outlineButton(String title, Size size, context) {
     return Material(
       color: Themes.kTransparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(100.0),
-        onTap: () {},
-        child: Ink(
-          decoration: BoxDecoration(
-              color: Themes.kWhiteColor,
-              borderRadius: BorderRadius.circular(100.0),
-              border: Border.all(width: 0.6, color: Themes.kGreyColor)),
-          child: Container(
-            height: 52.0,
-            width: ResponsiveHelper.isTablet(context)
-                ? size.width / 8.0
-                : size.width / 10.0,
-            alignment: Alignment.center,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
-                fontWeight: FontWeight.bold,
-                color: Themes.kDarkColor,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, // Changes cursor to hand
+        child: InkWell(
+          borderRadius: BorderRadius.circular(100.0),
+          onTap: () {},
+          child: Ink(
+            decoration: BoxDecoration(
+                color: Themes.kWhiteColor,
+                borderRadius: BorderRadius.circular(100.0),
+                border: Border.all(width: 0.6, color: Themes.kGreyColor)),
+            child: Container(
+              height: 52.0,
+              width: ResponsiveHelper.isTablet(context)
+                  ? size.width / 8.0
+                  : size.width / 10.0,
+              alignment: Alignment.center,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                  fontWeight: FontWeight.bold,
+                  color: Themes.kDarkColor,
+                ),
               ),
             ),
           ),

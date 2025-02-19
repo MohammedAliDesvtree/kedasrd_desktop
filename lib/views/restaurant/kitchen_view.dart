@@ -62,14 +62,17 @@ class _KitchenViewState extends State<KitchenView> {
               Positioned(
                 top: 24.0,
                 right: -6.0,
-                child: GestureDetector(
-                  onTap: () => CustomSnackBar.showTopRightSnackBar(
-                      context, "Printing..."),
-                  child: Image.asset(
-                    Images.printer,
-                    height: 22.0,
-                    width: 22.0,
-                    color: Themes.kPrimaryColor,
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click, // Changes cursor to hand
+                  child: GestureDetector(
+                    onTap: () => CustomSnackBar.showTopRightSnackBar(
+                        context, "Printing..."),
+                    child: Image.asset(
+                      Images.printer,
+                      height: 22.0,
+                      width: 22.0,
+                      color: Themes.kPrimaryColor,
+                    ),
                   ),
                 ),
               ),
@@ -172,37 +175,40 @@ class _KitchenViewState extends State<KitchenView> {
             right: -6.0,
             child: Material(
               color: Themes.kTransparent,
-              child: InkWell(
-                onTap: () {
-                  if (index % 2 != 0) {
-                    CustomSnackBar.showTopRightSnackBar(
-                        context, "Status Changed Successfully!");
-                  }
-                },
-                borderRadius: BorderRadius.circular(100),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    color: index % 2 != 0
-                        ? Themes.kRedColor
-                        : index % 3 != 0
-                            ? Themes.kGreenColor
-                            : Themes.kOrangeColor,
-                    borderRadius: BorderRadius.circular(100.0),
-                  ),
-                  child: Container(
-                    height: 19.0,
-                    width: 84.0,
-                    alignment: Alignment.center,
-                    child: Text(
-                      index % 2 != 0
-                          ? "Start"
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click, // Changes cursor to hand
+                child: InkWell(
+                  onTap: () {
+                    if (index % 2 != 0) {
+                      CustomSnackBar.showTopRightSnackBar(
+                          context, "Status Changed Successfully!");
+                    }
+                  },
+                  borderRadius: BorderRadius.circular(100),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                      color: index % 2 != 0
+                          ? Themes.kRedColor
                           : index % 3 != 0
-                              ? "Done"
-                              : "In Progress",
-                      style: TextStyle(
-                        fontSize: ResponsiveHelper.getFontSize(context, 12.0),
-                        fontWeight: FontWeight.bold,
-                        color: Themes.kWhiteColor,
+                              ? Themes.kGreenColor
+                              : Themes.kOrangeColor,
+                      borderRadius: BorderRadius.circular(100.0),
+                    ),
+                    child: Container(
+                      height: 19.0,
+                      width: 84.0,
+                      alignment: Alignment.center,
+                      child: Text(
+                        index % 2 != 0
+                            ? "Start"
+                            : index % 3 != 0
+                                ? "Done"
+                                : "In Progress",
+                        style: TextStyle(
+                          fontSize: ResponsiveHelper.getFontSize(context, 12.0),
+                          fontWeight: FontWeight.bold,
+                          color: Themes.kWhiteColor,
+                        ),
                       ),
                     ),
                   ),

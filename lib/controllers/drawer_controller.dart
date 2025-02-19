@@ -168,7 +168,7 @@ class DrawerMenuController extends GetxController {
         navigateTo(Screen.delivery, "Active Orders");
         break;
       case "Pickup":
-        navigateTo(Screen.pickup, title);
+        navigateTo(Screen.delivery, "Active Pickup");
         break;
     }
   }
@@ -526,7 +526,7 @@ class DrawerMenuController extends GetxController {
         context: context,
         title: title,
         btnText1: "Proceed",
-        height: size.height,
+        height: size.height / 1.3,
         scroll: const AlwaysScrollableScrollPhysics(),
         child: inputSection(context, tablesController, size),
       );
@@ -561,28 +561,32 @@ class DrawerMenuController extends GetxController {
               children: [
                 Material(
                   color: Themes.kTransparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(52.0),
-                    onTap: () => tablesController.selectTab(index),
-                    child: Obx(
-                      () {
-                        return Ink(
-                          child: Container(
-                            height: 48.0,
-                            width: 48.0,
-                            padding: const EdgeInsets.all(12.0),
-                            child: Image.asset(
-                              data["icon"],
-                              height: 24.0,
-                              width: 24.0,
-                              color: tablesController.selectedTabIndex.value ==
-                                      index
-                                  ? Themes.kPrimaryColor
-                                  : Themes.kGreyColor,
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click, // Changes cursor to hand
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(52.0),
+                      onTap: () => tablesController.selectTab(index),
+                      child: Obx(
+                        () {
+                          return Ink(
+                            child: Container(
+                              height: 48.0,
+                              width: 48.0,
+                              padding: const EdgeInsets.all(12.0),
+                              child: Image.asset(
+                                data["icon"],
+                                height: 24.0,
+                                width: 24.0,
+                                color:
+                                    tablesController.selectedTabIndex.value ==
+                                            index
+                                        ? Themes.kPrimaryColor
+                                        : Themes.kGreyColor,
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

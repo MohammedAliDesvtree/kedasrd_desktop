@@ -33,31 +33,34 @@ class _OrdersViewState extends State<OrdersView> {
           var data = DummyData.ordersItems[index];
           return Material(
             color: Themes.kTransparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(8.0),
-              onTap: () => controller.onMenuTapped(
-                context,
-                size,
-                data["title"],
-                authController,
-                tablesController,
-              ),
-              child: Ink(
-                decoration: BoxDecoration(
-                    color: Themes.kPrimaryColor,
-                    borderRadius: BorderRadius.circular(8.0)),
-                child: Container(
-                  height: 161.0,
-                  width: ResponsiveHelper.isDesktop(context)
-                      ? size.width / 3.9
-                      : size.width / 4.0,
-                  alignment: Alignment.center,
-                  child: Text(
-                    data["title"],
-                    style: TextStyle(
-                      fontSize: ResponsiveHelper.getFontSize(context, 20.0),
-                      fontWeight: FontWeight.bold,
-                      color: Themes.kWhiteColor,
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click, // Changes cursor to hand
+              child: InkWell(
+                borderRadius: BorderRadius.circular(8.0),
+                onTap: () => controller.onMenuTapped(
+                  context,
+                  size,
+                  data["title"],
+                  authController,
+                  tablesController,
+                ),
+                child: Ink(
+                  decoration: BoxDecoration(
+                      color: Themes.kPrimaryColor,
+                      borderRadius: BorderRadius.circular(8.0)),
+                  child: Container(
+                    height: 161.0,
+                    width: ResponsiveHelper.isDesktop(context)
+                        ? size.width / 3.9
+                        : size.width / 4.0,
+                    alignment: Alignment.center,
+                    child: Text(
+                      data["title"],
+                      style: TextStyle(
+                        fontSize: ResponsiveHelper.getFontSize(context, 20.0),
+                        fontWeight: FontWeight.bold,
+                        color: Themes.kWhiteColor,
+                      ),
                     ),
                   ),
                 ),

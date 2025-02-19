@@ -32,18 +32,21 @@ class HeaderView extends StatelessWidget {
               Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  GestureDetector(
-                    onTapDown: (details) => Constants.openPopupMenu(
-                      context,
-                      details,
-                      DummyData.notificationItems,
-                      "Notifications",
-                      size,
-                    ),
-                    child: const Icon(
-                      Icons.notifications,
-                      size: 24.0,
-                      color: Themes.kPrimaryColor,
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click, // Changes cursor to hand
+                    child: GestureDetector(
+                      onTapDown: (details) => Constants.openPopupMenu(
+                        context,
+                        details,
+                        DummyData.notificationItems,
+                        "Notifications",
+                        size,
+                      ),
+                      child: const Icon(
+                        Icons.notifications,
+                        size: 24.0,
+                        color: Themes.kPrimaryColor,
+                      ),
                     ),
                   ),
                   Positioned(

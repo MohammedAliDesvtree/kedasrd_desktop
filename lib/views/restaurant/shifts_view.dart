@@ -80,28 +80,31 @@ class _ShiftsViewState extends State<ShiftsView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        GestureDetector(
-          onTap: () => controller.selectedIndex.value = index,
-          child: Obx(
-            () => Container(
-              color: controller.selectedIndex.value == index
-                  ? Themes.kPrimaryColor.withOpacity(0.2)
-                  : Themes.kWhiteColor,
-              width: size.width,
-              padding:
-                  const EdgeInsets.symmetric(vertical: 14.0, horizontal: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  itemBullet(
-                      index == 0 ? "Shifts In Progress" : "Closure No $index",
-                      16.0,
-                      FontWeight.w600,
-                      Themes.kPrimaryColor),
-                  const SizedBox(height: 4.0),
-                  itemBullet("02/11/2022 01:51 AM", 14.0, FontWeight.w500,
-                      Themes.kDarkColor),
-                ],
+        MouseRegion(
+          cursor: SystemMouseCursors.click, // Changes cursor to hand
+          child: GestureDetector(
+            onTap: () => controller.selectedIndex.value = index,
+            child: Obx(
+              () => Container(
+                color: controller.selectedIndex.value == index
+                    ? Themes.kPrimaryColor.withOpacity(0.2)
+                    : Themes.kWhiteColor,
+                width: size.width,
+                padding: const EdgeInsets.symmetric(
+                    vertical: 14.0, horizontal: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    itemBullet(
+                        index == 0 ? "Shifts In Progress" : "Closure No $index",
+                        16.0,
+                        FontWeight.w600,
+                        Themes.kPrimaryColor),
+                    const SizedBox(height: 4.0),
+                    itemBullet("02/11/2022 01:51 AM", 14.0, FontWeight.w500,
+                        Themes.kDarkColor),
+                  ],
+                ),
               ),
             ),
           ),
@@ -249,40 +252,44 @@ class _ShiftsViewState extends State<ShiftsView> {
       BuildContext context, Size size, String title, String icon) {
     return Material(
       color: Themes.kTransparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(6.0),
-        onTap: () {
-          if (title == "Print") {
-            CustomSnackBar.showTopRightSnackBar(context, "Printing...");
-          } else {
-            controller.onMenuTapped(
-                context, size, title, authController, tablesController);
-          }
-        },
-        child: Ink(
-          decoration: BoxDecoration(
-              color: title == "Print" ? Themes.kPrimaryColor : Themes.kRedColor,
-              borderRadius: BorderRadius.circular(5.0)),
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-            child: Row(
-              children: [
-                Image.asset(
-                  icon,
-                  height: 18.0,
-                  color: Themes.kWhiteColor,
-                ),
-                const SizedBox(width: 12.0),
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: ResponsiveHelper.getFontSize(context, 16.0),
-                    fontWeight: FontWeight.w600,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, // Changes cursor to hand
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6.0),
+          onTap: () {
+            if (title == "Print") {
+              CustomSnackBar.showTopRightSnackBar(context, "Printing...");
+            } else {
+              controller.onMenuTapped(
+                  context, size, title, authController, tablesController);
+            }
+          },
+          child: Ink(
+            decoration: BoxDecoration(
+                color:
+                    title == "Print" ? Themes.kPrimaryColor : Themes.kRedColor,
+                borderRadius: BorderRadius.circular(5.0)),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              child: Row(
+                children: [
+                  Image.asset(
+                    icon,
+                    height: 18.0,
                     color: Themes.kWhiteColor,
                   ),
-                )
-              ],
+                  const SizedBox(width: 12.0),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                      fontWeight: FontWeight.w600,
+                      color: Themes.kWhiteColor,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

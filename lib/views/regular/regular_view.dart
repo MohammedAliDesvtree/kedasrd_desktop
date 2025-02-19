@@ -42,7 +42,7 @@ class _RegularViewState extends State<RegularView> {
   void initState() {
     super.initState();
     controller.isSearchVisible.value = false;
-    controller.isPaymentMenuVisible.value = false;
+    commonController.isPaymentMenuVisible.value = false;
   }
 
   @override
@@ -50,14 +50,14 @@ class _RegularViewState extends State<RegularView> {
     super.didUpdateWidget(oldWidget);
     // Reset payment menu visibility when widget title changes
     if (oldWidget.title != widget.title) {
-      controller.isPaymentMenuVisible.value = false;
+      commonController.isPaymentMenuVisible.value = false;
     }
   }
 
   @override
   void dispose() {
     super.dispose();
-    controller.isPaymentMenuVisible.value = false;
+    commonController.isPaymentMenuVisible.value = false;
   }
 
   @override
@@ -71,7 +71,7 @@ class _RegularViewState extends State<RegularView> {
             height: size.height,
             width: size.width,
             child: Obx(
-              () => controller.isPaymentMenuVisible.value &&
+              () => commonController.isPaymentMenuVisible.value &&
                       widget.title!.contains("Food")
                   ? paymentMenu(size)
                   : updatedProductList(size),
@@ -118,109 +118,115 @@ class _RegularViewState extends State<RegularView> {
                   children: [
                     Material(
                       color: Themes.kTransparent,
-                      child: InkWell(
-                        hoverColor: Themes.kWhiteColor,
-                        borderRadius: BorderRadius.circular(8.0),
-                        onTap: index % 2.5 == 2
-                            ? null
-                            : () {
-                                if (widget.title!.contains("Store")) {
-                                  Constants.openDialog(
-                                    context: context,
-                                    title: "",
-                                    btnText1: "Add Product",
-                                    child: productDetails(data),
-                                    height: size.height / 1.2,
-                                  );
-                                } else if (widget.title!.contains("Food")) {
-                                  CustomSnackBar.showTopRightSnackBar(context,
-                                      '${data["title"]} added in cart!');
-                                } else {
-                                  cartController.addToCart(data);
-                                  CustomSnackBar.showTopRightSnackBar(context,
-                                      '${data["title"]} added in cart!');
-                                }
-                              },
-                        child: Ink(
-                          height: 224.0,
-                          width: ResponsiveHelper.isDesktop(context)
-                              ? size.width / 5.70
-                              : ResponsiveHelper.isTablet(context)
-                                  ? size.width / 3.5
-                                  : size.width / 2.2,
-                          decoration: BoxDecoration(
-                            color: Themes.kWhiteColor,
-                            borderRadius: BorderRadius.circular(8.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Themes.kBlackColor.withOpacity(0.20),
-                                blurRadius: 8.0,
-                                spreadRadius: -3,
-                                offset: const Offset(0, 0),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(8.0),
-                                    topRight: Radius.circular(8.0)),
-                                child: Image.asset(
-                                  data["image"],
-                                  height: 164,
-                                  width: size.width,
-                                  fit: BoxFit.cover,
+                      child: MouseRegion(
+                        cursor:
+                            SystemMouseCursors.click, // Changes cursor to hand
+                        child: InkWell(
+                          hoverColor: Themes.kWhiteColor,
+                          borderRadius: BorderRadius.circular(8.0),
+                          onTap: index % 2.5 == 2
+                              ? null
+                              : () {
+                                  if (widget.title!.contains("Store")) {
+                                    Constants.openDialog(
+                                      context: context,
+                                      title: "",
+                                      btnText1: "Add Product",
+                                      child: productDetails(data),
+                                      height: size.height / 1.2,
+                                    );
+                                  } else if (widget.title!.contains("Food")) {
+                                    CustomSnackBar.showTopRightSnackBar(context,
+                                        '${data["title"]} added in cart!');
+                                  } else {
+                                    cartController.addToCart(data);
+                                    CustomSnackBar.showTopRightSnackBar(context,
+                                        '${data["title"]} added in cart!');
+                                  }
+                                },
+                          child: Ink(
+                            height: 224.0,
+                            width: ResponsiveHelper.isDesktop(context)
+                                ? size.width / 8.50
+                                : ResponsiveHelper.isTablet(context)
+                                    ? size.width / 3.5
+                                    : size.width / 2.2,
+                            decoration: BoxDecoration(
+                              color: Themes.kWhiteColor,
+                              borderRadius: BorderRadius.circular(8.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Themes.kBlackColor.withOpacity(0.20),
+                                  blurRadius: 8.0,
+                                  spreadRadius: -3,
+                                  offset: const Offset(0, 0),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 4.0, left: 12.0, right: 12.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      data["title"],
-                                      style: TextStyle(
-                                        fontSize: ResponsiveHelper.getFontSize(
-                                            context, 16.0),
-                                        fontWeight: FontWeight.w700,
-                                        color: Themes.kBlackColor,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4.0),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "DOP \$${data["price"]}",
-                                          style: TextStyle(
-                                            fontSize:
-                                                ResponsiveHelper.getFontSize(
-                                                    context, 16.0),
-                                            fontWeight: FontWeight.w700,
-                                            color: Themes.kPrimaryColor,
-                                          ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(8.0),
+                                      topRight: Radius.circular(8.0)),
+                                  child: Image.asset(
+                                    data["image"],
+                                    height: 164,
+                                    width: size.width,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 4.0, left: 12.0, right: 12.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        data["title"],
+                                        style: TextStyle(
+                                          fontSize:
+                                              ResponsiveHelper.getFontSize(
+                                                  context, 16.0),
+                                          fontWeight: FontWeight.w700,
+                                          color: Themes.kBlackColor,
                                         ),
-                                        // if (index % 2.5 == 2)
-                                        //   Text(
-                                        //     "Out Of Stock",
-                                        //     style: TextStyle(
-                                        //       fontSize:
-                                        //           ResponsiveHelper.getFontSize(
-                                        //               context, 16.0),
-                                        //       fontWeight: FontWeight.w700,
-                                        //       color: Themes.kRedColor,
-                                        //     ),
-                                        //   ),
-                                      ],
-                                    ),
-                                  ],
+                                      ),
+                                      const SizedBox(height: 4.0),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "DOP \$${data["price"]}",
+                                            style: TextStyle(
+                                              fontSize:
+                                                  ResponsiveHelper.getFontSize(
+                                                      context, 16.0),
+                                              fontWeight: FontWeight.w700,
+                                              color: Themes.kPrimaryColor,
+                                            ),
+                                          ),
+                                          // if (index % 2.5 == 2)
+                                          //   Text(
+                                          //     "Out Of Stock",
+                                          //     style: TextStyle(
+                                          //       fontSize:
+                                          //           ResponsiveHelper.getFontSize(
+                                          //               context, 16.0),
+                                          //       fontWeight: FontWeight.w700,
+                                          //       color: Themes.kRedColor,
+                                          //     ),
+                                          //   ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -229,7 +235,7 @@ class _RegularViewState extends State<RegularView> {
                       Container(
                         height: 224.0,
                         width: ResponsiveHelper.isDesktop(context)
-                            ? size.width / 5.70
+                            ? size.width / 8.50
                             : ResponsiveHelper.isTablet(context)
                                 ? size.width / 3.5
                                 : size.width / 2.2,
@@ -460,7 +466,7 @@ class _RegularViewState extends State<RegularView> {
                                     )
                                   : CustomPayButton(
                                       amount: "1024.34",
-                                      onTap: () => controller
+                                      onTap: () => commonController
                                           .isPaymentMenuVisible.value = true,
                                     ),
                             ),
@@ -533,18 +539,21 @@ class _RegularViewState extends State<RegularView> {
               color: Themes.kBlackColor,
             ),
           ),
-          GestureDetector(
-            onTapDown: (details) => Constants.openPopupMenu(
-              context,
-              details,
-              DummyData.cartOptionsItems,
-              "Regular - User",
-              size,
-            ),
-            child: Image.asset(
-              Images.more,
-              height: 14.0,
-              color: Themes.kPrimaryColor,
+          MouseRegion(
+            cursor: SystemMouseCursors.click, // Changes cursor to hand
+            child: GestureDetector(
+              onTapDown: (details) => Constants.openPopupMenu(
+                context,
+                details,
+                DummyData.cartOptionsItems,
+                "Regular - User",
+                size,
+              ),
+              child: Image.asset(
+                Images.more,
+                height: 14.0,
+                color: Themes.kPrimaryColor,
+              ),
             ),
           ),
         ],
@@ -613,49 +622,52 @@ class _RegularViewState extends State<RegularView> {
   }
 
   Widget totalView() {
-    return GestureDetector(
-      onTap: () => commonController.isDigitsViewVisible.value =
-          !commonController.isDigitsViewVisible.value,
-      child: Container(
-        height: 42.0,
-        padding: const EdgeInsets.symmetric(horizontal: 14.0),
-        margin: const EdgeInsets.symmetric(horizontal: 2.0),
-        decoration: BoxDecoration(
-          color: Themes.kWhiteColor,
-          borderRadius: BorderRadius.circular(8.0),
-          boxShadow: [
-            BoxShadow(
-              color: Themes.kBlackColor.withOpacity(0.20),
-              blurRadius: 8.0,
-              spreadRadius: -3,
-              offset: const Offset(0, 0),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Obx(
-                  () => Text(
-                    "${cartController.cartItems.length} Items",
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold,
-                      color: Themes.kBlackColor,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click, // Changes cursor to hand
+      child: GestureDetector(
+        onTap: () => commonController.isDigitsViewVisible.value =
+            !commonController.isDigitsViewVisible.value,
+        child: Container(
+          height: 42.0,
+          padding: const EdgeInsets.symmetric(horizontal: 14.0),
+          margin: const EdgeInsets.symmetric(horizontal: 2.0),
+          decoration: BoxDecoration(
+            color: Themes.kWhiteColor,
+            borderRadius: BorderRadius.circular(8.0),
+            boxShadow: [
+              BoxShadow(
+                color: Themes.kBlackColor.withOpacity(0.20),
+                blurRadius: 8.0,
+                spreadRadius: -3,
+                offset: const Offset(0, 0),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Obx(
+                    () => Text(
+                      "${cartController.cartItems.length} Items",
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                        color: Themes.kBlackColor,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Image.asset(
-              Images.downArrow,
-              height: 14.0,
-              width: 14.0,
-              color: Themes.kPrimaryColor,
-            ),
-          ],
+                ],
+              ),
+              Image.asset(
+                Images.downArrow,
+                height: 14.0,
+                width: 14.0,
+                color: Themes.kPrimaryColor,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -744,35 +756,43 @@ class _RegularViewState extends State<RegularView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        if (authController.isAdmin) {
-                          CustomSnackBar.showTopRightSnackBar(
-                              context, 'Item ${index + 1} Removed!');
-                        } else {
-                          Constants.openAuthCodeDialog(context, size, "Cart");
-                        }
-                      },
-                      child: Image.asset(
-                        Images.delete,
-                        height: 15.0,
-                        width: 15.0,
-                        color: Themes.kPrimaryColor,
+                    MouseRegion(
+                      cursor:
+                          SystemMouseCursors.click, // Changes cursor to hand
+                      child: GestureDetector(
+                        onTap: () {
+                          if (authController.isAdmin) {
+                            CustomSnackBar.showTopRightSnackBar(
+                                context, 'Item ${index + 1} Removed!');
+                          } else {
+                            Constants.openAuthCodeDialog(context, size, "Cart");
+                          }
+                        },
+                        child: Image.asset(
+                          Images.delete,
+                          height: 15.0,
+                          width: 15.0,
+                          color: Themes.kPrimaryColor,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 10.0),
-                    GestureDetector(
-                      onTapDown: (details) => Constants.openPopupMenu(
-                        context,
-                        details,
-                        DummyData.cartSingleItems,
-                        "Regular - Item",
-                        size,
-                      ),
-                      child: Image.asset(
-                        Images.more,
-                        height: 13.0,
-                        color: Themes.kPrimaryColor,
+                    MouseRegion(
+                      cursor:
+                          SystemMouseCursors.click, // Changes cursor to hand
+                      child: GestureDetector(
+                        onTapDown: (details) => Constants.openPopupMenu(
+                          context,
+                          details,
+                          DummyData.cartSingleItems,
+                          "Regular - Item",
+                          size,
+                        ),
+                        child: Image.asset(
+                          Images.more,
+                          height: 13.0,
+                          color: Themes.kPrimaryColor,
+                        ),
                       ),
                     ),
                   ],
@@ -836,17 +856,21 @@ class _RegularViewState extends State<RegularView> {
                           color: Themes.kDarkColor,
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          cartController.removeFromCart(data.id);
-                          CustomSnackBar.showTopRightSnackBar(
-                              context, '${data.title} Removed!');
-                        },
-                        child: Image.asset(
-                          Images.delete,
-                          height: 15.0,
-                          width: 15.0,
-                          color: Themes.kPrimaryColor,
+                      MouseRegion(
+                        cursor:
+                            SystemMouseCursors.click, // Changes cursor to hand
+                        child: GestureDetector(
+                          onTap: () {
+                            cartController.removeFromCart(data.id);
+                            CustomSnackBar.showTopRightSnackBar(
+                                context, '${data.title} Removed!');
+                          },
+                          child: Image.asset(
+                            Images.delete,
+                            height: 15.0,
+                            width: 15.0,
+                            color: Themes.kPrimaryColor,
+                          ),
                         ),
                       ),
                     ],
@@ -890,49 +914,53 @@ class _RegularViewState extends State<RegularView> {
   Widget customButton(String title, Size size) {
     return Material(
       color: Themes.kTransparent,
-      child: InkWell(
-        onTap: () {
-          if (title.contains("Save")) {
-            CustomSnackBar.showTopRightSnackBar(
-                context, 'Save Order Successfully!');
-          } else {
-            if (authController.isAdmin) {
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, // Changes cursor to hand
+        child: InkWell(
+          onTap: () {
+            if (title.contains("Save")) {
               CustomSnackBar.showTopRightSnackBar(
-                  context, 'Order Sent to Kitchen!');
+                  context, 'Save Order Successfully!');
             } else {
-              Constants.openAuthCodeDialog(context, size, "FastFood");
+              if (authController.isAdmin) {
+                CustomSnackBar.showTopRightSnackBar(
+                    context, 'Order Sent to Kitchen!');
+              } else {
+                Constants.openAuthCodeDialog(context, size, "FastFood");
+              }
             }
-          }
-        },
-        child: Ink(
-          decoration: BoxDecoration(
-              color: title.contains("Kitchen")
-                  ? Themes.kPrimaryColor
-                  : Themes.kPrimaryColor.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(3.0)),
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
-            alignment: Alignment.center,
-            child: Row(
-              children: [
-                Image.asset(
-                  title.contains("Kitchen")
-                      ? Images.purchaseOrder
-                      : Images.save,
-                  height: 14.0,
-                  width: 14.0,
-                  color: Themes.kWhiteColor,
-                ),
-                const SizedBox(width: 4.0),
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: ResponsiveHelper.getFontSize(context, 13.0),
-                    fontWeight: FontWeight.w500,
+          },
+          child: Ink(
+            decoration: BoxDecoration(
+                color: title.contains("Kitchen")
+                    ? Themes.kPrimaryColor
+                    : Themes.kPrimaryColor.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(3.0)),
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
+              alignment: Alignment.center,
+              child: Row(
+                children: [
+                  Image.asset(
+                    title.contains("Kitchen")
+                        ? Images.purchaseOrder
+                        : Images.save,
+                    height: 14.0,
+                    width: 14.0,
                     color: Themes.kWhiteColor,
                   ),
-                ),
-              ],
+                  const SizedBox(width: 4.0),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: ResponsiveHelper.getFontSize(context, 13.0),
+                      fontWeight: FontWeight.w500,
+                      color: Themes.kWhiteColor,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -946,7 +974,7 @@ class _RegularViewState extends State<RegularView> {
       children: [
         CustomIconButton(
           icon: Images.leftArrow,
-          onTap: () => controller.isPaymentMenuVisible.value = false,
+          onTap: () => commonController.isPaymentMenuVisible.value = false,
         ),
         const SizedBox(height: 16.0),
         Expanded(
@@ -962,29 +990,33 @@ class _RegularViewState extends State<RegularView> {
                     var data = DummyData.superMarketCartDeskItems[index];
                     return Material(
                       color: Themes.kTransparent,
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(8.0),
-                        onTap: () => tableController.onTabTapped(
-                            data["title"], size, context),
-                        child: Ink(
-                          decoration: BoxDecoration(
-                              color: Themes.kPrimaryColor,
-                              borderRadius: BorderRadius.circular(8.0)),
-                          child: Container(
-                            height: 150.0,
-                            width: ResponsiveHelper.isDesktop(context)
-                                ? size.width / 5.70
-                                : ResponsiveHelper.isTablet(context)
-                                    ? size.width / 3.5
-                                    : size.width / 2.2,
-                            alignment: Alignment.center,
-                            child: Text(
-                              data["title"],
-                              style: TextStyle(
-                                fontSize:
-                                    ResponsiveHelper.getFontSize(context, 20.0),
-                                fontWeight: FontWeight.bold,
-                                color: Themes.kWhiteColor,
+                      child: MouseRegion(
+                        cursor:
+                            SystemMouseCursors.click, // Changes cursor to hand
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(8.0),
+                          onTap: () => tableController.onTabTapped(
+                              data["title"], size, context),
+                          child: Ink(
+                            decoration: BoxDecoration(
+                                color: Themes.kPrimaryColor,
+                                borderRadius: BorderRadius.circular(8.0)),
+                            child: Container(
+                              height: 150.0,
+                              width: ResponsiveHelper.isDesktop(context)
+                                  ? size.width / 8.50
+                                  : ResponsiveHelper.isTablet(context)
+                                      ? size.width / 3.5
+                                      : size.width / 2.2,
+                              alignment: Alignment.center,
+                              child: Text(
+                                data["title"],
+                                style: TextStyle(
+                                  fontSize: ResponsiveHelper.getFontSize(
+                                      context, 20.0),
+                                  fontWeight: FontWeight.bold,
+                                  color: Themes.kWhiteColor,
+                                ),
                               ),
                             ),
                           ),
@@ -1014,42 +1046,45 @@ class _RegularViewState extends State<RegularView> {
   Widget submitButton(Size size, String title) {
     return Material(
       color: Themes.kTransparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(6.0),
-        onTap: () {
-          if (title.contains("Confirm")) {
-            Constants.openDialog(
-              context: context,
-              title: "New Customer",
-              btnText1: "Continue Shopping",
-              btnText2: "Submit Order",
-              child: customerInputSection(),
-              height: size.height / 1.3,
-            );
-          } else {
-            Constants.openAlertDialog(
-              context: context,
-              title: "Discard Order",
-              msg: "Are you sure you want to cancel your cart ?",
-              toastMsg: 'Order Discarded!',
-            );
-          }
-        },
-        child: Ink(
-          decoration: BoxDecoration(
-              color: Themes.kPrimaryColor,
-              borderRadius: BorderRadius.circular(6.0)),
-          child: Container(
-            height: 42.0,
-            // width: 500 / 2.3,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            alignment: Alignment.center,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-                fontWeight: FontWeight.w500,
-                color: Themes.kWhiteColor,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, // Changes cursor to hand
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6.0),
+          onTap: () {
+            if (title.contains("Confirm")) {
+              Constants.openDialog(
+                context: context,
+                title: "New Customer",
+                btnText1: "Continue Shopping",
+                btnText2: "Submit Order",
+                child: customerInputSection(),
+                height: size.height / 1.3,
+              );
+            } else {
+              Constants.openAlertDialog(
+                context: context,
+                title: "Discard Order",
+                msg: "Are you sure you want to cancel your cart ?",
+                toastMsg: 'Order Discarded!',
+              );
+            }
+          },
+          child: Ink(
+            decoration: BoxDecoration(
+                color: Themes.kPrimaryColor,
+                borderRadius: BorderRadius.circular(6.0)),
+            child: Container(
+              height: 42.0,
+              // width: 500 / 2.3,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              alignment: Alignment.center,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                  fontWeight: FontWeight.w500,
+                  color: Themes.kWhiteColor,
+                ),
               ),
             ),
           ),

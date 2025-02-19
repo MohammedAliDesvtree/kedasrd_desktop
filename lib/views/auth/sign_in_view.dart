@@ -126,16 +126,19 @@ class _SignInViewState extends State<SignInView> {
   }
 
   Widget forgotPasswordButton() {
-    return GestureDetector(
-      onTap: () {},
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: Text(
-          "Forgot Password ?",
-          style: TextStyle(
-            fontSize: ResponsiveHelper.getFontSize(context, 16.0),
-            fontWeight: FontWeight.w400,
-            color: Themes.kPrimaryColor,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click, // Changes cursor to hand
+      child: GestureDetector(
+        onTap: () {},
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Text(
+            "Forgot Password ?",
+            style: TextStyle(
+              fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+              fontWeight: FontWeight.w400,
+              color: Themes.kPrimaryColor,
+            ),
           ),
         ),
       ),
@@ -154,14 +157,17 @@ class _SignInViewState extends State<SignInView> {
             color: Themes.kGreyColor,
           ),
         ),
-        GestureDetector(
-          onTap: () {},
-          child: Text(
-            "Sign Up",
-            style: TextStyle(
-              fontSize: ResponsiveHelper.getFontSize(context, 18.0),
-              fontWeight: FontWeight.w400,
-              color: Themes.kPrimaryColor,
+        MouseRegion(
+          cursor: SystemMouseCursors.click, // Changes cursor to hand
+          child: GestureDetector(
+            onTap: () {},
+            child: Text(
+              "Sign Up",
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 18.0),
+                fontWeight: FontWeight.w400,
+                color: Themes.kPrimaryColor,
+              ),
             ),
           ),
         ),
@@ -172,23 +178,26 @@ class _SignInViewState extends State<SignInView> {
   Widget submitButton(BuildContext context, Size size, String title) {
     return Material(
       color: Themes.kTransparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(6.0),
-        onTap: () => controller.handleLogin(context, authController),
-        child: Ink(
-          decoration: BoxDecoration(
-              color: Themes.kPrimaryColor,
-              borderRadius: BorderRadius.circular(6.0)),
-          child: Container(
-            height: 52.0,
-            width: size.width,
-            alignment: Alignment.center,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-                fontWeight: FontWeight.w500,
-                color: Themes.kWhiteColor,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, // Changes cursor to hand
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6.0),
+          onTap: () => controller.handleLogin(context, authController),
+          child: Ink(
+            decoration: BoxDecoration(
+                color: Themes.kPrimaryColor,
+                borderRadius: BorderRadius.circular(6.0)),
+            child: Container(
+              height: 52.0,
+              width: size.width,
+              alignment: Alignment.center,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                  fontWeight: FontWeight.w500,
+                  color: Themes.kWhiteColor,
+                ),
               ),
             ),
           ),

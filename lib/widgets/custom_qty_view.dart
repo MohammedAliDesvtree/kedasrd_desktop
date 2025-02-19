@@ -47,13 +47,16 @@ class CustomQtyView extends StatelessWidget {
 }
 
 Widget qtyButton(String image, VoidCallback onTap) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Image.asset(
-      image,
-      height: 11.0,
-      width: 11.0,
-      color: Themes.kPrimaryColor,
+  return MouseRegion(
+    cursor: SystemMouseCursors.click, // Changes cursor to hand
+    child: GestureDetector(
+      onTap: onTap,
+      child: Image.asset(
+        image,
+        height: 11.0,
+        width: 11.0,
+        color: Themes.kPrimaryColor,
+      ),
     ),
   );
 }

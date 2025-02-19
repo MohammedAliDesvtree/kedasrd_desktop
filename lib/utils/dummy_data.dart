@@ -221,11 +221,11 @@ class DummyData {
   ];
 
   static List<dynamic> tableTabs = [
-    {"icon": Images.mainRoom, "title": "Main\nRoom"},
-    {"icon": Images.insideRoom, "title": "Inside\nRoom"},
-    {"icon": Images.outsideRoom, "title": "Outside\nRoom"},
-    {"icon": Images.balconySide, "title": "Balcony\nSide"},
-    {"icon": Images.nearBalcony, "title": "Near\nBalcony"},
+    {"icon": Images.mainRoom, "title": "Main Room"},
+    {"icon": Images.insideRoom, "title": "Inside Room"},
+    {"icon": Images.outsideRoom, "title": "Outside Room"},
+    {"icon": Images.balconySide, "title": "Balcony Side"},
+    {"icon": Images.nearBalcony, "title": "Near Balcony"},
   ];
 
   static List<dynamic> ordersItems = [

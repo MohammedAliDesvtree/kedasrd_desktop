@@ -9,6 +9,7 @@ class CommonController extends GetxController {
   RxList<int> qtyValues = <int>[].obs;
 
   RxBool isDigitsViewVisible = false.obs;
+  RxBool isPaymentMenuVisible = false.obs;
 
   void locationAllowed() {
     isLocationAllow.value = !isLocationAllow.value;

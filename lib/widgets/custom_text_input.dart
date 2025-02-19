@@ -58,14 +58,17 @@ class _CustomTextInputState extends State<CustomTextInput> {
                 width: 24.0,
                 alignment: Alignment.center,
                 child: Obx(
-                  () => GestureDetector(
-                    onTap: () => signInController.togglePassword(),
-                    child: Image.asset(
-                      signInController.isPasswordShow.value
-                          ? Images.passHide
-                          : Images.passShow,
-                      height: 24.0,
-                      width: 24.0,
+                  () => MouseRegion(
+                    cursor: SystemMouseCursors.click, // Changes cursor to hand
+                    child: GestureDetector(
+                      onTap: () => signInController.togglePassword(),
+                      child: Image.asset(
+                        signInController.isPasswordShow.value
+                            ? Images.passHide
+                            : Images.passShow,
+                        height: 24.0,
+                        width: 24.0,
+                      ),
                     ),
                   ),
                 ),

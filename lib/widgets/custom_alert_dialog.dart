@@ -49,31 +49,34 @@ class CustomAlertDialog extends StatelessWidget {
   Widget dialogButton(BuildContext context, String title) {
     return Material(
       color: Themes.kTransparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(40.0),
-        onTap: () {
-          if (title == "Yes" || title == positiveBtn) {
-            positiveAction();
-          } else {
-            Get.back();
-          }
-        },
-        child: Ink(
-          decoration: BoxDecoration(
-              color: (title == "Yes" || title == positiveBtn)
-                  ? Themes.kPrimaryColor
-                  : Themes.kPrimaryColor.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(40.0)),
-          child: Container(
-            height: 40.0,
-            width: 100.0,
-            alignment: Alignment.center,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
-                fontWeight: FontWeight.bold,
-                color: Themes.kWhiteColor,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, // Changes cursor to hand
+        child: InkWell(
+          borderRadius: BorderRadius.circular(40.0),
+          onTap: () {
+            if (title == "Yes" || title == positiveBtn) {
+              positiveAction();
+            } else {
+              Get.back();
+            }
+          },
+          child: Ink(
+            decoration: BoxDecoration(
+                color: (title == "Yes" || title == positiveBtn)
+                    ? Themes.kPrimaryColor
+                    : Themes.kPrimaryColor.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(40.0)),
+            child: Container(
+              height: 40.0,
+              width: 100.0,
+              alignment: Alignment.center,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                  fontWeight: FontWeight.bold,
+                  color: Themes.kWhiteColor,
+                ),
               ),
             ),
           ),

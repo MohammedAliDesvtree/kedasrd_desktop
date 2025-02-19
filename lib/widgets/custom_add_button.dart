@@ -19,45 +19,48 @@ class CustomAddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Themes.kTransparent,
-      child: InkWell(
-        borderRadius: isCircular
-            ? BorderRadius.circular(28.0)
-            : const BorderRadius.only(
-                topLeft: Radius.circular(13.0),
-                bottomRight: Radius.circular(8.0),
-              ),
-        onTap: () => onTap(),
-        child: Ink(
-          decoration: BoxDecoration(
-            color: Themes.kPrimaryColor,
-            borderRadius: isCircular
-                ? BorderRadius.circular(28.0)
-                : const BorderRadius.only(
-                    topLeft: Radius.circular(13.0),
-                    bottomRight: Radius.circular(8.0),
-                  ),
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: paddingVR ?? 10.0, horizontal: 14.0),
-            child: Row(
-              children: [
-                Image.asset(
-                  Images.add,
-                  height: 10.0,
-                  width: 10.0,
-                  color: Themes.kWhiteColor,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, // Changes cursor to hand
+        child: InkWell(
+          borderRadius: isCircular
+              ? BorderRadius.circular(28.0)
+              : const BorderRadius.only(
+                  topLeft: Radius.circular(13.0),
+                  bottomRight: Radius.circular(8.0),
                 ),
-                const SizedBox(width: 8.0),
-                Text(
-                  "Add".toUpperCase(),
-                  style: TextStyle(
-                    fontSize: ResponsiveHelper.getFontSize(context, 13.0),
-                    fontWeight: FontWeight.w700,
+          onTap: () => onTap(),
+          child: Ink(
+            decoration: BoxDecoration(
+              color: Themes.kPrimaryColor,
+              borderRadius: isCircular
+                  ? BorderRadius.circular(28.0)
+                  : const BorderRadius.only(
+                      topLeft: Radius.circular(13.0),
+                      bottomRight: Radius.circular(8.0),
+                    ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: paddingVR ?? 10.0, horizontal: 14.0),
+              child: Row(
+                children: [
+                  Image.asset(
+                    Images.add,
+                    height: 10.0,
+                    width: 10.0,
                     color: Themes.kWhiteColor,
                   ),
-                ),
-              ],
+                  const SizedBox(width: 8.0),
+                  Text(
+                    "Add".toUpperCase(),
+                    style: TextStyle(
+                      fontSize: ResponsiveHelper.getFontSize(context, 13.0),
+                      fontWeight: FontWeight.w700,
+                      color: Themes.kWhiteColor,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

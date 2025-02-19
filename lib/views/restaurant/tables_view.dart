@@ -7,6 +7,7 @@ import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 
+import 'package:kedasrd_windows/widgets/custom_tabs_list.dart';
 import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 
 import 'package:kedasrd_windows/controllers/tables_controller.dart';
@@ -27,7 +28,7 @@ class _TablesViewState extends State<TablesView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        customTabsList(size),
+        CustomTabsList(data: DummyData.tableTabs, type: "Tables"),
         const SizedBox(height: 24.0),
         Obx(() {
           int tableLength = controller.selectedTabIndex.value == 0
@@ -46,16 +47,16 @@ class _TablesViewState extends State<TablesView> {
   }
 
   Widget customTabsList(Size size) {
-    return SizedBox(
-      width: size.width / 5,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: List.generate(DummyData.tableTabs.length, (index) {
-          var data = DummyData.tableTabs[index];
-          return Column(
-            children: [
-              Material(
-                color: Themes.kTransparent,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: List.generate(DummyData.tableTabs.length, (index) {
+        var data = DummyData.tableTabs[index];
+        return Column(
+          children: [
+            Material(
+              color: Themes.kTransparent,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click, // Changes cursor to hand
                 child: InkWell(
                   borderRadius: BorderRadius.circular(52.0),
                   onTap: () => controller.selectTab(index),
@@ -80,23 +81,23 @@ class _TablesViewState extends State<TablesView> {
                   ),
                 ),
               ),
-              const SizedBox(height: 0.0),
-              Obx(
-                () => Text(
-                  data["title"],
-                  style: TextStyle(
-                    fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-                    fontWeight: FontWeight.w500,
-                    color: controller.selectedTabIndex.value == index
-                        ? Themes.kPrimaryColor
-                        : Themes.kGreyColor,
-                  ),
+            ),
+            const SizedBox(height: 0.0),
+            Obx(
+              () => Text(
+                data["title"],
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                  fontWeight: FontWeight.w500,
+                  color: controller.selectedTabIndex.value == index
+                      ? Themes.kPrimaryColor
+                      : Themes.kGreyColor,
                 ),
               ),
-            ],
-          );
-        }),
-      ),
+            ),
+          ],
+        );
+      }),
     );
   }
 
@@ -109,7 +110,7 @@ class _TablesViewState extends State<TablesView> {
             child: Obx(
               () => Wrap(
                 key: ValueKey(controller.selectedTabIndex.value),
-                runSpacing: 84.0,
+                runSpacing: 100.0,
                 spacing: 16.0,
                 children: List.generate(
                   tableLength,
@@ -129,99 +130,80 @@ class _TablesViewState extends State<TablesView> {
     const double chairWidth = 68.0; // width per chair
     final double tableWidth = (chairWidth * (randomNumber / 2).ceil());
 
-    return GestureDetector(
-      onTap: () => Constants.openDialog(
-        context: context,
-        title: "Enter Code to Continue",
-        btnText1: "Submit",
-        child: const CustomTextInput(hintText: "Enter code", isNumber: true),
-        height: size.height / 2.5,
-      ),
-      child: Container(
-        height: 124.0, // Increased height to accommodate chairs
-        width: size.width / 2.85,
-        padding: const EdgeInsets.all(16.0),
-        // decoration: BoxDecoration(
-        //   color: Themes.kWhiteColor,
-        //   borderRadius: BorderRadius.circular(10.0),
-        //   boxShadow: [
-        //     BoxShadow(
-        //       color: Themes.kBlackColor.withOpacity(0.20),
-        //       blurRadius: 8.0,
-        //       spreadRadius: -3,
-        //       offset: const Offset(0, 0),
-        //     ),
-        //   ],
-        // ),
-        child: Column(
-          children: [
-            // Table info
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Text(
-            //       "Table ${index + 1}",
-            //       style: const TextStyle(
-            //         fontSize: 16.0,
-            //         fontWeight: FontWeight.w400,
-            //         color: Themes.kDarkColor,
-            //       ),
-            //     ),
-            //     Text(
-            //       "Capacity - $randomNumber",
-            //       style: const TextStyle(
-            //         fontSize: 14.0,
-            //         fontWeight: FontWeight.w400,
-            //         color: Themes.kPrimaryColor,
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // const SizedBox(height: 12),
-            // Table and chairs visualization
-            Expanded(
-              child: Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.center,
-                children: [
-                  // Table
-                  Container(
-                    height: 120,
-                    width: tableWidth,
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[600],
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  // Top chairs
-                  ...List.generate(
-                    (randomNumber / 2).ceil(),
-                    (i) => Positioned(
-                      top: -48.0,
-                      left: i * chairWidth,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Image.asset(
-                          Images.newChair,
-                          height: 41.0,
-                          width: 48.0,
-                          color: randomNumber % 3 == 1
-                              ? Themes.kGreenColor
-                              : Themes.kRedColor,
-                        ),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click, // Changes cursor to hand
+      child: GestureDetector(
+        onTap: () => Constants.openDialog(
+          context: context,
+          title: "Enter Code to Continue",
+          btnText1: "Submit",
+          child: const CustomTextInput(hintText: "Enter code", isNumber: true),
+          height: size.height / 2.5,
+        ),
+        child: Container(
+          height: 124.0, // Increased height to accommodate chairs
+          width: size.width / 4.0,
+          padding: const EdgeInsets.all(16.0),
+          // decoration: BoxDecoration(
+          //   color: Themes.kWhiteColor,
+          //   borderRadius: BorderRadius.circular(10.0),
+          //   boxShadow: [
+          //     BoxShadow(
+          //       color: Themes.kBlackColor.withOpacity(0.20),
+          //       blurRadius: 8.0,
+          //       spreadRadius: -3,
+          //       offset: const Offset(0, 0),
+          //     ),
+          //   ],
+          // ),
+          child: Column(
+            children: [
+              // Table info
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text(
+              //       "Table ${index + 1}",
+              //       style: const TextStyle(
+              //         fontSize: 16.0,
+              //         fontWeight: FontWeight.w400,
+              //         color: Themes.kDarkColor,
+              //       ),
+              //     ),
+              //     Text(
+              //       "Capacity - $randomNumber",
+              //       style: const TextStyle(
+              //         fontSize: 14.0,
+              //         fontWeight: FontWeight.w400,
+              //         color: Themes.kPrimaryColor,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(height: 12),
+              // Table and chairs visualization
+              Expanded(
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.center,
+                  children: [
+                    // Table
+                    Container(
+                      height: 120,
+                      width: tableWidth,
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey[600],
+                        borderRadius: BorderRadius.circular(4),
                       ),
                     ),
-                  ),
-                  // Bottom chairs
-                  ...List.generate(
-                    (randomNumber / 2).floor(),
-                    (i) => Positioned(
-                      bottom: -48.0,
-                      left: i * chairWidth,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Transform.rotate(
-                          angle: 3.14159, // 180 degrees in radians(
+                    // Top chairs
+                    ...List.generate(
+                      (randomNumber / 2).ceil(),
+                      (i) => Positioned(
+                        top: -48.0,
+                        left: i * chairWidth,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
                           child: Image.asset(
                             Images.newChair,
                             height: 41.0,
@@ -233,74 +215,33 @@ class _TablesViewState extends State<TablesView> {
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    // Bottom chairs
+                    ...List.generate(
+                      (randomNumber / 2).floor(),
+                      (i) => Positioned(
+                        bottom: -48.0,
+                        left: i * chairWidth,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Transform.rotate(
+                            angle: 3.14159, // 180 degrees in radians(
+                            child: Image.asset(
+                              Images.newChair,
+                              height: 41.0,
+                              width: 48.0,
+                              color: randomNumber % 3 == 1
+                                  ? Themes.kGreenColor
+                                  : Themes.kRedColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget customTables(int index, int randomNumber, Size size) {
-    return GestureDetector(
-      onTap: () => Constants.openDialog(
-        context: context,
-        title: "Enter Code to Continue",
-        btnText1: "Submit",
-        child: const CustomTextInput(hintText: "Enter code", isNumber: true),
-        height: size.height / 2.5,
-      ),
-      child: Container(
-        height: 86.0,
-        width: size.width / 4.85,
-        padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: Themes.kWhiteColor,
-          borderRadius: BorderRadius.circular(10.0),
-          boxShadow: [
-            BoxShadow(
-              color: Themes.kBlackColor.withOpacity(0.20),
-              blurRadius: 8.0,
-              spreadRadius: -3,
-              offset: const Offset(0, 0),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Table ${index + 1}",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: ResponsiveHelper.getFontSize(context, 16.0),
-                    fontWeight: FontWeight.w400,
-                    color: Themes.kDarkColor,
-                  ),
-                ),
-                Text(
-                  "Capacity - $randomNumber",
-                  style: TextStyle(
-                    fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-                    fontWeight: FontWeight.w400,
-                    color: Themes.kPrimaryColor,
-                  ),
-                ),
-              ],
-            ),
-            Image.asset(
-              Images.table,
-              height: 50.0,
-              width: 50.0,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

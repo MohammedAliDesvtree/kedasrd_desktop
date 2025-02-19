@@ -25,23 +25,26 @@ class CustomIconButton extends StatelessWidget {
       padding: EdgeInsets.only(right: paddingRight ?? 0.0),
       child: Material(
         color: Themes.kTransparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(radius ?? 44.0),
-          onTap: onTap,
-          onTapDown:
-              icon != Images.options ? null : (details) => onTapDown(details),
-          child: Ink(
-            decoration: BoxDecoration(
-                color: Themes.kPrimaryColor,
-                borderRadius: BorderRadius.circular(radius ?? 44.0)),
-            child: Container(
-              height: size ?? 38.0,
-              width: size ?? 38.0,
-              padding: EdgeInsets.all(iconPadding ?? 8.0),
-              child: Image.asset(
-                icon,
-                height: 32.0,
-                color: Themes.kWhiteColor,
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click, // Changes cursor to hand
+          child: InkWell(
+            borderRadius: BorderRadius.circular(radius ?? 44.0),
+            onTap: onTap,
+            onTapDown:
+                icon != Images.options ? null : (details) => onTapDown(details),
+            child: Ink(
+              decoration: BoxDecoration(
+                  color: Themes.kPrimaryColor,
+                  borderRadius: BorderRadius.circular(radius ?? 44.0)),
+              child: Container(
+                height: size ?? 38.0,
+                width: size ?? 38.0,
+                padding: EdgeInsets.all(iconPadding ?? 8.0),
+                child: Image.asset(
+                  icon,
+                  height: 32.0,
+                  color: Themes.kWhiteColor,
+                ),
               ),
             ),
           ),
