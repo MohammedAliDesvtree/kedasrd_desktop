@@ -490,16 +490,18 @@ class _RegularViewState extends State<RegularView> {
         padding: const EdgeInsets.only(left: 12.0),
         margin: const EdgeInsets.symmetric(horizontal: 12.0),
         decoration: BoxDecoration(
-          color: Themes.kWhiteColor,
+          color: Themes.kHeaderLightColor,
+          border: Border.all(
+              width: 1.0, color: Themes.kBlackColor.withOpacity(0.10)),
           borderRadius: BorderRadius.circular(10.0),
-          boxShadow: [
-            BoxShadow(
-              color: Themes.kBlackColor.withOpacity(0.20),
-              blurRadius: 8.0,
-              spreadRadius: -3,
-              offset: const Offset(0, 0),
-            ),
-          ],
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Themes.kBlackColor.withOpacity(0.20),
+          //     blurRadius: 8.0,
+          //     spreadRadius: -3,
+          //     offset: const Offset(0, 0),
+          //   ),
+          // ],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
