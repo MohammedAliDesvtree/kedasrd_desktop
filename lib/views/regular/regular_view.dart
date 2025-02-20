@@ -1,24 +1,23 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:kedasrd_windows/controllers/common_controller.dart';
-import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/widgets/custom_dropdowns.dart';
 import 'package:kedasrd_windows/widgets/custom_qty_view.dart';
 import 'package:kedasrd_windows/widgets/custom_searchbar.dart';
 import 'package:kedasrd_windows/widgets/custom_pay_button.dart';
-import 'package:kedasrd_windows/widgets/custom_add_button.dart';
 import 'package:kedasrd_windows/widgets/custom_digit_text.dart';
 import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 import 'package:kedasrd_windows/widgets/custom_icon_button.dart';
 import 'package:kedasrd_windows/widgets/custom_close_icon_button.dart';
 
 import 'package:kedasrd_windows/controllers/cart_controller.dart';
+import 'package:kedasrd_windows/controllers/common_controller.dart';
 import 'package:kedasrd_windows/controllers/tables_controller.dart';
 import 'package:kedasrd_windows/controllers/regular_controller.dart';
 import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
@@ -107,146 +106,143 @@ class _RegularViewState extends State<RegularView> {
     return Constants.scrollbarView(
       paddingRight: 0.0,
       child: SingleChildScrollView(
-        child: Wrap(
-            runSpacing: 16.0,
-            spacing: 16.0,
-            children: List.generate(
-              DummyData.productList.length,
-              (index) {
-                var data = DummyData.productList[index];
-                return Stack(
-                  children: [
-                    Material(
-                      color: Themes.kTransparent,
-                      child: MouseRegion(
-                        cursor:
-                            SystemMouseCursors.click, // Changes cursor to hand
-                        child: InkWell(
-                          hoverColor: Themes.kWhiteColor,
+        child: GridView.builder(
+          padding: const EdgeInsets.only(right: 18.0),
+          shrinkWrap: true,
+          physics:
+              const NeverScrollableScrollPhysics(), // Disable scrolling to avoid conflicts
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4, // Ensuring 4 items per row
+            crossAxisSpacing: 16.0,
+            mainAxisSpacing: 16.0,
+            childAspectRatio: 1.66, // Adjust this ratio if needed
+          ),
+          itemCount: DummyData.productList.length,
+          itemBuilder: (context, index) {
+            var data = DummyData.productList[index];
+            return Stack(
+              children: [
+                Material(
+                  color: Themes.kTransparent,
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click, // Changes cursor to hand
+                    child: InkWell(
+                      hoverColor: Themes.kWhiteColor,
+                      borderRadius: BorderRadius.circular(8.0),
+                      onTap: index % 2.5 == 2
+                          ? null
+                          : () {
+                              if (widget.title!.contains("Store")) {
+                                Constants.openDialog(
+                                  context: context,
+                                  title: "",
+                                  btnText1: "Add Product",
+                                  child: productDetails(data),
+                                  height: size.height / 1.2,
+                                );
+                              } else if (widget.title!.contains("Food")) {
+                                CustomSnackBar.showTopRightSnackBar(
+                                    context, '${data["title"]} added in cart!');
+                              } else {
+                                cartController.addToCart(data);
+                                CustomSnackBar.showTopRightSnackBar(
+                                    context, '${data["title"]} added in cart!');
+                              }
+                            },
+                      child: Ink(
+                        height: 178.0,
+                        decoration: BoxDecoration(
+                          color: Themes.kWhiteColor,
                           borderRadius: BorderRadius.circular(8.0),
-                          onTap: index % 2.5 == 2
-                              ? null
-                              : () {
-                                  if (widget.title!.contains("Store")) {
-                                    Constants.openDialog(
-                                      context: context,
-                                      title: "",
-                                      btnText1: "Add Product",
-                                      child: productDetails(data),
-                                      height: size.height / 1.2,
-                                    );
-                                  } else if (widget.title!.contains("Food")) {
-                                    CustomSnackBar.showTopRightSnackBar(context,
-                                        '${data["title"]} added in cart!');
-                                  } else {
-                                    cartController.addToCart(data);
-                                    CustomSnackBar.showTopRightSnackBar(context,
-                                        '${data["title"]} added in cart!');
-                                  }
-                                },
-                          child: Ink(
-                            height: 178.0,
-                            width: ResponsiveHelper.isDesktop(context)
-                                ? size.width / 8.0
-                                : ResponsiveHelper.isTablet(context)
-                                    ? size.width / 3.5
-                                    : size.width / 2.2,
-                            decoration: BoxDecoration(
-                              color: Themes.kWhiteColor,
-                              borderRadius: BorderRadius.circular(8.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Themes.kBlackColor.withOpacity(0.20),
-                                  blurRadius: 8.0,
-                                  spreadRadius: -3,
-                                  offset: const Offset(0, 0),
-                                ),
-                              ],
+                          boxShadow: [
+                            BoxShadow(
+                              color: Themes.kBlackColor.withOpacity(0.20),
+                              blurRadius: 8.0,
+                              spreadRadius: -3,
+                              offset: const Offset(0, 0),
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(8.0),
-                                      topRight: Radius.circular(8.0)),
-                                  child: Image.asset(
-                                    data["image"],
-                                    height: 124,
-                                    width: size.width,
-                                    fit: BoxFit.cover,
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(8.0),
+                                  topRight: Radius.circular(8.0)),
+                              child: Image.asset(
+                                data["image"],
+                                height: 124,
+                                width: size.width,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 4.0,
+                                  bottom: 4.0,
+                                  left: 12.0,
+                                  right: 12.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    data["title"],
+                                    style: TextStyle(
+                                      fontSize: ResponsiveHelper.getFontSize(
+                                          context, 14.0),
+                                      fontWeight: FontWeight.w700,
+                                      color: Themes.kBlackColor,
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 4.0, left: 12.0, right: 12.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  const SizedBox(height: 4.0),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        data["title"],
+                                        "DOP \$${data["price"]}",
                                         style: TextStyle(
                                           fontSize:
                                               ResponsiveHelper.getFontSize(
                                                   context, 14.0),
                                           fontWeight: FontWeight.w700,
-                                          color: Themes.kBlackColor,
+                                          color: Themes.kPrimaryColor,
                                         ),
-                                      ),
-                                      const SizedBox(height: 4.0),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "DOP \$${data["price"]}",
-                                            style: TextStyle(
-                                              fontSize:
-                                                  ResponsiveHelper.getFontSize(
-                                                      context, 14.0),
-                                              fontWeight: FontWeight.w700,
-                                              color: Themes.kPrimaryColor,
-                                            ),
-                                          ),
-                                        ],
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
                     ),
-                    if (index % 2.5 == 2)
-                      Container(
-                        height: 178.0,
-                        width: ResponsiveHelper.isDesktop(context)
-                            ? size.width / 8.0
-                            : ResponsiveHelper.isTablet(context)
-                                ? size.width / 3.5
-                                : size.width / 2.2,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Themes.kBlackColor.withOpacity(0.6),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: const Text(
-                          "Out Of Stock",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w700,
-                            color: Themes.kWhiteColor,
-                          ),
-                        ),
+                  ),
+                ),
+                if (index % 2.5 == 2)
+                  Container(
+                    height: 178.0,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Themes.kBlackColor.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: const Text(
+                      "Out Of Stock",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w700,
+                        color: Themes.kWhiteColor,
                       ),
-                  ],
-                );
-              },
-            )),
+                    ),
+                  ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -264,16 +260,6 @@ class _RegularViewState extends State<RegularView> {
                         child: CustomSearchBar(hintText: "Search Customer"))
                     : customerDetails(size),
               ),
-              // CustomAddButton(
-              //   isCircular: true,
-              //   onTap: () => Constants.openDialog(
-              //     context: context,
-              //     title: "Add Customer",
-              //     btnText1: "Proceed",
-              //     child: inputSection(),
-              //   ),
-              // ),
-              // const SizedBox(width: 10.0),
             ],
           ),
           const SizedBox(height: 8.0),
@@ -398,9 +384,6 @@ class _RegularViewState extends State<RegularView> {
             child: Container(
               height: 48.0,
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              // width: ResponsiveHelper.isTablet(context)
-              //     ? size.width / 8.0
-              //     : size.width / 10.0,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -526,14 +509,6 @@ class _RegularViewState extends State<RegularView> {
                     color: Themes.kDarkColor,
                   ),
                 ),
-                // Text(
-                //   "809-536-9566",
-                //   style: TextStyle(
-                //     fontSize: ResponsiveHelper.getFontSize(context, 12.0),
-                //     fontWeight: FontWeight.w400,
-                //     color: Themes.kDarkColor,
-                //   ),
-                // ),
               ],
             ),
             CustomCloseIconButton(
@@ -896,52 +871,53 @@ class _RegularViewState extends State<RegularView> {
         const SizedBox(height: 16.0),
         Expanded(
           child: Constants.scrollbarView(
-            paddingRight: 18.0,
+            paddingRight: 0.0,
             child: SingleChildScrollView(
-              child: Wrap(
-                runSpacing: 16.0,
-                spacing: 16.0,
-                children: List.generate(
-                  DummyData.superMarketCartDeskItems.length,
-                  (index) {
-                    var data = DummyData.superMarketCartDeskItems[index];
-                    return Material(
-                      color: Themes.kTransparent,
-                      child: MouseRegion(
-                        cursor:
-                            SystemMouseCursors.click, // Changes cursor to hand
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(8.0),
-                          onTap: () => tableController.onTabTapped(
-                              data["title"], size, context),
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                color: Themes.kPrimaryColor,
-                                borderRadius: BorderRadius.circular(8.0)),
-                            child: Container(
-                              height: 150.0,
-                              width: ResponsiveHelper.isDesktop(context)
-                                  ? size.width / 8.0
-                                  : ResponsiveHelper.isTablet(context)
-                                      ? size.width / 3.5
-                                      : size.width / 2.2,
-                              alignment: Alignment.center,
-                              child: Text(
-                                data["title"],
-                                style: TextStyle(
-                                  fontSize: ResponsiveHelper.getFontSize(
-                                      context, 20.0),
-                                  fontWeight: FontWeight.bold,
-                                  color: Themes.kWhiteColor,
-                                ),
+              child: GridView.builder(
+                padding: const EdgeInsets.only(right: 18.0),
+                shrinkWrap: true,
+                physics:
+                    const NeverScrollableScrollPhysics(), // Disable scrolling to avoid conflicts
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4, // Ensuring 4 items per row
+                  crossAxisSpacing: 16.0,
+                  mainAxisSpacing: 16.0,
+                  childAspectRatio: 1.70, // Adjust this ratio if needed
+                ),
+                itemCount: DummyData.superMarketCartDeskItems.length,
+                itemBuilder: (context, index) {
+                  var data = DummyData.superMarketCartDeskItems[index];
+                  return Material(
+                    color: Themes.kTransparent,
+                    child: MouseRegion(
+                      cursor:
+                          SystemMouseCursors.click, // Changes cursor to hand
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(8.0),
+                        onTap: () => tableController.onTabTapped(
+                            data["title"], size, context),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              color: Themes.kPrimaryColor,
+                              borderRadius: BorderRadius.circular(8.0)),
+                          child: Container(
+                            height: 150.0,
+                            alignment: Alignment.center,
+                            child: Text(
+                              data["title"],
+                              style: TextStyle(
+                                fontSize:
+                                    ResponsiveHelper.getFontSize(context, 20.0),
+                                fontWeight: FontWeight.bold,
+                                color: Themes.kWhiteColor,
                               ),
                             ),
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             ),
           ),

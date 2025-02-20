@@ -106,17 +106,24 @@ class _TablesViewState extends State<TablesView> {
       child: Constants.scrollbarView(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 32.0),
+            padding: const EdgeInsets.symmetric(vertical: 0.0),
             child: Obx(
-              () => Wrap(
+              () => GridView.builder(
                 key: ValueKey(controller.selectedTabIndex.value),
-                runSpacing: 100.0,
-                spacing: 16.0,
-                children: List.generate(
-                  tableLength,
-                  (index) => customNewTables(
-                      index, controller.randomNumbers[index], size),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 32.0, horizontal: 16.0),
+                shrinkWrap: true,
+                physics:
+                    const NeverScrollableScrollPhysics(), // Disable scrolling to avoid conflicts
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, // 3 tables per row
+                  crossAxisSpacing: 16.0,
+                  mainAxisSpacing: 90.0,
+                  mainAxisExtent: 180, // Adjust height dynamically
                 ),
+                itemCount: tableLength,
+                itemBuilder: (context, index) => customNewTables(
+                    index, controller.randomNumbers[index], size),
               ),
             ),
           ),

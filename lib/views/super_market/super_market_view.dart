@@ -220,52 +220,58 @@ class _SuperMarketViewState extends State<SuperMarketView> {
         const SizedBox(height: 16.0),
         Expanded(
           child: Constants.scrollbarView(
-            paddingRight: 18.0,
+            paddingRight: 0.0,
             child: SingleChildScrollView(
-              child: Wrap(
-                runSpacing: 16.0,
-                spacing: 16.0,
-                children: List.generate(
-                  DummyData.superMarketCartDeskItems.length,
-                  (index) {
-                    var data = DummyData.superMarketCartDeskItems[index];
-                    return Material(
-                      color: Themes.kTransparent,
-                      child: MouseRegion(
-                        cursor:
-                            SystemMouseCursors.click, // Changes cursor to hand
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(8.0),
-                          onTap: () => tableController.onTabTapped(
-                              data["title"], size, context),
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                color: Themes.kPrimaryColor,
-                                borderRadius: BorderRadius.circular(8.0)),
-                            child: Container(
-                              height: 150.0,
-                              width: ResponsiveHelper.isDesktop(context)
-                                  ? size.width / 8.50
-                                  : ResponsiveHelper.isTablet(context)
-                                      ? size.width / 3.5
-                                      : size.width / 2.2,
-                              alignment: Alignment.center,
-                              child: Text(
-                                data["title"],
-                                style: TextStyle(
-                                  fontSize: ResponsiveHelper.getFontSize(
-                                      context, 20.0),
-                                  fontWeight: FontWeight.bold,
-                                  color: Themes.kWhiteColor,
-                                ),
+              child: GridView.builder(
+                padding: const EdgeInsets.only(right: 18.0),
+                shrinkWrap: true,
+                physics:
+                    const NeverScrollableScrollPhysics(), // Disable scrolling to avoid conflicts
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4, // Ensuring 4 items per row
+                  crossAxisSpacing: 16.0,
+                  mainAxisSpacing: 16.0,
+                  childAspectRatio: 1.70, // Adjust this ratio if needed
+                ),
+                itemCount: DummyData.superMarketCartDeskItems.length,
+                itemBuilder: (context, index) {
+                  var data = DummyData.superMarketCartDeskItems[index];
+                  return Material(
+                    color: Themes.kTransparent,
+                    child: MouseRegion(
+                      cursor:
+                          SystemMouseCursors.click, // Changes cursor to hand
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(8.0),
+                        onTap: () => tableController.onTabTapped(
+                            data["title"], size, context),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              color: Themes.kPrimaryColor,
+                              borderRadius: BorderRadius.circular(8.0)),
+                          child: Container(
+                            height: 150.0,
+                            width: ResponsiveHelper.isDesktop(context)
+                                ? size.width / 8.50
+                                : ResponsiveHelper.isTablet(context)
+                                    ? size.width / 3.5
+                                    : size.width / 2.2,
+                            alignment: Alignment.center,
+                            child: Text(
+                              data["title"],
+                              style: TextStyle(
+                                fontSize:
+                                    ResponsiveHelper.getFontSize(context, 20.0),
+                                fontWeight: FontWeight.bold,
+                                color: Themes.kWhiteColor,
                               ),
                             ),
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             ),
           ),

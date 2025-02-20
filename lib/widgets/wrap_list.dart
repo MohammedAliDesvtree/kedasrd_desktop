@@ -30,77 +30,72 @@ class _WrapListState extends State<WrapList> {
     // final itemWidth =
     //     (size.width - 64) / 3; // Account for padding and spacing between items
 
-    return Wrap(
-      runSpacing: 16.0,
-      spacing: 16.0,
-      children: List.generate(
-        widget.data.length,
-        (index) {
-          var data = widget.data[index];
-          return MouseRegion(
-            cursor: SystemMouseCursors.click, // Changes cursor to hand
-            child: GestureDetector(
-              onTap: () => widget.onItemTap(data["title"]),
-              child: Container(
-                height: 161.0,
-                width: ResponsiveHelper.isDesktop(context)
-                    ? size.width / 3.9
-                    : size.width / 4.0,
-                // padding:
-                //     const EdgeInsets.symmetric(horizontal: 16.0),
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(16.0)),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16.0),
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        data["image"],
-                        height: size.height,
-                        width: size.width,
-                        fit: BoxFit.cover,
+    return GridView.builder(
+      shrinkWrap: true,
+      physics:
+          const NeverScrollableScrollPhysics(), // Disable scrolling to avoid conflicts
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3, // Ensuring 4 items per row
+        crossAxisSpacing: 16.0,
+        mainAxisSpacing: 16.0,
+        childAspectRatio: 3.0, // Adjust this ratio if needed
+      ),
+      itemCount: widget.data.length,
+      itemBuilder: (context, index) {
+        var data = widget.data[index];
+        return MouseRegion(
+          cursor: SystemMouseCursors.click, // Changes cursor to hand
+          child: GestureDetector(
+            onTap: () => widget.onItemTap(data["title"]),
+            child: Container(
+              height: 140.0,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(16.0)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16.0),
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      data["image"],
+                      height: size.height,
+                      width: size.width,
+                      fit: BoxFit.cover,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Themes.kTransparent,
+                              Themes.kBlackColor.withOpacity(0.9)
+                            ],
+                            stops: const [
+                              0.5,
+                              1.0
+                            ]),
                       ),
-                      Container(
-                        // height: 161.0,
-                        width: ResponsiveHelper.isDesktop(context)
-                            ? size.width / 3.6
-                            : size.width / 4.0,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Themes.kTransparent,
-                                Themes.kBlackColor.withOpacity(0.9)
-                              ],
-                              stops: const [
-                                0.5,
-                                1.0
-                              ]),
+                    ),
+                    Positioned(
+                      left: 14.0,
+                      bottom: 14.0,
+                      child: Text(
+                        "${data["title"]}",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: ResponsiveHelper.getFontSize(context, 18.0),
+                          fontWeight: FontWeight.w500,
+                          color: Themes.kWhiteColor,
                         ),
                       ),
-                      Positioned(
-                        left: 14.0,
-                        bottom: 14.0,
-                        child: Text(
-                          "${data["title"]}",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize:
-                                ResponsiveHelper.getFontSize(context, 18.0),
-                            fontWeight: FontWeight.w500,
-                            color: Themes.kWhiteColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

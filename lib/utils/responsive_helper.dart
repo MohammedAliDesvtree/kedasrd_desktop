@@ -24,7 +24,6 @@ class ResponsiveHelper {
 
   static double getDrawerWidth(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    print("size.width ${size.width}");
     if (size.width >= 1200) return size.width / 6;
     if (size.width >= 800) return size.width / 6;
     return size.width / 4;

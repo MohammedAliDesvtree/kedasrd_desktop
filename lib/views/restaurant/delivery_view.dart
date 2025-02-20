@@ -26,13 +26,18 @@ class _DeliveryViewState extends State<DeliveryView> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    return Wrap(
-      runSpacing: 16.0,
-      spacing: 16.0,
-      children: List.generate(
-        8,
-        (index) => customButton(index, size),
+    return GridView.builder(
+      shrinkWrap: true,
+      physics:
+          const NeverScrollableScrollPhysics(), // Disable scrolling to avoid conflicts
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3, // Ensuring 4 items per row
+        crossAxisSpacing: 16.0,
+        mainAxisSpacing: 16.0,
+        childAspectRatio: 7.0, // Adjust this ratio if needed
       ),
+      itemCount: 8,
+      itemBuilder: (context, index) => customButton(index, size),
     );
   }
 
