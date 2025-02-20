@@ -32,7 +32,7 @@ class _OrdersViewState extends State<OrdersView> {
         crossAxisCount: 3, // Ensuring 4 items per row
         crossAxisSpacing: 16.0,
         mainAxisSpacing: 16.0,
-        childAspectRatio: 3.0, // Adjust this ratio if needed
+        mainAxisExtent: 150.0,
       ),
       itemCount: DummyData.ordersItems.length,
       itemBuilder: (context, index) {

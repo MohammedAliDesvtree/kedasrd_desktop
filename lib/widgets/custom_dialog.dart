@@ -2,9 +2,9 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
-import 'package:kedasrd_windows/utils/responsive_helper.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 import 'package:kedasrd_windows/widgets/custom_view_dialog.dart';
@@ -215,7 +215,7 @@ class _CustomDialogState extends State<CustomDialog> {
               );
             } else if (widget.title.contains("Customer")) {
               if (title.contains("Shopping")) {
-              } else {
+              } else if (title.contains("Order")) {
                 Constants.openDialog(
                   context: context,
                   title: "Payment Info",

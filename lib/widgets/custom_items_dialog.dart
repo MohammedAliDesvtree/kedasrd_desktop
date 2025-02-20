@@ -337,7 +337,7 @@ class CustomItemsDialog extends StatelessWidget {
             DataColumn(label: headerText(context, "Key", 'Time', size)),
             DataColumn(label: headerText(context, "Key", 'Action', size)),
           ],
-          rows: List.generate(9, (index) {
+          rows: List.generate(5, (index) {
             return DataRow(cells: [
               DataCell(headerText(context, "Value", 'Paloma Medrano', size)),
               DataCell(
@@ -449,7 +449,7 @@ class CustomItemsDialog extends StatelessWidget {
             DataColumn(label: headerText(context, "Key", 'Discount', size)),
             DataColumn(label: headerText(context, "Key", 'Cart', size)),
           ],
-          rows: List.generate(9, (index) {
+          rows: List.generate(5, (index) {
             return DataRow(cells: [
               DataCell(headerText(context, "Value", 'Nachitos Ricos', size)),
               DataCell(headerText(context, "Value", '64913826', size)),
@@ -561,7 +561,7 @@ class CustomItemsDialog extends StatelessWidget {
             DataColumn(label: headerText(context, "Key", 'Tax ID', size)),
             DataColumn(label: headerText(context, "Key", 'Balance', size)),
           ],
-          rows: List.generate(9, (index) {
+          rows: List.generate(5, (index) {
             return DataRow(cells: [
               DataCell(headerText(context, "Value", 'Paloma Medrano', size)),
               DataCell(headerText(context, "Value", '0276744518', size)),
@@ -674,7 +674,7 @@ class CustomItemsDialog extends StatelessWidget {
             DataColumn(label: headerText(context, "Key", 'Time', size)),
             DataColumn(label: headerText(context, "Key", 'Action', size)),
           ],
-          rows: List.generate(9, (index) {
+          rows: List.generate(5, (index) {
             return DataRow(cells: [
               DataCell(headerText(context, "Value", 'Paloma Medrano', size)),
               DataCell(headerText(context, "Value", 'SC009238110', size)),
@@ -894,19 +894,8 @@ class CustomItemsDialog extends StatelessWidget {
 
   Widget headerText(
       BuildContext context, String type, String title, Size size) {
-    return
-        // SizedBox(
-        //   width: title == ""
-        //       ? 30.0
-        //       : title.contains("@") ||
-        //               title.contains("Email") ||
-        //               title.contains("Item") ||
-        //               title.contains("Ricos")
-        //           ? size.width / 1.8 / 5.0
-        //           : size.width / 1.8 / 8.2,
-        //   child:
-        Container(
-      margin: const EdgeInsets.symmetric(horizontal: 24.0),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       decoration: BoxDecoration(
           color: title == "Paid" || title == "In Stock"

@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/widgets/custom_close_icon_button.dart';
 
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/controllers/drawer_controller.dart';
 import 'package:kedasrd_windows/controllers/tables_controller.dart';
@@ -34,7 +34,7 @@ class _DeliveryViewState extends State<DeliveryView> {
         crossAxisCount: 3, // Ensuring 4 items per row
         crossAxisSpacing: 16.0,
         mainAxisSpacing: 16.0,
-        childAspectRatio: 7.0, // Adjust this ratio if needed
+        mainAxisExtent: 72.0,
       ),
       itemCount: 8,
       itemBuilder: (context, index) => customButton(index, size),

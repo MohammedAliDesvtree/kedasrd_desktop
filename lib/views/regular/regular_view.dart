@@ -115,7 +115,7 @@ class _RegularViewState extends State<RegularView> {
             crossAxisCount: 4, // Ensuring 4 items per row
             crossAxisSpacing: 16.0,
             mainAxisSpacing: 16.0,
-            childAspectRatio: 1.66, // Adjust this ratio if needed
+            mainAxisExtent: 178.0,
           ),
           itemCount: DummyData.productList.length,
           itemBuilder: (context, index) {
@@ -654,6 +654,7 @@ class _RegularViewState extends State<RegularView> {
                           ? "Nachitos Ricos"
                           : "Salted Tahini Chocolate Chunk (1 ud)"),
                     ),
+                    const SizedBox(width: 16.0),
                     MouseRegion(
                       cursor:
                           SystemMouseCursors.click, // Changes cursor to hand
@@ -882,7 +883,7 @@ class _RegularViewState extends State<RegularView> {
                   crossAxisCount: 4, // Ensuring 4 items per row
                   crossAxisSpacing: 16.0,
                   mainAxisSpacing: 16.0,
-                  childAspectRatio: 1.70, // Adjust this ratio if needed
+                  mainAxisExtent: 174.0,
                 ),
                 itemCount: DummyData.superMarketCartDeskItems.length,
                 itemBuilder: (context, index) {
@@ -1011,7 +1012,7 @@ class _RegularViewState extends State<RegularView> {
               child: Image.asset(
                 data["image"],
                 height: 108,
-                width: 154,
+                width: 132,
                 fit: BoxFit.cover,
               ),
             ),
@@ -1023,16 +1024,17 @@ class _RegularViewState extends State<RegularView> {
                   data["title"],
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: ResponsiveHelper.getFontSize(context, 20.0),
+                    fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                     fontWeight: FontWeight.w700,
                     color: Themes.kDarkColor,
                   ),
                 ),
+                const SizedBox(height: 4.0),
                 Text(
                   "DOP \$${data["price"]}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: ResponsiveHelper.getFontSize(context, 20.0),
+                    fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                     fontWeight: FontWeight.w700,
                     color: Themes.kPrimaryColor,
                   ),

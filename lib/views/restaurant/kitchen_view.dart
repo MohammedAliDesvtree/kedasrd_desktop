@@ -24,23 +24,22 @@ class _KitchenViewState extends State<KitchenView> {
 
     return Constants.scrollbarView(
       child: SingleChildScrollView(
-        child: Expanded(
-          child: GridView.builder(
-            shrinkWrap: true,
-            physics:
-                const NeverScrollableScrollPhysics(), // Disable scrolling to avoid conflicts
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, // Ensuring 4 items per row
-              crossAxisSpacing: 16.0,
-              mainAxisSpacing: 16.0,
-              // mainAxisExtent:
-              //     size.height, // Adjust as needed for content height
-              childAspectRatio: 1.68, // Adjust this ratio if needed
-            ),
-            itemCount: 8,
-            itemBuilder: (context, index) =>
-                orderView(controller.orders[index], index, size),
+        child: GridView.builder(
+          shrinkWrap: true,
+          physics:
+              const NeverScrollableScrollPhysics(), // Disable scrolling to avoid conflicts
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3, // Ensuring 4 items per row
+            crossAxisSpacing: 16.0,
+            mainAxisSpacing: 16.0,
+            // mainAxisExtent:
+            //     size.height, // Adjust as needed for content height
+            childAspectRatio:
+                (size.width / 3) / 394, // Adjust this ratio if needed
           ),
+          itemCount: 8,
+          itemBuilder: (context, index) =>
+              orderView(controller.orders[index], index, size),
         ),
       ),
     );
