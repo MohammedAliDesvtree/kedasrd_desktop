@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:kedasrd_windows/utils/constants.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
+import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
@@ -28,159 +28,164 @@ class _DrawerViewState extends State<DrawerView> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    return Container(
-      width: ResponsiveHelper.getDrawerWidth(context),
-      color: Themes.kWhiteColor,
-      child: Column(
-        children: [
-          SizedBox(
-            height: 70.0,
-            child: Image.asset(
-              Images.kedasPos,
-              height: ResponsiveHelper.isDesktop(context) ? 24.0 : 20.0,
-              width: ResponsiveHelper.isDesktop(context) ? 145.0 : 120.0,
-            ),
-          ),
-          const SizedBox(height: 12.0),
-          Expanded(
-            child: Constants.scrollbarView(
-              paddingRight: 0.0,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: List.generate(
-                    DummyData.homeDrawerItems.length,
-                    (index) {
-                      var data = DummyData.homeDrawerItems[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Obx(
-                          () => Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    height: 50.0,
-                                    width: 9.0,
-                                    decoration: BoxDecoration(
-                                      color: controller.isMainSelected(index)
-                                          ? Themes.kPrimaryColor
-                                          : Themes.kWhiteColor,
-                                      borderRadius: const BorderRadius.only(
-                                        topRight: Radius.circular(6.0),
-                                        bottomRight: Radius.circular(6.0),
+    return Obx(
+      () => Container(
+        width: !controller.isHideDrawerMenu.value
+            ? 136.0
+            : ResponsiveHelper.getDrawerWidth(context),
+        color: Themes.kWhiteColor,
+        child: Column(
+          children: [
+            const SizedBox(height: 12.0),
+            Expanded(
+              child: Constants.scrollbarView(
+                paddingRight: 0.0,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: List.generate(
+                      DummyData.homeDrawerItems.length,
+                      (index) {
+                        var data = DummyData.homeDrawerItems[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Obx(
+                            () => Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      height: 50.0,
+                                      width: 9.0,
+                                      decoration: BoxDecoration(
+                                        color: controller.isMainSelected(index)
+                                            ? Themes.kPrimaryColor
+                                            : Themes.kWhiteColor,
+                                        borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(6.0),
+                                          bottomRight: Radius.circular(6.0),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                      width: ResponsiveHelper.isDesktop(context)
-                                          ? 24.0
-                                          : 16.0),
-                                  Expanded(
-                                    child: MouseRegion(
-                                      cursor: SystemMouseCursors
-                                          .click, // Changes cursor to hand
-                                      child: GestureDetector(
-                                        onTap: () =>
-                                            controller.onMenuMainItemTapped(
-                                                data["title"]),
-                                        child: Container(
-                                          height: 50.0,
-                                          width: size.width,
-                                          padding: const EdgeInsets.only(
-                                              left: 16.0, right: 16.0),
-                                          decoration: BoxDecoration(
-                                            color:
-                                                controller.isMainSelected(index)
-                                                    ? Themes.kPrimaryColor
-                                                    : Themes.kWhiteColor,
-                                            borderRadius:
-                                                BorderRadius.circular(6.0),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Image.asset(
-                                                    data["icon"],
-                                                    height: 18.0,
-                                                    color: Themes.kWhiteColor,
-                                                  ),
-                                                  const SizedBox(width: 8.0),
-                                                  if (ResponsiveHelper
-                                                      .isDesktop(context))
-                                                    Text(
-                                                      data["title"],
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            ResponsiveHelper
-                                                                .getFontSize(
-                                                                    context,
-                                                                    14.0),
-                                                        fontWeight:
-                                                            FontWeight.w700,
+                                    const SizedBox(width: 16.0),
+                                    Expanded(
+                                      child: MouseRegion(
+                                        cursor: SystemMouseCursors
+                                            .click, // Changes cursor to hand
+                                        child: GestureDetector(
+                                          onTap: () =>
+                                              controller.onMenuMainItemTapped(
+                                                  data["title"]),
+                                          child: Container(
+                                            height: 50.0,
+                                            width: size.width,
+                                            padding: const EdgeInsets.only(
+                                                left: 16.0, right: 16.0),
+                                            decoration: BoxDecoration(
+                                              color: controller
+                                                      .isMainSelected(index)
+                                                  ? Themes.kPrimaryColor
+                                                  : Themes.kWhiteColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(6.0),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Image.asset(
+                                                      data["icon"],
+                                                      height: 18.0,
+                                                      color: Themes.kWhiteColor,
+                                                    ),
+                                                    // if (ResponsiveHelper
+                                                    //     .isDesktop(context))
+                                                    if (controller
+                                                        .isHideDrawerMenu.value)
+                                                      Row(
+                                                        children: [
+                                                          const SizedBox(
+                                                              width: 8.0),
+                                                          Text(
+                                                            data["title"],
+                                                            style: TextStyle(
+                                                              fontSize:
+                                                                  ResponsiveHelper
+                                                                      .getFontSize(
+                                                                          context,
+                                                                          14.0),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              color: controller
+                                                                      .isMainSelected(
+                                                                          index)
+                                                                  ? Themes
+                                                                      .kWhiteColor
+                                                                  : Themes
+                                                                      .kDarkColor,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                  ],
+                                                ),
+                                                index != 0
+                                                    ? const SizedBox.shrink()
+                                                    : Icon(
+                                                        controller
+                                                                .isMainSelected(
+                                                                    index)
+                                                            ? Icons
+                                                                .keyboard_arrow_down
+                                                            : Icons
+                                                                .keyboard_arrow_right,
+                                                        size: 24.0,
                                                         color: controller
                                                                 .isMainSelected(
                                                                     index)
                                                             ? Themes.kWhiteColor
                                                             : Themes.kDarkColor,
                                                       ),
-                                                    ),
-                                                ],
-                                              ),
-                                              index != 0
-                                                  ? const SizedBox.shrink()
-                                                  : Icon(
-                                                      controller.isMainSelected(
-                                                              index)
-                                                          ? Icons
-                                                              .keyboard_arrow_down
-                                                          : Icons
-                                                              .keyboard_arrow_right,
-                                                      size: 24.0,
-                                                      color: controller
-                                                              .isMainSelected(
-                                                                  index)
-                                                          ? Themes.kWhiteColor
-                                                          : Themes.kDarkColor,
-                                                    ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 24.0),
-                                ],
-                              ),
-                              index != 0
-                                  ? const SizedBox.shrink()
-                                  : controller.isMainSelected(index)
-                                      ? innerListView(context, size)
-                                      : const SizedBox.shrink(),
-                            ],
+                                    const SizedBox(width: 24.0),
+                                  ],
+                                ),
+                                index != 0
+                                    ? const SizedBox.shrink()
+                                    : controller.isMainSelected(index)
+                                        ? innerListView(context, size)
+                                        : const SizedBox.shrink(),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          logoutItem(
-            "Setting",
-            Images.setting,
-            size,
-          ),
-          logoutItem(
-            "Logout",
-            Images.logout,
-            size,
-          ),
-          const SizedBox(height: 24.0)
-        ],
+            logoutItem(
+              "Setting",
+              Images.setting,
+              size,
+            ),
+            logoutItem(
+              "Logout",
+              Images.logout,
+              size,
+            ),
+            const SizedBox(height: 24.0)
+          ],
+        ),
       ),
     );
   }
@@ -228,19 +233,24 @@ class _DrawerViewState extends State<DrawerView> {
                     ? Themes.kPrimaryColor
                     : Themes.kDarkColor,
               ),
-              const SizedBox(width: 14.0),
-              if (ResponsiveHelper.isDesktop(context))
-                Text(
-                  data["title"],
-                  style: TextStyle(
-                    fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-                    fontWeight: controller.isInnerSelected(innerIndex)
-                        ? FontWeight.w900
-                        : FontWeight.w600,
-                    color: controller.isInnerSelected(innerIndex)
-                        ? Themes.kPrimaryColor
-                        : Themes.kDarkColor,
-                  ),
+              // if (ResponsiveHelper.isDesktop(context))
+              if (controller.isHideDrawerMenu.value)
+                Row(
+                  children: [
+                    const SizedBox(width: 14.0),
+                    Text(
+                      data["title"],
+                      style: TextStyle(
+                        fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                        fontWeight: controller.isInnerSelected(innerIndex)
+                            ? FontWeight.w900
+                            : FontWeight.w600,
+                        color: controller.isInnerSelected(innerIndex)
+                            ? Themes.kPrimaryColor
+                            : Themes.kDarkColor,
+                      ),
+                    ),
+                  ],
                 ),
             ],
           ),
@@ -315,15 +325,20 @@ class _DrawerViewState extends State<DrawerView> {
                 height: 18.0,
                 color: Themes.kDarkColor,
               ),
-              const SizedBox(width: 14.0),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-                  fontWeight: FontWeight.w600,
-                  color: Themes.kDarkColor,
+              if (controller.isHideDrawerMenu.value)
+                Row(
+                  children: [
+                    const SizedBox(width: 14.0),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                        fontWeight: FontWeight.w600,
+                        color: Themes.kDarkColor,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
             ],
           ),
         ),

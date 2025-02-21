@@ -31,8 +31,8 @@ class RegularView extends StatefulWidget {
 }
 
 class _RegularViewState extends State<RegularView> {
-  final AuthController authController = Get.find<AuthController>();
   final RegularController controller = Get.put(RegularController());
+  final AuthController authController = Get.find<AuthController>();
   final CartController cartController = Get.find<CartController>();
   final TablesController tableController = Get.find<TablesController>();
   final CommonController commonController = Get.find<CommonController>();
@@ -271,7 +271,7 @@ class _RegularViewState extends State<RegularView> {
           if (widget.title!.contains("Food")) dineInSection(size),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 16.0, right: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: Column(
                 children: [
                   Expanded(

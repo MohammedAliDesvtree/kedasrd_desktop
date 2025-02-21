@@ -38,7 +38,7 @@ class _CustomTabsListState extends State<CustomTabsList> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return Wrap(
-      spacing: 16.0,
+      spacing: widget.type == "Tables" ? 0.0 : 16.0,
       runSpacing: 16.0,
       children: List.generate(
         widget.data.length,
@@ -49,7 +49,11 @@ class _CustomTabsListState extends State<CustomTabsList> {
             child: MouseRegion(
               cursor: SystemMouseCursors.click, // Changes cursor to hand
               child: InkWell(
-                borderRadius: BorderRadius.circular(6.0),
+                borderRadius: widget.type == "Tables"
+                    ? const BorderRadius.only(
+                        topLeft: Radius.circular(8.0),
+                        topRight: Radius.circular(8.0))
+                    : BorderRadius.circular(6.0),
                 onTap: () {
                   if (widget.type == "Tables") {
                     controller.selectTab(index);
@@ -67,20 +71,22 @@ class _CustomTabsListState extends State<CustomTabsList> {
                             decoration: BoxDecoration(
                                 color: isSelected
                                     ? Themes.kPrimaryColor // Selected color
-                                    : Themes.kWhiteColor, // Unselected color
+                                    : Themes.kTransparent, // Unselected color
                                 border: Border.all(
                                     width: 0.5, color: Themes.kPrimaryColor),
-                                borderRadius: BorderRadius.circular(6.0)),
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(8.0),
+                                    topRight: Radius.circular(8.0))),
                             child: SizedBox(
                               height: 42.0,
-                              width: 136.0,
+                              width: 164.0,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image.asset(
                                     data["icon"],
-                                    height: 24.0,
-                                    width: 24.0,
+                                    height: 22.0,
+                                    width: 22.0,
                                     color: isSelected
                                         ? Themes.kWhiteColor
                                         : Themes.kGreyColor,
@@ -90,7 +96,7 @@ class _CustomTabsListState extends State<CustomTabsList> {
                                     data["title"],
                                     style: TextStyle(
                                       fontSize: ResponsiveHelper.getFontSize(
-                                          context, 14.0),
+                                          context, 12.0),
                                       fontWeight: FontWeight.bold,
                                       color: isSelected
                                           ? Themes.kWhiteColor
@@ -109,7 +115,7 @@ class _CustomTabsListState extends State<CustomTabsList> {
                             border: Border.all(
                                 width: 0.5,
                                 color: data["color"] ?? Themes.kPrimaryColor),
-                            borderRadius: BorderRadius.circular(4.0)),
+                            borderRadius: BorderRadius.circular(6.0)),
                         child: Container(
                           height: 42.0,
                           width: widget.width ?? 136.0,

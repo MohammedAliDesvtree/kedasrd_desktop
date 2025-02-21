@@ -2,11 +2,13 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
+import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
+import 'package:kedasrd_windows/controllers/drawer_controller.dart';
 import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
 
 class HeaderView extends StatefulWidget {
@@ -20,6 +22,8 @@ class HeaderView extends StatefulWidget {
 
 class _HeaderViewState extends State<HeaderView> {
   final AuthController authController = Get.find<AuthController>();
+  final DrawerMenuController drawerMenuController =
+      Get.find<DrawerMenuController>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +36,30 @@ class _HeaderViewState extends State<HeaderView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // const Icon(
-          //   Icons.menu,
-          //   size: 22.0,
-          //   color: Themes.kDarkColor,
-          // ),
-          const SizedBox(width: 22.0),
+          Row(
+            children: [
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => drawerMenuController.toggleDrawerMenu(),
+                  child: const Icon(
+                    Icons.menu,
+                    size: 22.0,
+                    color: Themes.kDarkColor,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 22.0),
+              SizedBox(
+                height: 70.0,
+                child: Image.asset(
+                  Images.kedasPos,
+                  height: ResponsiveHelper.isDesktop(context) ? 24.0 : 20.0,
+                  width: ResponsiveHelper.isDesktop(context) ? 145.0 : 120.0,
+                ),
+              ),
+            ],
+          ),
           Row(
             children: [
               Stack(

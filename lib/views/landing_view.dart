@@ -26,23 +26,29 @@ class _LandingViewState extends State<LandingView> {
       onWillPop: controller.onWillPop,
       child: Scaffold(
         backgroundColor: Themes.kLightColor,
-        body: Row(
+        body: Column(
           children: [
-            const DrawerView(),
+            const HeaderView(),
             Expanded(
-              child: Container(
-                height: size.height,
-                width: size.width,
-                color: Themes.kLightColor,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const HeaderView(),
-                    BodyView(
-                      title: controller.screenTitle,
+              child: Row(
+                children: [
+                  const DrawerView(),
+                  Expanded(
+                    child: Container(
+                      height: size.height,
+                      width: size.width,
+                      color: Themes.kLightColor,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          BodyView(
+                            title: controller.screenTitle,
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

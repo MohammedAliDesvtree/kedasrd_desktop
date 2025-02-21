@@ -42,6 +42,12 @@ class DrawerMenuController extends GetxController {
   int totalItemCounts = 24;
   RxInt selectedIndex = (0).obs;
 
+  RxBool isHideDrawerMenu = false.obs;
+
+  void toggleDrawerMenu() {
+    isHideDrawerMenu.value = !isHideDrawerMenu.value;
+  }
+
   @override
   void onInit() {
     super.onInit();
