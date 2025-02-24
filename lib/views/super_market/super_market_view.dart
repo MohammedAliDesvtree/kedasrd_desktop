@@ -323,8 +323,8 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CustomDigitText(title: "No. Items", amount: "03"),
-                    Constants.divider(context, 8.0),
+                    // const CustomDigitText(title: "No. Items", amount: "03"),
+                    // Constants.divider(context, 8.0),
                     const SizedBox(height: 8.0),
                     Text(
                       "Payments",
@@ -500,6 +500,7 @@ class _SuperMarketViewState extends State<SuperMarketView> {
               borderRadius: BorderRadius.circular(6.5),
               border: Border.all(width: 0.5, color: Themes.kGreyColor)),
           child: TextFormField(
+            maxLength: 3,
             cursorHeight: 14.0,
             textAlign: TextAlign.center,
             textAlignVertical: TextAlignVertical.center,
@@ -507,6 +508,7 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                 fontSize: ResponsiveHelper.getFontSize(context, 14.0),
                 color: Themes.kBlackColor),
             decoration: InputDecoration(
+              counterText: "",
               contentPadding: const EdgeInsets.symmetric(vertical: 13.0),
               border: InputBorder.none,
               hintText: "0",

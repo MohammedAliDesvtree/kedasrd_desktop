@@ -11,7 +11,7 @@ import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 
 enum Screen {
   // Dashboard
-  home,
+  // home,
   // Main Menu Items
   regular,
   restaurant,
@@ -34,15 +34,26 @@ enum Screen {
 }
 
 class DrawerMenuController extends GetxController {
-  final RxList<Screen> navigationHistory = <Screen>[Screen.home].obs;
-  final Rx<Screen> currentScreen = Screen.home.obs;
-  RxString screenTitle = "Home".obs;
+  final RxList<Screen> navigationHistory = <Screen>[Screen.regular].obs;
+  final Rx<Screen> currentScreen = Screen.regular.obs;
+  RxString screenTitle = "Regular".obs;
   RxString currentParentMenu = "".obs;
   // Shifts View
   int totalItemCounts = 24;
   RxInt selectedIndex = (0).obs;
 
+  final RxDouble opacity = 0.0.obs;
+
   RxBool isHideDrawerMenu = false.obs;
+
+  void animateTransition() {
+    opacity.value = 0.0;
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (Get.isRegistered<DrawerMenuController>()) {
+        opacity.value = 1.0;
+      }
+    });
+  }
 
   void toggleDrawerMenu() {
     isHideDrawerMenu.value = !isHideDrawerMenu.value;
@@ -51,14 +62,17 @@ class DrawerMenuController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    navigationHistory.add(Screen.home);
+    navigationHistory.add(Screen.regular);
+    currentParentMenu.value = "Regular"; // Set default selected menu
+    isInnerSelected(0); // Trigger initial selection
+    animateTransition();
   }
 
   @override
   void dispose() {
     super.dispose();
     navigationHistory.clear();
-    currentScreen.value = Screen.home;
+    currentScreen.value = Screen.regular;
   }
 
   void navigateTo(Screen screen, String title) {
@@ -79,15 +93,19 @@ class DrawerMenuController extends GetxController {
     }
   }
 
-  void onMenuMainItemTapped(String title) {
-    navigateTo(Screen.home, "Home");
-  }
+  // void onMenuMainItemTapped(String title) {
+  //   navigateTo(Screen.home, "Home");
+  // }
 
   void onMenuInnerItemTapped(BuildContext context, Size size, String title,
       dynamic authController, dynamic tablesController) {
     // Set parent menu based on current context
     if (DummyData.dashboardList.any((item) => item["title"] == title)) {
       currentParentMenu.value = title;
+    }
+
+    if (title != "Help") {
+      animateTransition();
     }
 
     switch (title) {
@@ -202,9 +220,9 @@ class DrawerMenuController extends GetxController {
 
   void updateScreenTitle() {
     switch (currentScreen.value) {
-      case Screen.home:
-        screenTitle.value = "Home";
-        break;
+      // case Screen.home:
+      //   screenTitle.value = "Home";
+      //   break;
       case Screen.regular:
         screenTitle.value = "Regular";
         break;
@@ -274,30 +292,31 @@ class DrawerMenuController extends GetxController {
     );
   }
 
-  bool isMainSelected(int index) {
-    if (index == 0) {
-      return currentScreen.value == Screen.home ||
-          // Main Menu Items
-          currentScreen.value == Screen.regular ||
-          currentScreen.value == Screen.restaurant ||
-          currentScreen.value == Screen.fastfood ||
-          currentScreen.value == Screen.superMarket ||
-          currentScreen.value == Screen.onlineStore ||
-          // Inner Items
-          currentScreen.value == Screen.newOrder ||
-          currentScreen.value == Screen.activeOrder ||
-          currentScreen.value == Screen.kitchen ||
-          currentScreen.value == Screen.bar ||
-          currentScreen.value == Screen.delivery ||
-          currentScreen.value == Screen.pickup ||
-          currentScreen.value == Screen.tables ||
-          // Inner Inner Items
-          currentScreen.value == Screen.shifts ||
-          currentScreen.value == Screen.orders ||
-          currentScreen.value == Screen.contact;
-    }
-    return false;
-  }
+  // bool isMainSelected(int index) {
+  //   if (index == 0) {
+  //     return
+  //         // currentScreen.value == Screen.home ||
+  //         // Main Menu Items
+  //         currentScreen.value == Screen.regular ||
+  //             currentScreen.value == Screen.restaurant ||
+  //             currentScreen.value == Screen.fastfood ||
+  //             currentScreen.value == Screen.superMarket ||
+  //             currentScreen.value == Screen.onlineStore ||
+  //             // Inner Items
+  //             currentScreen.value == Screen.newOrder ||
+  //             currentScreen.value == Screen.activeOrder ||
+  //             currentScreen.value == Screen.kitchen ||
+  //             currentScreen.value == Screen.bar ||
+  //             currentScreen.value == Screen.delivery ||
+  //             currentScreen.value == Screen.pickup ||
+  //             currentScreen.value == Screen.tables ||
+  //             // Inner Inner Items
+  //             currentScreen.value == Screen.shifts ||
+  //             currentScreen.value == Screen.orders ||
+  //             currentScreen.value == Screen.contact;
+  //   }
+  //   return false;
+  // }
 
   // Helper methods to check inner screens
   bool isRegularInnerScreen() {

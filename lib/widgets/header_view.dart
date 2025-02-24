@@ -42,9 +42,9 @@ class _HeaderViewState extends State<HeaderView> {
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                   onTap: () => drawerMenuController.toggleDrawerMenu(),
-                  child: const Icon(
-                    Icons.menu,
-                    size: 22.0,
+                  child: Image.asset(
+                    Images.menus,
+                    height: 22.0,
                     color: Themes.kDarkColor,
                   ),
                 ),

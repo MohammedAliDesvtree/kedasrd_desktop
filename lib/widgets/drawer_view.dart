@@ -31,146 +31,149 @@ class _DrawerViewState extends State<DrawerView> {
     return Obx(
       () => Container(
         width: !controller.isHideDrawerMenu.value
-            ? 136.0
+            ? 74.0
             : ResponsiveHelper.getDrawerWidth(context),
         color: Themes.kWhiteColor,
         child: Column(
           children: [
-            const SizedBox(height: 12.0),
+            // const SizedBox(height: 12.0),
             Expanded(
               child: Constants.scrollbarView(
                 paddingRight: 0.0,
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: List.generate(
-                      DummyData.homeDrawerItems.length,
-                      (index) {
-                        var data = DummyData.homeDrawerItems[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Obx(
-                            () => Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 50.0,
-                                      width: 9.0,
-                                      decoration: BoxDecoration(
-                                        color: controller.isMainSelected(index)
-                                            ? Themes.kPrimaryColor
-                                            : Themes.kWhiteColor,
-                                        borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(6.0),
-                                          bottomRight: Radius.circular(6.0),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 16.0),
-                                    Expanded(
-                                      child: MouseRegion(
-                                        cursor: SystemMouseCursors
-                                            .click, // Changes cursor to hand
-                                        child: GestureDetector(
-                                          onTap: () =>
-                                              controller.onMenuMainItemTapped(
-                                                  data["title"]),
-                                          child: Container(
-                                            height: 50.0,
-                                            width: size.width,
-                                            padding: const EdgeInsets.only(
-                                                left: 16.0, right: 16.0),
-                                            decoration: BoxDecoration(
-                                              color: controller
-                                                      .isMainSelected(index)
-                                                  ? Themes.kPrimaryColor
-                                                  : Themes.kWhiteColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(6.0),
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Image.asset(
-                                                      data["icon"],
-                                                      height: 18.0,
-                                                      color: Themes.kWhiteColor,
-                                                    ),
-                                                    // if (ResponsiveHelper
-                                                    //     .isDesktop(context))
-                                                    if (controller
-                                                        .isHideDrawerMenu.value)
-                                                      Row(
-                                                        children: [
-                                                          const SizedBox(
-                                                              width: 8.0),
-                                                          Text(
-                                                            data["title"],
-                                                            style: TextStyle(
-                                                              fontSize:
-                                                                  ResponsiveHelper
-                                                                      .getFontSize(
-                                                                          context,
-                                                                          14.0),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              color: controller
-                                                                      .isMainSelected(
-                                                                          index)
-                                                                  ? Themes
-                                                                      .kWhiteColor
-                                                                  : Themes
-                                                                      .kDarkColor,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                  ],
-                                                ),
-                                                index != 0
-                                                    ? const SizedBox.shrink()
-                                                    : Icon(
-                                                        controller
-                                                                .isMainSelected(
-                                                                    index)
-                                                            ? Icons
-                                                                .keyboard_arrow_down
-                                                            : Icons
-                                                                .keyboard_arrow_right,
-                                                        size: 24.0,
-                                                        color: controller
-                                                                .isMainSelected(
-                                                                    index)
-                                                            ? Themes.kWhiteColor
-                                                            : Themes.kDarkColor,
-                                                      ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 24.0),
-                                  ],
-                                ),
-                                index != 0
-                                    ? const SizedBox.shrink()
-                                    : controller.isMainSelected(index)
-                                        ? innerListView(context, size)
-                                        : const SizedBox.shrink(),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                  child: innerListView(context, size),
                 ),
+                // child: SingleChildScrollView(
+                //   child: Column(
+                //     children: List.generate(
+                //       DummyData.homeDrawerItems.length,
+                //       (index) {
+                //         var data = DummyData.homeDrawerItems[index];
+                //         return Padding(
+                //           padding: const EdgeInsets.only(bottom: 0.0),
+                //           child: Obx(
+                //             () => Column(
+                //               children: [
+                //                 // Row(
+                //                 //   children: [
+                //                 //     Container(
+                //                 //       height: 50.0,
+                //                 //       width: 9.0,
+                //                 //       decoration: BoxDecoration(
+                //                 //         color: controller.isMainSelected(index)
+                //                 //             ? Themes.kPrimaryColor
+                //                 //             : Themes.kWhiteColor,
+                //                 //         borderRadius: const BorderRadius.only(
+                //                 //           topRight: Radius.circular(6.0),
+                //                 //           bottomRight: Radius.circular(6.0),
+                //                 //         ),
+                //                 //       ),
+                //                 //     ),
+                //                 //     const SizedBox(width: 16.0),
+                //                 //     Expanded(
+                //                 //       child: MouseRegion(
+                //                 //         cursor: SystemMouseCursors
+                //                 //             .click, // Changes cursor to hand
+                //                 //         child: GestureDetector(
+                //                 //           onTap: () =>
+                //                 //               controller.onMenuMainItemTapped(
+                //                 //                   data["title"]),
+                //                 //           child: Container(
+                //                 //             height: 50.0,
+                //                 //             width: size.width,
+                //                 //             padding: const EdgeInsets.only(
+                //                 //                 left: 16.0, right: 16.0),
+                //                 //             decoration: BoxDecoration(
+                //                 //               color: controller
+                //                 //                       .isMainSelected(index)
+                //                 //                   ? Themes.kPrimaryColor
+                //                 //                   : Themes.kWhiteColor,
+                //                 //               borderRadius:
+                //                 //                   BorderRadius.circular(6.0),
+                //                 //             ),
+                //                 //             child: Row(
+                //                 //               mainAxisAlignment:
+                //                 //                   MainAxisAlignment
+                //                 //                       .spaceBetween,
+                //                 //               children: [
+                //                 //                 Row(
+                //                 //                   children: [
+                //                 //                     Image.asset(
+                //                 //                       data["icon"],
+                //                 //                       height: 18.0,
+                //                 //                       color: Themes.kWhiteColor,
+                //                 //                     ),
+                //                 //                     // if (ResponsiveHelper
+                //                 //                     //     .isDesktop(context))
+                //                 //                     if (controller
+                //                 //                         .isHideDrawerMenu.value)
+                //                 //                       Row(
+                //                 //                         children: [
+                //                 //                           const SizedBox(
+                //                 //                               width: 8.0),
+                //                 //                           Text(
+                //                 //                             data["title"],
+                //                 //                             style: TextStyle(
+                //                 //                               fontSize:
+                //                 //                                   ResponsiveHelper
+                //                 //                                       .getFontSize(
+                //                 //                                           context,
+                //                 //                                           14.0),
+                //                 //                               fontWeight:
+                //                 //                                   FontWeight
+                //                 //                                       .w700,
+                //                 //                               color: controller
+                //                 //                                       .isMainSelected(
+                //                 //                                           index)
+                //                 //                                   ? Themes
+                //                 //                                       .kWhiteColor
+                //                 //                                   : Themes
+                //                 //                                       .kDarkColor,
+                //                 //                             ),
+                //                 //                           ),
+                //                 //                         ],
+                //                 //                       ),
+                //                 //                   ],
+                //                 //                 ),
+                //                 //                 index != 0
+                //                 //                     ? const SizedBox.shrink()
+                //                 //                     : Icon(
+                //                 //                         controller
+                //                 //                                 .isMainSelected(
+                //                 //                                     index)
+                //                 //                             ? Icons
+                //                 //                                 .keyboard_arrow_down
+                //                 //                             : Icons
+                //                 //                                 .keyboard_arrow_right,
+                //                 //                         size: 24.0,
+                //                 //                         color: controller
+                //                 //                                 .isMainSelected(
+                //                 //                                     index)
+                //                 //                             ? Themes.kWhiteColor
+                //                 //                             : Themes.kDarkColor,
+                //                 //                       ),
+                //                 //               ],
+                //                 //             ),
+                //                 //           ),
+                //                 //         ),
+                //                 //       ),
+                //                 //     ),
+                //                 //     const SizedBox(width: 24.0),
+                //                 //   ],
+                //                 // ),
+                //                 index != 0
+                //                     ? const SizedBox.shrink()
+                //                     : controller.isMainSelected(index)
+                //                         ? innerListView(context, size)
+                //                         : const SizedBox.shrink(),
+                //               ],
+                //             ),
+                //           ),
+                //         );
+                //       },
+                //     ),
+                //   ),
+                // ),
               ),
             ),
             logoutItem(
@@ -192,7 +195,7 @@ class _DrawerViewState extends State<DrawerView> {
 
   Widget innerListView(BuildContext context, Size size) {
     return Container(
-      margin: const EdgeInsets.only(left: 44.0, top: 16.0),
+      margin: const EdgeInsets.only(left: 24.0, top: 16.0),
       child: Column(
         children: List.generate(
           DummyData.dashboardList.length,
@@ -217,40 +220,63 @@ class _DrawerViewState extends State<DrawerView> {
   }
 
   Widget innerItemView(data, int innerIndex, BuildContext context, size) {
+    bool isMainItem = DummyData.dashboardList.contains(data);
+    bool isExpanded = controller.shouldShowInnerItems(data["title"]);
+
     return MouseRegion(
       cursor: SystemMouseCursors.click, // Changes cursor to hand
       child: GestureDetector(
         onTap: () => controller.onMenuInnerItemTapped(
             context, size, data["title"], authController, tablesController),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset(
-                data["icon"],
-                height: 18.0,
-                color: controller.isInnerSelected(innerIndex)
-                    ? Themes.kPrimaryColor
-                    : Themes.kDarkColor,
-              ),
-              // if (ResponsiveHelper.isDesktop(context))
-              if (controller.isHideDrawerMenu.value)
-                Row(
-                  children: [
-                    const SizedBox(width: 14.0),
-                    Text(
-                      data["title"],
-                      style: TextStyle(
-                        fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-                        fontWeight: controller.isInnerSelected(innerIndex)
-                            ? FontWeight.w900
-                            : FontWeight.w600,
-                        color: controller.isInnerSelected(innerIndex)
-                            ? Themes.kPrimaryColor
-                            : Themes.kDarkColor,
-                      ),
+              Row(
+                children: [
+                  Image.asset(
+                    data["icon"],
+                    height: 20.0,
+                    color: controller.isInnerSelected(innerIndex)
+                        ? Themes.kPrimaryColor
+                        : Themes.kDarkColor,
+                  ),
+                  // if (ResponsiveHelper.isDesktop(context))
+                  if (controller.isHideDrawerMenu.value)
+                    Row(
+                      children: [
+                        const SizedBox(width: 14.0),
+                        Text(
+                          data["title"],
+                          style: TextStyle(
+                            fontSize:
+                                ResponsiveHelper.getFontSize(context, 14.0),
+                            fontWeight: controller.isInnerSelected(innerIndex)
+                                ? FontWeight.w900
+                                : FontWeight.w600,
+                            color: controller.isInnerSelected(innerIndex)
+                                ? Themes.kPrimaryColor
+                                : Themes.kDarkColor,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                ],
+              ),
+              if (isMainItem) // Show arrow only for main items
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: AnimatedRotation(
+                    duration: const Duration(milliseconds: 200),
+                    turns: isExpanded
+                        ? 0.5
+                        : 0.0, // Rotates 180 degrees when expanded
+                    child: const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Themes.kDarkColor,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -296,7 +322,7 @@ class _DrawerViewState extends State<DrawerView> {
           var innerData = innerItems[index];
           int itemIndex = (startIndex + innerItems.indexOf(innerData)).toInt();
           return Padding(
-            padding: const EdgeInsets.only(left: 32.0),
+            padding: const EdgeInsets.only(left: 0.0),
             child: innerItemView(innerData, itemIndex, context, size),
           );
         },
@@ -317,12 +343,12 @@ class _DrawerViewState extends State<DrawerView> {
           }
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 44.0),
+          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, left: 24.0),
           child: Row(
             children: [
               Image.asset(
                 icon,
-                height: 18.0,
+                height: 20.0,
                 color: Themes.kDarkColor,
               ),
               if (controller.isHideDrawerMenu.value)

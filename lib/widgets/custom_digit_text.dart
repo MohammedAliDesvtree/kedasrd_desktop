@@ -88,6 +88,7 @@ class _CustomDigitTextState extends State<CustomDigitText> {
           borderRadius: BorderRadius.circular(6.5),
           border: Border.all(width: 0.5, color: Themes.kGreyColor)),
       child: TextFormField(
+        maxLength: widget.title.contains("Disc") ? 3 : null,
         cursorHeight: 14.0,
         textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,
@@ -96,6 +97,7 @@ class _CustomDigitTextState extends State<CustomDigitText> {
             color: Themes.kBlackColor),
         // controller: controller.qtyController,
         decoration: InputDecoration(
+          counterText: "",
           contentPadding: const EdgeInsets.symmetric(vertical: 14.0),
           border: InputBorder.none,
           hintText: widget.title == "Price" ? "\$500.00" : "0",

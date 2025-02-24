@@ -6,7 +6,7 @@ import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
-import 'package:kedasrd_windows/views/home_view.dart';
+// import 'package:kedasrd_windows/views/home_view.dart';
 import 'package:kedasrd_windows/views/regular/regular_view.dart';
 import 'package:kedasrd_windows/views/restaurant/bar_view.dart';
 import 'package:kedasrd_windows/views/restaurant/orders_view.dart';
@@ -47,88 +47,102 @@ class _BodyViewState extends State<BodyView> {
       height: size.height - 70.0,
       padding: ResponsiveHelper.getBodyPadding(context),
       color: Themes.kLightColor,
-      child: Obx(() {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                if (controller.shouldShowBackButton())
-                  CustomIconButton(
-                    icon: Images.leftArrow,
-                    paddingRight: 16.0,
-                    onTap: () => controller.onBackTapped(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Obx(
+            () => AnimatedOpacity(
+              key: ValueKey(widget.title.value),
+              duration: const Duration(milliseconds: 200),
+              opacity: controller.opacity.value,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (controller.shouldShowBackButton())
+                    CustomIconButton(
+                      icon: Images.leftArrow,
+                      paddingRight: 16.0,
+                      onTap: () => controller.onBackTapped(),
+                    ),
+                  Text(
+                    widget.title.value,
+                    style: TextStyle(
+                      fontSize: ResponsiveHelper.getFontSize(context, 32.0),
+                      fontWeight: FontWeight.w700,
+                      color: Themes.kDarkColor,
+                    ),
                   ),
-                Text(
-                  widget.title.value,
-                  style: TextStyle(
-                    fontSize: ResponsiveHelper.getFontSize(context, 32.0),
-                    fontWeight: FontWeight.w700,
-                    color: Themes.kDarkColor,
-                  ),
-                ),
-                Row(
-                  children: [
-                    if (controller.shouldShowSearchBar())
-                      const CustomSearchBar(hintText: "Search"),
-                    if (controller.shouldShowDropdowns())
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const SizedBox(width: 16.0),
-                          SizedBox(
-                            width: ResponsiveHelper.getDropdownWidth(context),
-                            child: CustomDropdowns(
-                              listData: DummyData.priceListItems,
-                              hintText: "Price List",
-                              borderRadius: 100.0,
-                              isOutlined: true,
+                  Row(
+                    children: [
+                      if (controller.shouldShowSearchBar())
+                        const CustomSearchBar(hintText: "Search"),
+                      if (controller.shouldShowDropdowns())
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(width: 16.0),
+                            SizedBox(
+                              width: ResponsiveHelper.getDropdownWidth(context),
+                              child: CustomDropdowns(
+                                listData: DummyData.priceListItems,
+                                hintText: "Price List",
+                                borderRadius: 100.0,
+                                isOutlined: true,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 16.0),
-                          SizedBox(
-                            width: ResponsiveHelper.getDropdownWidth(context),
-                            child: CustomDropdowns(
-                              listData: DummyData.categoryItems,
-                              hintText: "Search by item name",
-                              borderRadius: 100.0,
-                              isOutlined: true,
+                            const SizedBox(width: 16.0),
+                            SizedBox(
+                              width: ResponsiveHelper.getDropdownWidth(context),
+                              child: CustomDropdowns(
+                                listData: DummyData.categoryItems,
+                                hintText: "Search by item name",
+                                borderRadius: 100.0,
+                                isOutlined: true,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 16.0),
-                          SizedBox(
-                            width: ResponsiveHelper.getDropdownWidth(context),
-                            child: CustomDropdowns(
-                              listData: DummyData.currencyItems,
-                              hintText: "Select Currency",
-                              borderRadius: 100.0,
-                              isOutlined: true,
+                            const SizedBox(width: 16.0),
+                            SizedBox(
+                              width: ResponsiveHelper.getDropdownWidth(context),
+                              child: CustomDropdowns(
+                                listData: DummyData.currencyItems,
+                                hintText: "Select Currency",
+                                borderRadius: 100.0,
+                                isOutlined: true,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 16.0),
-                        ],
-                      ),
-                    if (controller.shouldShowFilter())
-                      SizedBox(
-                        width: ResponsiveHelper.getDropdownWidth(context),
-                        child: CustomDropdowns(
-                          listData: DummyData.filterItems,
-                          hintText: "Select Filter",
-                          borderRadius: 100.0,
-                          isOutlined: true,
+                            const SizedBox(width: 16.0),
+                          ],
                         ),
-                      ),
-                    if (controller.shouldShowCounts()) totalCountView(),
-                  ],
-                ),
-              ],
+                      if (controller.shouldShowFilter())
+                        SizedBox(
+                          width: ResponsiveHelper.getDropdownWidth(context),
+                          child: CustomDropdowns(
+                            listData: DummyData.filterItems,
+                            hintText: "Select Filter",
+                            borderRadius: 100.0,
+                            isOutlined: true,
+                          ),
+                        ),
+                      if (controller.shouldShowCounts()) totalCountView(),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 16.0),
-            Expanded(child: _buildContent()),
-          ],
-        );
-      }),
+          ),
+          const SizedBox(height: 16.0),
+          Expanded(
+            child: Obx(
+              () => AnimatedOpacity(
+                key: ValueKey(widget.title.value),
+                duration: const Duration(milliseconds: 200),
+                opacity: controller.opacity.value,
+                child: _buildContent(),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -153,8 +167,8 @@ class _BodyViewState extends State<BodyView> {
 
   Widget _buildContent() {
     switch (controller.currentScreen.value) {
-      case Screen.home:
-        return const HomeView();
+      // case Screen.home:
+      //   return const HomeView();
       case Screen.regular:
         return const RegularView(title: "Regular");
       case Screen.restaurant:

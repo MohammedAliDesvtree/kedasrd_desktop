@@ -37,7 +37,7 @@ class _OnlineOrderViewState extends State<OnlineOrderView> {
             iconPadding: 14.0,
             onTap: () => {
               Get.offNamedUntil('/landing', (route) => false),
-              controller.onMenuMainItemTapped("POS"),
+              // controller.onMenuMainItemTapped("POS"),
             },
           ),
         ),
