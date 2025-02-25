@@ -1204,6 +1204,7 @@ class _DrawerViewState extends State<DrawerView> {
 
   Widget menuItem(data, int index, BuildContext context, Size size) {
     return MouseRegion(
+      cursor: SystemMouseCursors.click, // Changes cursor to hand
       onEnter: (_) {
         if (widget.onMenuHover != null) {
           widget.onMenuHover!(data["title"]);
