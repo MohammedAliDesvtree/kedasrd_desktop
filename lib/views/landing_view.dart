@@ -423,7 +423,7 @@ class _LandingViewState extends State<LandingView> {
 
     // Always show regardless of drawer expanded/collapsed (fixing issue #2)
     double leftPosition = controller.isHideDrawerMenu.value
-        ? ResponsiveHelper.getDrawerWidth(context) - 24
+        ? ResponsiveHelper.getDrawerWidth(context)
         : 74.0; // When collapsed, position right after the 74px drawer
 
     return Positioned(

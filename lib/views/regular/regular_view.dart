@@ -18,6 +18,7 @@ import 'package:kedasrd_windows/widgets/custom_close_icon_button.dart';
 
 import 'package:kedasrd_windows/controllers/cart_controller.dart';
 import 'package:kedasrd_windows/controllers/common_controller.dart';
+import 'package:kedasrd_windows/controllers/drawer_controller.dart';
 import 'package:kedasrd_windows/controllers/tables_controller.dart';
 import 'package:kedasrd_windows/controllers/regular_controller.dart';
 import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
@@ -36,6 +37,8 @@ class _RegularViewState extends State<RegularView> {
   final CartController cartController = Get.find<CartController>();
   final TablesController tableController = Get.find<TablesController>();
   final CommonController commonController = Get.find<CommonController>();
+  final DrawerMenuController drawerMenuController =
+      Get.find<DrawerMenuController>();
 
   @override
   void initState() {
@@ -80,7 +83,7 @@ class _RegularViewState extends State<RegularView> {
         const SizedBox(width: 6.0),
         Container(
           width: ResponsiveHelper.isDesktop(context)
-              ? 316.0
+              ? 342.0
               : ResponsiveHelper.isTablet(context)
                   ? 264.0
                   : size.width * 0.9,
@@ -111,11 +114,12 @@ class _RegularViewState extends State<RegularView> {
           shrinkWrap: true,
           physics:
               const NeverScrollableScrollPhysics(), // Disable scrolling to avoid conflicts
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4, // Ensuring 4 items per row
-            crossAxisSpacing: 16.0,
-            mainAxisSpacing: 16.0,
-            mainAxisExtent: 178.0,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5, // Ensuring 4 items per row
+            crossAxisSpacing: 10.0,
+            mainAxisSpacing: 10.0,
+            mainAxisExtent:
+                drawerMenuController.isHideDrawerMenu.value ? 150.0 : 136.0,
           ),
           itemCount: DummyData.productList.length,
           itemBuilder: (context, index) {
@@ -149,93 +153,116 @@ class _RegularViewState extends State<RegularView> {
                                     context, '${data["title"]} added in cart!');
                               }
                             },
-                      child: Ink(
-                        height: 178.0,
-                        decoration: BoxDecoration(
-                          color: Themes.kWhiteColor,
-                          borderRadius: BorderRadius.circular(8.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Themes.kBlackColor.withOpacity(0.20),
-                              blurRadius: 8.0,
-                              spreadRadius: -3,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(8.0),
-                                  topRight: Radius.circular(8.0)),
-                              child: Image.asset(
-                                data["image"],
-                                height: 124,
-                                width: size.width,
-                                fit: BoxFit.cover,
+                      child: Obx(
+                        () => Ink(
+                          height: drawerMenuController.isHideDrawerMenu.value
+                              ? 150.0
+                              : 136.0,
+                          decoration: BoxDecoration(
+                            color: Themes.kWhiteColor,
+                            borderRadius: BorderRadius.circular(8.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Themes.kBlackColor.withOpacity(0.20),
+                                blurRadius: 8.0,
+                                spreadRadius: -3,
+                                offset: const Offset(0, 0),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 4.0,
-                                  bottom: 4.0,
-                                  left: 12.0,
-                                  right: 12.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    data["title"],
-                                    style: TextStyle(
-                                      fontSize: ResponsiveHelper.getFontSize(
-                                          context, 14.0),
-                                      fontWeight: FontWeight.w700,
-                                      color: Themes.kBlackColor,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4.0),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "DOP \$${data["price"]}",
-                                        style: TextStyle(
-                                          fontSize:
-                                              ResponsiveHelper.getFontSize(
-                                                  context, 14.0),
-                                          fontWeight: FontWeight.w700,
-                                          color: Themes.kPrimaryColor,
-                                        ),
+                            ],
+                          ),
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            // crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  data["image"],
+                                  height: drawerMenuController
+                                          .isHideDrawerMenu.value
+                                      ? 150.0
+                                      : 136.0,
+                                  width: size.width,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Container(
+                                height:
+                                    drawerMenuController.isHideDrawerMenu.value
+                                        ? 84.0
+                                        : 68.0,
+                                padding: const EdgeInsets.only(
+                                    top: 4.0,
+                                    bottom: 4.0,
+                                    left: 12.0,
+                                    right: 12.0),
+                                color: Themes.kWhiteColor.withOpacity(0.6),
+                                // alignment: Alignment.center,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      data["title"],
+                                      maxLines: drawerMenuController
+                                              .isHideDrawerMenu.value
+                                          ? 3
+                                          : 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: ResponsiveHelper.getFontSize(
+                                            context, 12.0),
+                                        fontWeight: FontWeight.w700,
+                                        color: Themes.kBlackColor,
                                       ),
-                                    ],
-                                  ),
-                                ],
+                                    ),
+                                    const SizedBox(height: 4.0),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "DOP \$${data["price"]}",
+                                          style: TextStyle(
+                                            fontSize:
+                                                ResponsiveHelper.getFontSize(
+                                                    context, 14.0),
+                                            fontWeight: FontWeight.w700,
+                                            color: Themes.kPrimaryColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
                 if (index % 2.5 == 2)
-                  Container(
-                    height: 178.0,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Themes.kBlackColor.withOpacity(0.6),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: const Text(
-                      "Out Of Stock",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w700,
-                        color: Themes.kWhiteColor,
+                  Obx(
+                    () => Container(
+                      height: drawerMenuController.isHideDrawerMenu.value
+                          ? 150.0
+                          : 136.0,
+                      padding: const EdgeInsets.only(top: 28.0),
+                      alignment: Alignment.topCenter,
+                      decoration: BoxDecoration(
+                        color: Themes.kBlackColor.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: const Text(
+                        "Out Of Stock",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w700,
+                          color: Themes.kWhiteColor,
+                        ),
                       ),
                     ),
                   ),
@@ -631,12 +658,12 @@ class _RegularViewState extends State<RegularView> {
   Widget fastFoodCartItemsSection(Size size) {
     return Column(
       children: List.generate(
-        2,
+        DummyData.productList.take(4).length,
         (index) {
+          var data = DummyData.productList[index];
           return Container(
-            height: 184,
-            margin: const EdgeInsets.only(
-                left: 0.0, right: 0.0, top: 0.0, bottom: 8.0),
+            // height: 184,
+            margin: const EdgeInsets.only(bottom: 8.0),
             padding:
                 const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
             decoration: BoxDecoration(
@@ -650,11 +677,38 @@ class _RegularViewState extends State<RegularView> {
                 Row(
                   children: [
                     Expanded(
-                      child: Text(index == 1
-                          ? "Nachitos Ricos"
-                          : "Salted Tahini Chocolate Chunk (1 ud)"),
+                      child: MouseRegion(
+                        cursor:
+                            SystemMouseCursors.click, // Changes cursor to hand
+                        child: GestureDetector(
+                          onTap: () => controller.toggleItemExpansion(index),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  data["title"],
+                                  style: TextStyle(
+                                    fontSize: ResponsiveHelper.getFontSize(
+                                        context, 13.0),
+                                    fontWeight: FontWeight.w500,
+                                    color: Themes.kDarkColor,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16.0),
+                              Image.asset(
+                                Images.downArrow,
+                                height: 13.0,
+                                width: 13.0,
+                                fit: BoxFit.contain,
+                                color: Themes.kPrimaryColor,
+                              ),
+                              const SizedBox(width: 16.0),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                    const SizedBox(width: 16.0),
                     MouseRegion(
                       cursor:
                           SystemMouseCursors.click, // Changes cursor to hand
@@ -662,7 +716,7 @@ class _RegularViewState extends State<RegularView> {
                         onTap: () {
                           if (authController.isAdmin) {
                             CustomSnackBar.showTopRightSnackBar(
-                                context, 'Item ${index + 1} Removed!');
+                                context, '${data["title"]} Removed!');
                           } else {
                             Constants.openAuthCodeDialog(context, size, "Cart");
                           }
@@ -696,14 +750,33 @@ class _RegularViewState extends State<RegularView> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 6.0),
-                const CustomDigitText(title: "Qty", amount: "0"),
-                const SizedBox(height: 6.0),
-                const CustomDigitText(title: "Price", amount: "0"),
-                const SizedBox(height: 6.0),
-                const CustomDigitText(title: "Disc %", amount: "0"),
-                Constants.divider(context, 6.0),
-                const CustomDigitText(title: "Total", amount: "\$500.00"),
+                Obx(
+                  () => controller.expandedIndex.value != index
+                      ? const Column(
+                          children: [
+                            SizedBox(height: 6.0),
+                            CustomDigitText(title: "Total", amount: "\$500.00"),
+                          ],
+                        )
+                      : const SizedBox.shrink(),
+                ),
+                Obx(
+                  () => controller.expandedIndex.value == index
+                      ? Column(
+                          children: [
+                            const SizedBox(height: 6.0),
+                            const CustomDigitText(title: "Qty", amount: "0"),
+                            const SizedBox(height: 6.0),
+                            const CustomDigitText(title: "Price", amount: "0"),
+                            const SizedBox(height: 6.0),
+                            const CustomDigitText(title: "Disc %", amount: "0"),
+                            Constants.divider(context, 6.0),
+                            const CustomDigitText(
+                                title: "Total", amount: "\$500.00"),
+                          ],
+                        )
+                      : const SizedBox.shrink(),
+                ),
               ],
             ),
           );
@@ -720,22 +793,14 @@ class _RegularViewState extends State<RegularView> {
           (index) {
             var data = cartController.cartItems[index];
             return Container(
-              margin: const EdgeInsets.only(
-                  left: 2.0, right: 2.0, top: 2.0, bottom: 6.0),
+              margin: const EdgeInsets.only(bottom: 8.0),
               padding:
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
               decoration: BoxDecoration(
-                color: Themes.kWhiteColor,
-                borderRadius: BorderRadius.circular(8.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Themes.kBlackColor.withOpacity(0.20),
-                    blurRadius: 8.0,
-                    spreadRadius: -3,
-                    offset: const Offset(0, 0),
-                  ),
-                ],
-              ),
+                  color: Themes.kHeaderLightColor,
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(
+                      width: 1.0, color: Themes.kBlackColor.withOpacity(0.10))),
               child: Column(
                 children: [
                   Row(
@@ -744,7 +809,7 @@ class _RegularViewState extends State<RegularView> {
                       Text(
                         data.title,
                         style: TextStyle(
-                          fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                          fontSize: ResponsiveHelper.getFontSize(context, 13.0),
                           fontWeight: FontWeight.w500,
                           color: Themes.kDarkColor,
                         ),

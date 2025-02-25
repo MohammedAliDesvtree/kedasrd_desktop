@@ -17,7 +17,7 @@ class DummyData {
       "id": 2,
       "image": Images.hamberger,
       "price": 8,
-      "title": "Fruit Salad",
+      "title": "Salted Tahini Chocolate Chunk (1 ud)",
       "qty": 1
     },
     {

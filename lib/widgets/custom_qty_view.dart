@@ -24,7 +24,7 @@ class CustomQtyView extends StatelessWidget {
       width: 78.0,
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       decoration: BoxDecoration(
-          color: screenName == "FastFood"
+          color: (screenName == "FastFood" || screenName == "POS Cart")
               ? Themes.kHeaderLightColor
               : Themes.kWhiteColor,
           borderRadius: BorderRadius.circular(5.5),

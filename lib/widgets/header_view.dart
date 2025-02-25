@@ -49,7 +49,10 @@ class _HeaderViewState extends State<HeaderView> {
                   ),
                 ),
               ),
-              const SizedBox(width: 22.0),
+              Obx(() => SizedBox(
+                  width: drawerMenuController.isHideDrawerMenu.value
+                      ? ResponsiveHelper.getDrawerWidth(context) - 48.0
+                      : 22.0)),
               SizedBox(
                 height: 70.0,
                 child: Image.asset(

@@ -38,7 +38,7 @@ class _CustomTabsListState extends State<CustomTabsList> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return Wrap(
-      spacing: widget.type == "Tables" ? 0.0 : 16.0,
+      spacing: widget.type == "Tables" ? 0.0 : 8.0,
       runSpacing: 16.0,
       children: List.generate(
         widget.data.length,
@@ -57,7 +57,7 @@ class _CustomTabsListState extends State<CustomTabsList> {
                       : BorderRadius.circular(6.0),
                   onTap: () {
                     if (widget.type == "Tables") {
-                    controller.selectTab(index);
+                      controller.selectTab(index);
                     } else if (widget.type.contains("Super Market")) {
                       controller.onTabTapped(data["title"], size, context);
                     }

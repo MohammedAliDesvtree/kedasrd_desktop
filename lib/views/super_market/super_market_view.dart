@@ -174,9 +174,26 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                   }
                 }),
                 const SizedBox(height: 8.0),
-                CustomTabsList(
-                    data: DummyData.superMarketButtonItems,
-                    type: "Super Market"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomTabsList(
+                        data: DummyData.superMarketButtonItems,
+                        type: "Super Market"),
+                    Row(
+                      children: [
+                        const Text(
+                          "Pay Now ",
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              color: Themes.kPrimaryColor),
+                        ),
+                        submitButton(size, "\$1000,000.00"),
+                      ],
+                    ),
+                  ],
+                ),
               ],
             ),
     );
@@ -318,33 +335,33 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                   ],
                 ),
               ),
-              const SizedBox(width: 100.0),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // const CustomDigitText(title: "No. Items", amount: "03"),
-                    // Constants.divider(context, 8.0),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      "Payments",
-                      style: TextStyle(
-                        fontSize: ResponsiveHelper.getFontSize(context, 30.0),
-                        fontWeight: FontWeight.w600,
-                        color: Themes.kPrimaryColor,
-                      ),
-                    ),
-                    Text(
-                      "\$250.00",
-                      style: TextStyle(
-                        fontSize: ResponsiveHelper.getFontSize(context, 30.0),
-                        fontWeight: FontWeight.w700,
-                        color: Themes.kDarkColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // const SizedBox(width: 100.0),
+              // Expanded(
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       // const CustomDigitText(title: "No. Items", amount: "03"),
+              //       // Constants.divider(context, 8.0),
+              //       const SizedBox(height: 8.0),
+              //       Text(
+              //         "Payments",
+              //         style: TextStyle(
+              //           fontSize: ResponsiveHelper.getFontSize(context, 30.0),
+              //           fontWeight: FontWeight.w600,
+              //           color: Themes.kPrimaryColor,
+              //         ),
+              //       ),
+              //       Text(
+              //         "\$250.00",
+              //         style: TextStyle(
+              //           fontSize: ResponsiveHelper.getFontSize(context, 30.0),
+              //           fontWeight: FontWeight.w700,
+              //           color: Themes.kDarkColor,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ],
@@ -416,37 +433,22 @@ class _SuperMarketViewState extends State<SuperMarketView> {
         cursor: SystemMouseCursors.click, // Changes cursor to hand
         child: InkWell(
           borderRadius: BorderRadius.circular(6.0),
-          onTap: () {
-            if (title.contains("More")) {
-              Constants.openDialog(
-                context: context,
-                title: title,
-                child: moreOptions(),
-                height: size.height / 2.0,
-              );
-            } else {
-              Constants.openDialog(
-                context: context,
-                title: title,
-                child: paymentOptions(),
-                height: size.height / 2.0,
-              );
-            }
-          },
+          onTap: () => CustomSnackBar.showTopRightSnackBar(
+              context, "Payment Successful!"),
           child: Ink(
             decoration: BoxDecoration(
                 color: Themes.kPrimaryColor,
                 borderRadius: BorderRadius.circular(6.0)),
             child: Container(
               height: 42.0,
-              width: 148.0,
-              // padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              // width: 148.0,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               alignment: Alignment.center,
               child: Text(
                 title,
                 style: TextStyle(
                   fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                   color: Themes.kWhiteColor,
                 ),
               ),
