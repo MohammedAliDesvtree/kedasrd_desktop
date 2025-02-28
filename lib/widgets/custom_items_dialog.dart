@@ -62,9 +62,6 @@ class CustomItemsDialog extends StatelessWidget {
             const SizedBox(height: 12.0),
             // Scrollable Content
             Row(
-              // mainAxisAlignment: title.contains("Orders")
-              //     ? MainAxisAlignment.center
-              //     : MainAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
@@ -251,27 +248,6 @@ class CustomItemsDialog extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          // Padding(
-          //   padding:
-          //       const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       headerText(context, "key", "Item Description", size),
-          //       const SizedBox(width: 8.0),
-          //       headerText(context, "key", "Code", size),
-          //       const SizedBox(width: 8.0),
-          //       if (!title.contains("Remove"))
-          //         Column(
-          //           children: [
-          //             headerText(context, "key", "Price", size),
-          //             const SizedBox(width: 8.0),
-          //           ],
-          //         ),
-          //       headerText(context, "key", "Cart", size),
-          //     ],
-          //   ),
-          // ),
           Expanded(
             child: SizedBox(
               height: size.height,
@@ -300,7 +276,6 @@ class CustomItemsDialog extends StatelessWidget {
                   })),
             ),
           ),
-          // Constants.divider(context, 0.0),
           Expanded(
             child: Center(
               child: Text(
@@ -355,83 +330,6 @@ class CustomItemsDialog extends StatelessWidget {
     );
   }
 
-  // Widget draftsView(Size size, BuildContext context) {
-  //   return Expanded(
-  //     child: Column(
-  //       children: [
-  //         Padding(
-  //           padding:
-  //               const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-  //           child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //             children: [
-  //               headerText(context, "key", "Customer", size),
-  //               const SizedBox(width: 8.0),
-  //               headerText(context, "key", "Table", size),
-  //               const SizedBox(width: 8.0),
-  //               headerText(context, "key", "Order No.", size),
-  //               const SizedBox(width: 8.0),
-  //               headerText(context, "key", "Total", size),
-  //               const SizedBox(width: 8.0),
-  //               headerText(context, "key", "Status", size),
-  //               const SizedBox(width: 8.0),
-  //               headerText(context, "key", "Date", size),
-  //               const SizedBox(width: 8.0),
-  //               headerText(context, "key", "Time", size),
-  //               const SizedBox(width: 8.0),
-  //               headerText(context, "key", "", size),
-  //             ],
-  //           ),
-  //         ),
-  //         Constants.divider(context, 0.0),
-  //         // const SizedBox(height: 8.0),
-  //         Expanded(
-  //           child: Constants.scrollbarView(
-  //             paddingRight: 0.0,
-  //             child: SingleChildScrollView(
-  //               child: Column(
-  //                 children: List.generate(
-  //                   24,
-  //                   (index) {
-  //                     return Padding(
-  //                       padding: const EdgeInsets.symmetric(
-  //                           vertical: 8.0, horizontal: 24.0),
-  //                       child: Row(
-  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                         crossAxisAlignment: CrossAxisAlignment.center,
-  //                         children: [
-  //                           headerText(
-  //                               context, "value", "Paloma Medrano", size),
-  //                           const SizedBox(width: 8.0),
-  //                           headerText(
-  //                               context, "value", "Table 12 (Chair 5)", size),
-  //                           const SizedBox(width: 8.0),
-  //                           headerText(context, "value", "141212", size),
-  //                           const SizedBox(width: 8.0),
-  //                           headerText(context, "value", "\$1605", size),
-  //                           const SizedBox(width: 8.0),
-  //                           headerText(context, "value",
-  //                               title == "Draft" ? "Draft" : "Deleted", size),
-  //                           const SizedBox(width: 8.0),
-  //                           headerText(context, "value", "01/01/2025", size),
-  //                           const SizedBox(width: 8.0),
-  //                           headerText(context, "value", "02:52 AM", size),
-  //                           const SizedBox(width: 8.0),
-  //                           actionButton(context, size, index)
-  //                         ],
-  //                       ),
-  //                     );
-  //                   },
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Widget itemsView(Size size, BuildContext context) {
     return Expanded(
       child: SizedBox(
@@ -457,92 +355,12 @@ class CustomItemsDialog extends StatelessWidget {
               DataCell(headerText(context, "Value",
                   index % 3 != 1 ? "In Stock" : "Out Of Stock", size)),
               DataCell(headerText(context, "Value", '\$0.00', size)),
-              DataCell(headerText(context, "Value", '02:52 AM', size)),
-              // DataCell(actionButton(context, size, index)),
+              DataCell(addToCartButton(context, size, index)),
             ]);
           }),
         ),
       ),
     );
-
-    // return Expanded(
-    //   child: Column(
-    //     children: [
-    //       Padding(
-    //         padding:
-    //             const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-    //         child: Row(
-    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //           children: [
-    //             headerText(context, "key", "Item Description", size),
-    //             const SizedBox(width: 8.0),
-    //             headerText(context, "key", "Code", size),
-    //             const SizedBox(width: 8.0),
-    //             headerText(context, "key", "Price", size),
-    //             const SizedBox(width: 8.0),
-    //             headerText(context, "key", "Status", size),
-    //             const SizedBox(width: 8.0),
-    //             headerText(context, "key", "Discount", size),
-    //             const SizedBox(width: 8.0),
-    //             headerText(context, "key", "Cart", size),
-    //           ],
-    //         ),
-    //       ),
-    //       Constants.divider(context, 0.0),
-    //       const SizedBox(height: 8.0),
-    //       Expanded(
-    //         child: Constants.scrollbarView(
-    //           paddingRight: 0.0,
-    //           child: SingleChildScrollView(
-    //             child: Column(
-    //               children: List.generate(
-    //                 24,
-    //                 (index) {
-    //                   return Padding(
-    //                     padding: const EdgeInsets.symmetric(
-    //                         vertical: 8.0, horizontal: 24.0),
-    //                     child: Row(
-    //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                       children: [
-    //                         headerText(
-    //                             context, "value", "Nachitos Ricos", size),
-    //                         const SizedBox(width: 8.0),
-    //                         headerText(context, "value", "64913826", size),
-    //                         const SizedBox(width: 8.0),
-    //                         headerText(context, "value", "DOP \$512.16", size),
-    //                         const SizedBox(width: 8.0),
-    //                         headerText(
-    //                             context,
-    //                             "value",
-    //                             index % 3 != 1 ? "In Stock" : "Out Of Stock",
-    //                             size),
-    //                         const SizedBox(width: 8.0),
-    //                         headerText(context, "value", "\$0.00", size),
-    //                         const SizedBox(width: 8.0),
-    //                         Container(
-    //                           width: size.width / 1.8 / 8.2,
-    //                           alignment: Alignment.centerLeft,
-    //                           child: FittedBox(
-    //                             fit: BoxFit.scaleDown,
-    //                             child: CustomAddButton(
-    //                                 paddingVR: 4.0,
-    //                                 isCircular: true,
-    //                                 onTap: () {}),
-    //                           ),
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   );
-    //                 },
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 
   Widget customersView(Size size, BuildContext context) {
@@ -567,93 +385,13 @@ class CustomItemsDialog extends StatelessWidget {
               DataCell(headerText(context, "Value", '0276744518', size)),
               DataCell(headerText(context, "Value", '9856320147', size)),
               DataCell(headerText(context, "Value", 'mesa10@kedas.com', size)),
-              // DataCell(Container(
-              //   margin: const EdgeInsets.symmetric(horizontal: 24.0),
-              //   padding:
-              //       const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-              //   decoration: BoxDecoration(
-              //       color: Themes.kGreyColor,
-              //       // title == "Paid" || title == "In Stock"
-              //       //     ? Themes.kGreenColor
-              //       //     : title == "Draft" || title.contains("Out")
-              //       //         ? Themes.kOrangeColor
-              //       //         : Themes.kRedColor,
-              //       borderRadius: BorderRadius.circular(100)),
-              //   child: headerText(context, "Value", 'Draft', size),
-              // )),
               DataCell(headerText(context, "Value", '131174884', size)),
               DataCell(headerText(context, "Value", '0.00', size)),
-              // DataCell(actionButton(context, size, index)),
             ]);
           }),
         ),
       ),
     );
-    //   return Expanded(
-    //     child: Column(
-    //       children: [
-    //         Padding(
-    //           padding:
-    //               const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-    //           child: Row(
-    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //             children: [
-    //               headerText(context, "key", "Name", size),
-    //               const SizedBox(width: 8.0),
-    //               headerText(context, "key", "Phone No.", size),
-    //               const SizedBox(width: 8.0),
-    //               headerText(context, "key", "Mobile", size),
-    //               const SizedBox(width: 8.0),
-    //               headerText(context, "key", "Email", size),
-    //               const SizedBox(width: 8.0),
-    //               headerText(context, "key", "Tax ID", size),
-    //               const SizedBox(width: 8.0),
-    //               headerText(context, "key", "Balance", size),
-    //             ],
-    //           ),
-    //         ),
-    //         Constants.divider(context, 0.0),
-    //         const SizedBox(height: 8.0),
-    //         Expanded(
-    //           child: Constants.scrollbarView(
-    //             paddingRight: 0.0,
-    //             child: SingleChildScrollView(
-    //               child: Column(
-    //                 children: List.generate(
-    //                   24,
-    //                   (index) {
-    //                     return Padding(
-    //                       padding: const EdgeInsets.symmetric(
-    //                           vertical: 8.0, horizontal: 24.0),
-    //                       child: Row(
-    //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                         crossAxisAlignment: CrossAxisAlignment.start,
-    //                         children: [
-    //                           headerText(
-    //                               context, "value", "Paloma Medrano", size),
-    //                           const SizedBox(width: 8.0),
-    //                           headerText(context, "value", "0276744518", size),
-    //                           const SizedBox(width: 8.0),
-    //                           headerText(context, "value", "9856320147", size),
-    //                           const SizedBox(width: 8.0),
-    //                           headerText(
-    //                               context, "value", "mesa10@kedas.com", size),
-    //                           const SizedBox(width: 8.0),
-    //                           headerText(context, "value", "131174884", size),
-    //                           const SizedBox(width: 8.0),
-    //                           headerText(context, "value", "0.00", size),
-    //                         ],
-    //                       ),
-    //                     );
-    //                   },
-    //                 ),
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   );
   }
 
   Widget ordersView(Size size, BuildContext context) {
@@ -697,86 +435,6 @@ class CustomItemsDialog extends StatelessWidget {
         ),
       ),
     );
-    //   return Expanded(
-    //     child: Column(
-    //       children: [
-    //         Padding(
-    //           padding:
-    //               const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-    //           child: Row(
-    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //             children: [
-    //               headerText(context, "key", "Customer", size),
-    //               const SizedBox(width: 8.0),
-    //               headerText(context, "key", "Invoice No.", size),
-    //               const SizedBox(width: 8.0),
-    //               headerText(context, "key", "Total", size),
-    //               const SizedBox(width: 8.0),
-    //               headerText(context, "key", "Status", size),
-    //               const SizedBox(width: 8.0),
-    //               headerText(context, "key", "NCF", size),
-    //               const SizedBox(width: 8.0),
-    //               headerText(context, "key", "Date", size),
-    //               const SizedBox(width: 8.0),
-    //               headerText(context, "key", "Time", size),
-    //               const SizedBox(width: 8.0),
-    //               headerText(context, "key", "", size),
-    //             ],
-    //           ),
-    //         ),
-    //         Constants.divider(context, 0.0),
-    //         const SizedBox(height: 8.0),
-    //         Expanded(
-    //           child: Constants.scrollbarView(
-    //             paddingRight: 0.0,
-    //             child: SingleChildScrollView(
-    //               child: Column(
-    //                 children: List.generate(
-    //                   24,
-    //                   (index) {
-    //                     return Padding(
-    //                       padding: const EdgeInsets.symmetric(
-    //                           vertical: 8.0, horizontal: 24.0),
-    //                       child: Row(
-    //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                         crossAxisAlignment: CrossAxisAlignment.start,
-    //                         children: [
-    //                           headerText(
-    //                               context, "value", "Paloma Medrano", size),
-    //                           const SizedBox(width: 8.0),
-    //                           headerText(context, "value", "SC009238110", size),
-    //                           const SizedBox(width: 8.0),
-    //                           headerText(context, "value", "\$512.16", size),
-    //                           const SizedBox(width: 8.0),
-    //                           headerText(
-    //                               context,
-    //                               "value",
-    //                               index % 2 != 1
-    //                                   ? "Paid"
-    //                                   : index % 3 != 1
-    //                                       ? "Draft"
-    //                                       : "Deleted",
-    //                               size),
-    //                           const SizedBox(width: 8.0),
-    //                           headerText(context, "value", "B0100000147", size),
-    //                           const SizedBox(width: 8.0),
-    //                           headerText(context, "value", "01/01/2025", size),
-    //                           const SizedBox(width: 8.0),
-    //                           headerText(context, "value", "02:52 AM", size),
-    //                           const SizedBox(width: 8.0),
-    //                           actionButton(context, size, index)
-    //                         ],
-    //                       ),
-    //                     );
-    //                   },
-    //                 ),
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   );
   }
 
   Widget closeButton() {
@@ -858,9 +516,6 @@ class CustomItemsDialog extends StatelessWidget {
             child: Container(
               height: 52.0,
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              // width: ResponsiveHelper.isTablet(context)
-              //     ? size.width / 8.0
-              //     : size.width / 10.0,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -923,6 +578,52 @@ class CustomItemsDialog extends StatelessWidget {
                   : Themes.kDarkColor,
         ),
         // ),
+      ),
+    );
+  }
+
+  Widget addToCartButton(BuildContext context, Size size, int index) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click, // Changes cursor to hand
+      child: Align(
+        alignment: Alignment.center,
+        child: Material(
+          color: Themes.kTransparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(100.0),
+            onTap: () => CustomSnackBar.showTopRightSnackBar(
+                context, "Nachitos Ricos added in cart!"),
+            child: Ink(
+              width: 124.0,
+              padding: const EdgeInsets.symmetric(vertical: 6.0),
+              decoration: BoxDecoration(
+                  color: Themes.kPrimaryColor,
+                  borderRadius: BorderRadius.circular(100.0)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    Images.add,
+                    height: 10.0,
+                    width: 10.0,
+                    fit: BoxFit.contain,
+                    color: Themes.kWhiteColor,
+                  ),
+                  const SizedBox(width: 8.0),
+                  const Text(
+                    "Add to cart",
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w500,
+                      color: Themes.kWhiteColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

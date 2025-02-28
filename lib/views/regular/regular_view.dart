@@ -682,50 +682,15 @@ class _RegularViewState extends State<RegularView> {
                             SystemMouseCursors.click, // Changes cursor to hand
                         child: GestureDetector(
                           onTap: () => controller.toggleItemExpansion(index),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  data["title"],
-                                  style: TextStyle(
-                                    fontSize: ResponsiveHelper.getFontSize(
-                                        context, 13.0),
-                                    fontWeight: FontWeight.w500,
-                                    color: Themes.kDarkColor,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 16.0),
-                              Image.asset(
-                                Images.downArrow,
-                                height: 13.0,
-                                width: 13.0,
-                                fit: BoxFit.contain,
-                                color: Themes.kPrimaryColor,
-                              ),
-                              const SizedBox(width: 16.0),
-                            ],
+                          child: Text(
+                            data["title"],
+                            style: TextStyle(
+                              fontSize:
+                                  ResponsiveHelper.getFontSize(context, 13.0),
+                              fontWeight: FontWeight.w500,
+                              color: Themes.kDarkColor,
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                    MouseRegion(
-                      cursor:
-                          SystemMouseCursors.click, // Changes cursor to hand
-                      child: GestureDetector(
-                        onTap: () {
-                          if (authController.isAdmin) {
-                            CustomSnackBar.showTopRightSnackBar(
-                                context, '${data["title"]} Removed!');
-                          } else {
-                            Constants.openAuthCodeDialog(context, size, "Cart");
-                          }
-                        },
-                        child: Image.asset(
-                          Images.delete,
-                          height: 15.0,
-                          width: 15.0,
-                          color: Themes.kPrimaryColor,
                         ),
                       ),
                     ),
@@ -750,32 +715,78 @@ class _RegularViewState extends State<RegularView> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 6.0),
+                const CustomDigitText(title: "Qty", amount: "0"),
                 Obx(
-                  () => controller.expandedIndex.value != index
+                  () => controller.expandedIndex.value == index
                       ? const Column(
                           children: [
                             SizedBox(height: 6.0),
-                            CustomDigitText(title: "Total", amount: "\$500.00"),
+                            CustomDigitText(title: "Price", amount: "0"),
+                            SizedBox(height: 6.0),
+                            CustomDigitText(title: "Disc %", amount: "0"),
                           ],
                         )
                       : const SizedBox.shrink(),
                 ),
-                Obx(
-                  () => controller.expandedIndex.value == index
-                      ? Column(
-                          children: [
-                            const SizedBox(height: 6.0),
-                            const CustomDigitText(title: "Qty", amount: "0"),
-                            const SizedBox(height: 6.0),
-                            const CustomDigitText(title: "Price", amount: "0"),
-                            const SizedBox(height: 6.0),
-                            const CustomDigitText(title: "Disc %", amount: "0"),
-                            Constants.divider(context, 6.0),
-                            const CustomDigitText(
-                                title: "Total", amount: "\$500.00"),
-                          ],
-                        )
-                      : const SizedBox.shrink(),
+                Constants.divider(context, 6.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Total",
+                      style: TextStyle(
+                        fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                        fontWeight: FontWeight.w400,
+                        color: Themes.kPrimaryColor,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "\$500.00",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontSize:
+                                ResponsiveHelper.getFontSize(context, 14.0),
+                            fontWeight: FontWeight.w900,
+                            color: Themes.kPrimaryColor,
+                          ),
+                        ),
+                        Obx(
+                          () => controller.expandedIndex.value == index
+                              ? Row(
+                                  children: [
+                                    const SizedBox(width: 10.0),
+                                    MouseRegion(
+                                      cursor: SystemMouseCursors
+                                          .click, // Changes cursor to hand
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          if (authController.isAdmin) {
+                                            CustomSnackBar.showTopRightSnackBar(
+                                                context,
+                                                '${data["title"]} Removed!');
+                                          } else {
+                                            Constants.openAuthCodeDialog(
+                                                context, size, "Cart");
+                                          }
+                                        },
+                                        child: Image.asset(
+                                          Images.delete,
+                                          height: 15.0,
+                                          width: 15.0,
+                                          color: Themes.kPrimaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : const SizedBox.shrink(),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),

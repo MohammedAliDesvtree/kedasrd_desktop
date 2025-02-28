@@ -155,10 +155,6 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                     ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: moreOptionsMenu(),
-                ),
                 totalView(),
                 const SizedBox(height: 8.0),
                 Obx(() {
@@ -180,18 +176,7 @@ class _SuperMarketViewState extends State<SuperMarketView> {
                     CustomTabsList(
                         data: DummyData.superMarketButtonItems,
                         type: "Super Market"),
-                    Row(
-                      children: [
-                        const Text(
-                          "Pay Now ",
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                              color: Themes.kPrimaryColor),
-                        ),
-                        submitButton(size, "\$1000,000.00"),
-                      ],
-                    ),
+                    submitButton(size, "Pay \$1000,000.00"),
                   ],
                 ),
               ],
@@ -394,13 +379,37 @@ class _SuperMarketViewState extends State<SuperMarketView> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "4 Items",
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                  color: Themes.kBlackColor,
-                ),
+              Row(
+                children: [
+                  const Text(
+                    "4 Items",
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold,
+                      color: Themes.kBlackColor,
+                    ),
+                  ),
+                  const SizedBox(width: 24.0),
+                  summaryTxt("Subtotal", "Key"),
+                  const SizedBox(width: 8.0),
+                  summaryTxt("\$211.86", "Value"),
+                  const SizedBox(width: 24.0),
+                  summaryTxt("Tax", "Key"),
+                  const SizedBox(width: 8.0),
+                  summaryTxt("\$38.14", "Value"),
+                  const SizedBox(width: 24.0),
+                  summaryTxt("Discount", "Key"),
+                  const SizedBox(width: 8.0),
+                  summaryTxt("\$0.00", "Value"),
+                  const SizedBox(width: 24.0),
+                  summaryTxt("Other Discount", "Key"),
+                  const SizedBox(width: 8.0),
+                  summaryTxt("\$0.00", "Value"),
+                  const SizedBox(width: 24.0),
+                  summaryTxt("Tips Tax", "Key"),
+                  const SizedBox(width: 8.0),
+                  summaryTxt("\$0.00", "Value"),
+                ],
               ),
               Image.asset(
                 Images.downArrow,
@@ -411,6 +420,19 @@ class _SuperMarketViewState extends State<SuperMarketView> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget summaryTxt(String title, String type) {
+    return Text(
+      title,
+      style: TextStyle(
+        fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+        fontWeight: type == "Value" ? FontWeight.w900 : FontWeight.w400,
+        color: type == "Value"
+            ? Themes.kDarkColor
+            : Themes.kDarkColor.withOpacity(0.60),
       ),
     );
   }
@@ -433,11 +455,10 @@ class _SuperMarketViewState extends State<SuperMarketView> {
         cursor: SystemMouseCursors.click, // Changes cursor to hand
         child: InkWell(
           borderRadius: BorderRadius.circular(6.0),
-          onTap: () => CustomSnackBar.showTopRightSnackBar(
-              context, "Payment Successful!"),
+          onTap: () => commonController.isPaymentMenuVisible.value = true,
           child: Ink(
             decoration: BoxDecoration(
-                color: Themes.kPrimaryColor,
+                color: const Color(0xFF539717),
                 borderRadius: BorderRadius.circular(6.0)),
             child: Container(
               height: 42.0,

@@ -172,27 +172,21 @@ class Constants {
           CustomSnackBar.showTopRightSnackBar(context, "Pre-Bill Printing...!");
         } else if (selectedItem.contains("Cart")) {
           Constants.openAlertDialog(
-            context: context,
-            title: "",
-            msg: "Are you sure you want to clear the cart?",
-            toastMsg: 'Cart Cleared!',
-          );
+              context: context,
+              title: "",
+              msg: "Are you sure you want to clear the cart?",
+              toastMsg: 'Cart Cleared!');
         } else if (selectedItem.contains("Extra")) {
           Constants.openWideDialog(
-            context: context,
-            title: "Nachitos Ricos",
-            hintText: "Item",
-            // btnText1: "Add Extra Items",
-          );
+              context: context, title: "Nachitos Ricos", hintText: "Item");
         } else if (selectedItem.contains("Notes")) {
           Constants.openDialog(
-            context: context,
-            title: "Add Notes",
-            btnText1: "Add",
-            child:
-                const CustomTextInput(hintText: "Add Notes", isNumber: false),
-            height: size.height / 2.5,
-          );
+              context: context,
+              title: "Add Notes",
+              btnText1: "Add",
+              child:
+                  const CustomTextInput(hintText: "Add Notes", isNumber: false),
+              height: size.height / 2.5);
         } else if (selectedItem.contains("Kitchen")) {
           CustomSnackBar.showTopRightSnackBar(
               context, "Order Sent to Kitchen!");
@@ -200,11 +194,7 @@ class Constants {
           CustomSnackBar.showTopRightSnackBar(context, "Order Sent to Bar!");
         } else if (selectedItem.contains("Remove")) {
           Constants.openWideDialog(
-            context: context,
-            title: "Remove Item",
-            hintText: "Item",
-            // btnText1: "Add Formula Items",
-          );
+              context: context, title: "Remove Item", hintText: "Item");
         }
       }
     });
