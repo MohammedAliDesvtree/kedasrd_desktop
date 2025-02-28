@@ -345,18 +345,37 @@ class CustomItemsDialog extends StatelessWidget {
             DataColumn(label: headerText(context, "Key", 'Price', size)),
             DataColumn(label: headerText(context, "Key", 'Status', size)),
             DataColumn(label: headerText(context, "Key", 'Discount', size)),
-            DataColumn(label: headerText(context, "Key", 'Cart', size)),
           ],
           rows: List.generate(5, (index) {
-            return DataRow(cells: [
+            // Create all cells for this row
+
+            final cells = [
               DataCell(headerText(context, "Value", 'Nachitos Ricos', size)),
               DataCell(headerText(context, "Value", '64913826', size)),
               DataCell(headerText(context, "Value", 'DOP \$512.16', size)),
               DataCell(headerText(context, "Value",
                   index % 3 != 1 ? "In Stock" : "Out Of Stock", size)),
               DataCell(headerText(context, "Value", '\$0.00', size)),
-              DataCell(addToCartButton(context, size, index)),
-            ]);
+            ];
+
+            // Apply tap behavior to each cell
+            final tappableCells = cells
+                .map((cell) => DataCell(
+                      MouseRegion(
+                        cursor:
+                            SystemMouseCursors.click, // Changes cursor to hand
+                        child: GestureDetector(
+                          onTap: () => CustomSnackBar.showTopRightSnackBar(
+                              context, "Nachitos Ricos added in cart!"),
+                          child: SizedBox(
+                            child: cell.child,
+                          ),
+                        ),
+                      ),
+                    ))
+                .toList();
+
+            return DataRow(cells: tappableCells);
           }),
         ),
       ),
