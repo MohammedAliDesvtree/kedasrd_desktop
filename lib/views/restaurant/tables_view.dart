@@ -81,7 +81,7 @@ class _TablesViewState extends State<TablesView> {
   double calculateMaxMainAxisExtent() {
     const double baseHeight = 0.0; // Base container height
     const double chairHeight = 54.0; // Height per chair
-    const double padding = 32.0; // Additional padding
+    const double padding = 48.0; // Additional padding
 
     // Find the maximum chair count
     int maxChairCount = controller.randomNumbers
@@ -109,32 +109,22 @@ class _TablesViewState extends State<TablesView> {
           height: size.height / 4.0,
           width: 124.0,
           padding: const EdgeInsets.all(16.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+          // color: Colors.amberAccent,
+          child:
               // Table and chairs visualization
               Expanded(
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  alignment: Alignment.topCenter,
+            child: Column(
+              children: [
+                // Left side chairs
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Table
-                    Container(
-                      height: tableHeight,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        color: Colors.blueGrey[600],
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    // Top chairs
-                    ...List.generate(
-                      (randomNumber / 2).ceil(),
-                      (i) => Positioned(
-                        left: 82.0,
-                        top: i * chairHeight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 6.0),
+                    // Left chairs column
+                    Column(
+                      children: List.generate(
+                        (randomNumber / 2).ceil(),
+                        (i) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 6.0),
                           child: Transform.rotate(
                             angle: -1.5708, // -90 degrees in radians
                             child: Image.asset(
@@ -149,14 +139,28 @@ class _TablesViewState extends State<TablesView> {
                         ),
                       ),
                     ),
-                    // Bottom chairs
-                    ...List.generate(
-                      (randomNumber / 2).floor(),
-                      (i) => Positioned(
-                        right: 82.0,
-                        top: i * chairHeight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 6.0),
+
+                    const SizedBox(width: 8.0),
+
+                    // Table
+                    Container(
+                      height: tableHeight,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey[600],
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+
+                    const SizedBox(width: 8.0),
+
+                    // Right chairs column
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: List.generate(
+                        (randomNumber / 2).floor(),
+                        (i) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 6.0),
                           child: Transform.rotate(
                             angle: 1.5708, // 90 degrees in radians
                             child: Image.asset(
@@ -173,8 +177,8 @@ class _TablesViewState extends State<TablesView> {
                     ),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
