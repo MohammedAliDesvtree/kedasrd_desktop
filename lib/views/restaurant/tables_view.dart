@@ -59,11 +59,12 @@ class _TablesViewState extends State<TablesView> {
                 shrinkWrap: true,
                 physics:
                     const NeverScrollableScrollPhysics(), // Disable scrolling to avoid conflicts
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4, // 3 tables per row
                   crossAxisSpacing: 16.0,
-                  mainAxisSpacing: 90.0,
-                  mainAxisExtent: 180, // Adjust height dynamically
+                  mainAxisSpacing: 16.0,
+                  mainAxisExtent:
+                      calculateMaxMainAxisExtent(), // Adjust height dynamically
                 ),
                 itemCount: tableLength,
                 itemBuilder: (context, index) => customNewTables(
@@ -76,53 +77,66 @@ class _TablesViewState extends State<TablesView> {
     );
   }
 
-  Widget customNewTables(int index, int randomNumber, Size size) {
-    // Calculate table width based on number of chairs
-    const double chairWidth = 54.0; // width per chair
-    final double tableWidth = (chairWidth * (randomNumber / 2).ceil());
+  // Calculate the maximum needed mainAxisExtent for all tables
+  double calculateMaxMainAxisExtent() {
+    const double baseHeight = 0.0; // Base container height
+    const double chairHeight = 54.0; // Height per chair
+    const double padding = 32.0; // Additional padding
 
-    return Transform.rotate(
-      angle: -1.57,
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click, // Changes cursor to hand
-        child: GestureDetector(
-          onTap: () => Constants.openDialog(
-            context: context,
-            title: "Enter Code to Continue",
-            btnText1: "Submit",
-            child:
-                const CustomTextInput(hintText: "Enter code", isNumber: true),
-            height: size.height / 2.5,
-          ),
-          child: Container(
-            height: 124.0, // Increased height to accommodate chairs
-            width: size.width / 4.0,
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                // Table and chairs visualization
-                Expanded(
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: Alignment.center,
-                    children: [
-                      // Table
-                      Container(
-                        height: 120,
-                        width: tableWidth,
-                        decoration: BoxDecoration(
-                          color: Colors.blueGrey[600],
-                          borderRadius: BorderRadius.circular(4),
-                        ),
+    // Find the maximum chair count
+    int maxChairCount = controller.randomNumbers
+        .reduce((max, value) => max > value ? max : value);
+
+    return baseHeight + (chairHeight * (maxChairCount / 2).ceil()) + padding;
+  }
+
+  Widget customNewTables(int index, int randomNumber, Size size) {
+    // Calculate table height based on number of chairs (switching width to height)
+    const double chairHeight = 54.0; // height per chair
+    final double tableHeight = (chairHeight * (randomNumber / 2).ceil());
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click, // Changes cursor to hand
+      child: GestureDetector(
+        onTap: () => Constants.openDialog(
+          context: context,
+          title: "Enter Code to Continue",
+          btnText1: "Submit",
+          child: const CustomTextInput(hintText: "Enter code", isNumber: true),
+          height: size.height / 2.5,
+        ),
+        child: Container(
+          height: size.height / 4.0,
+          width: 124.0,
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Table and chairs visualization
+              Expanded(
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.topCenter,
+                  children: [
+                    // Table
+                    Container(
+                      height: tableHeight,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey[600],
+                        borderRadius: BorderRadius.circular(4),
                       ),
-                      // Top chairs
-                      ...List.generate(
-                        (randomNumber / 2).ceil(),
-                        (i) => Positioned(
-                          top: -48.0,
-                          left: i * chairWidth,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 2.0),
+                    ),
+                    // Top chairs
+                    ...List.generate(
+                      (randomNumber / 2).ceil(),
+                      (i) => Positioned(
+                        left: 82.0,
+                        top: i * chairHeight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 6.0),
+                          child: Transform.rotate(
+                            angle: -1.5708, // -90 degrees in radians
                             child: Image.asset(
                               Images.newChair,
                               height: 41.0,
@@ -134,33 +148,33 @@ class _TablesViewState extends State<TablesView> {
                           ),
                         ),
                       ),
-                      // Bottom chairs
-                      ...List.generate(
-                        (randomNumber / 2).floor(),
-                        (i) => Positioned(
-                          bottom: -48.0,
-                          left: i * chairWidth,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 2.0),
-                            child: Transform.rotate(
-                              angle: 3.14159, // 180 degrees in radians(
-                              child: Image.asset(
-                                Images.newChair,
-                                height: 41.0,
-                                width: 48.0,
-                                color: randomNumber % 3 == 1
-                                    ? Themes.kGreenColor
-                                    : Themes.kRedColor,
-                              ),
+                    ),
+                    // Bottom chairs
+                    ...List.generate(
+                      (randomNumber / 2).floor(),
+                      (i) => Positioned(
+                        right: 82.0,
+                        top: i * chairHeight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 6.0),
+                          child: Transform.rotate(
+                            angle: 1.5708, // 90 degrees in radians
+                            child: Image.asset(
+                              Images.newChair,
+                              height: 41.0,
+                              width: 48.0,
+                              color: randomNumber % 3 == 1
+                                  ? Themes.kGreenColor
+                                  : Themes.kRedColor,
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
