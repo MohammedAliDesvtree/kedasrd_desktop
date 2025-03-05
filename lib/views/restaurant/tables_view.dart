@@ -140,7 +140,7 @@ class _TablesViewState extends State<TablesView> {
                       ),
                     ),
 
-                    const SizedBox(width: 8.0),
+                    const SizedBox(width: 4.0),
 
                     // Table
                     Container(
@@ -152,7 +152,7 @@ class _TablesViewState extends State<TablesView> {
                       ),
                     ),
 
-                    const SizedBox(width: 8.0),
+                    const SizedBox(width: 4.0),
 
                     // Right chairs column
                     Column(
