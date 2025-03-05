@@ -715,78 +715,135 @@ class _RegularViewState extends State<RegularView> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 6.0),
-                const CustomDigitText(title: "Qty", amount: "0"),
                 Obx(
-                  () => controller.expandedIndex.value == index
-                      ? const Column(
+                  () => controller.expandedIndex.value != index
+                      ? Column(
                           children: [
-                            SizedBox(height: 6.0),
-                            CustomDigitText(title: "Price", amount: "0"),
-                            SizedBox(height: 6.0),
-                            CustomDigitText(title: "Disc %", amount: "0"),
+                            const SizedBox(height: 6.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Obx(
+                                  () => CustomQtyView(
+                                    screenName: "",
+                                    initialValue: commonController.qtyValues[
+                                        0], // Use index to get specific quantity
+                                    onDecrease: () => commonController
+                                        .updateQuantity(0, false),
+                                    onIncrease: () => commonController
+                                        .updateQuantity(0, true),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Total",
+                                      style: TextStyle(
+                                        fontSize: ResponsiveHelper.getFontSize(
+                                            context, 14.0),
+                                        fontWeight: FontWeight.w400,
+                                        color: Themes.kPrimaryColor,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8.0),
+                                    Text(
+                                      "\$500.00",
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                        fontSize: ResponsiveHelper.getFontSize(
+                                            context, 14.0),
+                                        fontWeight: FontWeight.w900,
+                                        color: Themes.kPrimaryColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ],
                         )
                       : const SizedBox.shrink(),
                 ),
-                Constants.divider(context, 6.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Total",
-                      style: TextStyle(
-                        fontSize: ResponsiveHelper.getFontSize(context, 14.0),
-                        fontWeight: FontWeight.w400,
-                        color: Themes.kPrimaryColor,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "\$500.00",
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            fontSize:
-                                ResponsiveHelper.getFontSize(context, 14.0),
-                            fontWeight: FontWeight.w900,
-                            color: Themes.kPrimaryColor,
-                          ),
-                        ),
-                        Obx(
-                          () => controller.expandedIndex.value == index
-                              ? Row(
+                Obx(
+                  () => controller.expandedIndex.value == index
+                      ? Column(
+                          children: [
+                            const SizedBox(height: 6.0),
+                            const CustomDigitText(title: "Qty", amount: "0"),
+                            const SizedBox(height: 6.0),
+                            const CustomDigitText(title: "Price", amount: "0"),
+                            const SizedBox(height: 6.0),
+                            const CustomDigitText(title: "Disc %", amount: "0"),
+                            Constants.divider(context, 6.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Total",
+                                  style: TextStyle(
+                                    fontSize: ResponsiveHelper.getFontSize(
+                                        context, 14.0),
+                                    fontWeight: FontWeight.w400,
+                                    color: Themes.kPrimaryColor,
+                                  ),
+                                ),
+                                Row(
                                   children: [
-                                    const SizedBox(width: 10.0),
-                                    MouseRegion(
-                                      cursor: SystemMouseCursors
-                                          .click, // Changes cursor to hand
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          if (authController.isAdmin) {
-                                            CustomSnackBar.showTopRightSnackBar(
-                                                context,
-                                                '${data["title"]} Removed!');
-                                          } else {
-                                            Constants.openAuthCodeDialog(
-                                                context, size, "Cart");
-                                          }
-                                        },
-                                        child: Image.asset(
-                                          Images.delete,
-                                          height: 15.0,
-                                          width: 15.0,
-                                          color: Themes.kPrimaryColor,
-                                        ),
+                                    Text(
+                                      "\$500.00",
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                        fontSize: ResponsiveHelper.getFontSize(
+                                            context, 14.0),
+                                        fontWeight: FontWeight.w900,
+                                        color: Themes.kPrimaryColor,
                                       ),
                                     ),
+                                    Obx(
+                                      () => controller.expandedIndex.value ==
+                                              index
+                                          ? Row(
+                                              children: [
+                                                const SizedBox(width: 10.0),
+                                                MouseRegion(
+                                                  cursor: SystemMouseCursors
+                                                      .click, // Changes cursor to hand
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      if (authController
+                                                          .isAdmin) {
+                                                        CustomSnackBar
+                                                            .showTopRightSnackBar(
+                                                                context,
+                                                                '${data["title"]} Removed!');
+                                                      } else {
+                                                        Constants
+                                                            .openAuthCodeDialog(
+                                                                context,
+                                                                size,
+                                                                "Cart");
+                                                      }
+                                                    },
+                                                    child: Image.asset(
+                                                      Images.delete,
+                                                      height: 15.0,
+                                                      width: 15.0,
+                                                      color:
+                                                          Themes.kPrimaryColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          : const SizedBox.shrink(),
+                                    ),
                                   ],
-                                )
-                              : const SizedBox.shrink(),
-                        ),
-                      ],
-                    ),
-                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      : const SizedBox.shrink(),
                 ),
               ],
             ),

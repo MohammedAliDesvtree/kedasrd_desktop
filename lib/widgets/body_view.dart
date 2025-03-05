@@ -6,7 +6,6 @@ import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
 import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
-// import 'package:kedasrd_windows/views/home_view.dart';
 import 'package:kedasrd_windows/views/regular/regular_view.dart';
 import 'package:kedasrd_windows/views/restaurant/bar_view.dart';
 import 'package:kedasrd_windows/views/restaurant/orders_view.dart';
