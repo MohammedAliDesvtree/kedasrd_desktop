@@ -112,73 +112,71 @@ class _TablesViewState extends State<TablesView> {
           // color: Colors.amberAccent,
           child:
               // Table and chairs visualization
-              Expanded(
-            child: Column(
-              children: [
-                // Left side chairs
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Left chairs column
-                    Column(
-                      children: List.generate(
-                        (randomNumber / 2).ceil(),
-                        (i) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 6.0),
-                          child: Transform.rotate(
-                            angle: -1.5708, // -90 degrees in radians
-                            child: Image.asset(
-                              Images.newChair,
-                              height: 41.0,
-                              width: 48.0,
-                              color: randomNumber % 3 == 1
-                                  ? Themes.kGreenColor
-                                  : Themes.kRedColor,
-                            ),
+              Column(
+            children: [
+              // Left side chairs
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Left chairs column
+                  Column(
+                    children: List.generate(
+                      (randomNumber / 2).ceil(),
+                      (i) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6.0),
+                        child: Transform.rotate(
+                          angle: -1.5708, // -90 degrees in radians
+                          child: Image.asset(
+                            Images.newChair,
+                            height: 41.0,
+                            width: 48.0,
+                            color: randomNumber % 3 == 1
+                                ? Themes.kGreenColor
+                                : Themes.kRedColor,
                           ),
                         ),
                       ),
                     ),
+                  ),
 
-                    const SizedBox(width: 4.0),
+                  const SizedBox(width: 4.0),
 
-                    // Table
-                    Container(
-                      height: tableHeight,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        color: Colors.blueGrey[600],
-                        borderRadius: BorderRadius.circular(4),
-                      ),
+                  // Table
+                  Container(
+                    height: tableHeight,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey[600],
+                      borderRadius: BorderRadius.circular(4),
                     ),
+                  ),
 
-                    const SizedBox(width: 4.0),
+                  const SizedBox(width: 4.0),
 
-                    // Right chairs column
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: List.generate(
-                        (randomNumber / 2).floor(),
-                        (i) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 6.0),
-                          child: Transform.rotate(
-                            angle: 1.5708, // 90 degrees in radians
-                            child: Image.asset(
-                              Images.newChair,
-                              height: 41.0,
-                              width: 48.0,
-                              color: randomNumber % 3 == 1
-                                  ? Themes.kGreenColor
-                                  : Themes.kRedColor,
-                            ),
+                  // Right chairs column
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(
+                      (randomNumber / 2).floor(),
+                      (i) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6.0),
+                        child: Transform.rotate(
+                          angle: 1.5708, // 90 degrees in radians
+                          child: Image.asset(
+                            Images.newChair,
+                            height: 41.0,
+                            width: 48.0,
+                            color: randomNumber % 3 == 1
+                                ? Themes.kGreenColor
+                                : Themes.kRedColor,
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
