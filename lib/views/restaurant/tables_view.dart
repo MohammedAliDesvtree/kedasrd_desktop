@@ -50,7 +50,6 @@ class _TablesViewState extends State<TablesView> {
       () => Expanded(
         child: SingleChildScrollView(
           key: ValueKey(controller.selectedTabIndex.value),
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Wrap(
             runSpacing: 16.0,
             spacing: 16.0,
