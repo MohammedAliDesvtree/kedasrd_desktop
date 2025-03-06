@@ -145,23 +145,6 @@ class _HeaderViewState extends State<HeaderView> {
                   ),
                 ],
               ),
-              // const SizedBox(width: 24.0),
-              // Container(
-              //   height: 20.0,
-              //   width: 20.0,
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(20.0),
-              //     border: Border.all(
-              //       width: 0.5,
-              //       color: Themes.kDarkGreyColor,
-              //     ),
-              //   ),
-              //   child: const Icon(
-              //     Icons.keyboard_arrow_down_sharp,
-              //     size: 12.0,
-              //     color: Themes.kDarkGreyColor,
-              //   ),
-              // ),
             ],
           ),
         ],

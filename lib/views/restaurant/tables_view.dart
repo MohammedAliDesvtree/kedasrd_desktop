@@ -46,55 +46,24 @@ class _TablesViewState extends State<TablesView> {
   }
 
   Widget tablesView(int tableLength, Size size) {
-    return Expanded(
-      child: Constants.scrollbarView(
+    return Obx(
+      () => Expanded(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 0.0),
-            child: Obx(
-              () => GridView.builder(
-                key: ValueKey(controller.selectedTabIndex.value),
-                padding: const EdgeInsets.symmetric(
-                    vertical: 32.0, horizontal: 16.0),
-                shrinkWrap: true,
-                physics:
-                    const NeverScrollableScrollPhysics(), // Disable scrolling to avoid conflicts
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, // 3 tables per row
-                  crossAxisSpacing: 16.0,
-                  mainAxisSpacing: 16.0,
-                  mainAxisExtent:
-                      calculateMaxMainAxisExtent(), // Adjust height dynamically
-                ),
-                itemCount: tableLength,
-                itemBuilder: (context, index) => customNewTables(
-                    index, controller.randomNumbers[index], size),
-              ),
-            ),
+          key: ValueKey(controller.selectedTabIndex.value),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Wrap(
+            runSpacing: 16.0,
+            spacing: 16.0,
+            children: List.generate(tableLength, (index) {
+              return customTables(index, controller.randomNumbers[index], size);
+            }),
           ),
         ),
       ),
     );
   }
 
-  // Calculate the maximum needed mainAxisExtent for all tables
-  double calculateMaxMainAxisExtent() {
-    const double baseHeight = 0.0; // Base container height
-    const double chairHeight = 54.0; // Height per chair
-    const double padding = 48.0; // Additional padding
-
-    // Find the maximum chair count
-    int maxChairCount = controller.randomNumbers
-        .reduce((max, value) => max > value ? max : value);
-
-    return baseHeight + (chairHeight * (maxChairCount / 2).ceil()) + padding;
-  }
-
-  Widget customNewTables(int index, int randomNumber, Size size) {
-    // Calculate table height based on number of chairs (switching width to height)
-    const double chairHeight = 54.0; // height per chair
-    final double tableHeight = (chairHeight * (randomNumber / 2).ceil());
-
+  Widget customTables(int index, int randomNumber, Size size) {
     return MouseRegion(
       cursor: SystemMouseCursors.click, // Changes cursor to hand
       child: GestureDetector(
@@ -106,75 +75,66 @@ class _TablesViewState extends State<TablesView> {
           height: size.height / 2.5,
         ),
         child: Container(
-          height: size.height / 4.0,
-          width: 124.0,
-          padding: const EdgeInsets.all(16.0),
-          // color: Colors.amberAccent,
-          child:
-              // Table and chairs visualization
-              Column(
+          height: 148.0,
+          width: 148.0,
+          decoration: BoxDecoration(
+            color: Themes.kWhiteColor,
+            borderRadius: BorderRadius.circular(10.0),
+            boxShadow: [
+              BoxShadow(
+                color: Themes.kBlackColor.withOpacity(0.20),
+                blurRadius: 8.0,
+                spreadRadius: -3,
+                offset: const Offset(0, 0),
+              ),
+            ],
+          ),
+          child: Stack(
+            alignment: Alignment.topCenter,
             children: [
-              // Left side chairs
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Left chairs column
-                  Column(
-                    children: List.generate(
-                      (randomNumber / 2).ceil(),
-                      (i) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6.0),
-                        child: Transform.rotate(
-                          angle: -1.5708, // -90 degrees in radians
-                          child: Image.asset(
-                            Images.newChair,
-                            height: 41.0,
-                            width: 48.0,
-                            color: randomNumber % 3 == 1
-                                ? Themes.kGreenColor
-                                : Themes.kRedColor,
-                          ),
-                        ),
-                      ),
+              Positioned(
+                top: 16.0,
+                child: Image.asset(
+                  Images.table,
+                  height: 78.0,
+                  width: 78.0,
+                ),
+              ),
+              Positioned(
+                bottom: 24.0,
+                child: Text(
+                  "Table ${index + 1}",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w400,
+                    color: Themes.kBlackColor,
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 0.0,
+                right: 0.0,
+                child: Container(
+                  height: 28.0,
+                  width: 40.0,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: randomNumber % 3 == 1
+                          ? Themes.kGreenColor
+                          : Themes.kRedColor,
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10.0))),
+                  child: Text(
+                    "$randomNumber",
+                    style: const TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w500,
+                      color: Themes.kWhiteColor,
                     ),
                   ),
-
-                  const SizedBox(width: 4.0),
-
-                  // Table
-                  Container(
-                    height: tableHeight,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[600],
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-
-                  const SizedBox(width: 4.0),
-
-                  // Right chairs column
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: List.generate(
-                      (randomNumber / 2).floor(),
-                      (i) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6.0),
-                        child: Transform.rotate(
-                          angle: 1.5708, // 90 degrees in radians
-                          child: Image.asset(
-                            Images.newChair,
-                            height: 41.0,
-                            width: 48.0,
-                            color: randomNumber % 3 == 1
-                                ? Themes.kGreenColor
-                                : Themes.kRedColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           ),
