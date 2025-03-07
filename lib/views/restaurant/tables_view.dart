@@ -5,9 +5,10 @@ import 'package:kedasrd_windows/utils/themes.dart';
 import 'package:kedasrd_windows/utils/images.dart';
 import 'package:kedasrd_windows/utils/constants.dart';
 import 'package:kedasrd_windows/utils/dummy_data.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/widgets/custom_tabs_list.dart';
-import 'package:kedasrd_windows/widgets/custom_text_input.dart';
+// import 'package:kedasrd_windows/widgets/custom_text_input.dart';
 
 import 'package:kedasrd_windows/controllers/tables_controller.dart';
 
@@ -68,11 +69,18 @@ class _TablesViewState extends State<TablesView> {
       child: GestureDetector(
         onTap: () => Constants.openDialog(
           context: context,
-          title: "Enter Code to Continue",
-          btnText1: "Submit",
-          child: const CustomTextInput(hintText: "Enter code", isNumber: true),
+          title: "Total number of guests:\nPoloma Medrano",
+          btnText1: "Done",
+          child: guestView(),
           height: size.height / 2.5,
         ),
+        // onTap: () => Constants.openDialog(
+        //   context: context,
+        //   title: "Enter Code to Continue",
+        //   btnText1: "Submit",
+        //   child: const CustomTextInput(hintText: "Enter code", isNumber: true),
+        //   height: size.height / 2.5,
+        // ),
         child: Container(
           height: 148.0,
           width: 148.0,
@@ -136,6 +144,107 @@ class _TablesViewState extends State<TablesView> {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget guestView() {
+    return Column(
+      children: [
+        const SizedBox(height: 28.0),
+        Container(
+          height: 48.0,
+          decoration: BoxDecoration(
+              border: Border.all(width: 0.5, color: Themes.kPrimaryColor)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              customButton(Images.less, false),
+              Obx(
+                () => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                  child: Text(
+                    "${controller.qtyValues.value}",
+                    style: TextStyle(
+                      fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                      fontWeight: FontWeight.bold,
+                      color: Themes.kPrimaryColor,
+                    ),
+                  ),
+                ),
+              ),
+              customButton(Images.add, true),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Separate Bills",
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 16.0),
+                fontWeight: FontWeight.bold,
+                color: Themes.kDarkColor,
+              ),
+            ),
+            const SizedBox(width: 8.0),
+            MouseRegion(
+              cursor: SystemMouseCursors.click, // Changes cursor to hand
+              child: GestureDetector(
+                onTap: () => controller.isSeparatedBills.value =
+                    !controller.isSeparatedBills.value,
+                child: Obx(
+                  () => Container(
+                    height: 16.0,
+                    width: 16.0,
+                    padding: const EdgeInsets.all(2.0),
+                    decoration: BoxDecoration(
+                        color: controller.isSeparatedBills.value
+                            ? Themes.kPrimaryColor
+                            : Themes.kTransparent,
+                        border: Border.all(
+                            width: 1.0,
+                            color: controller.isSeparatedBills.value
+                                ? Themes.kPrimaryColor
+                                : Themes.kDarkColor),
+                        borderRadius: BorderRadius.circular(3.0)),
+                    child: controller.isSeparatedBills.value
+                        ? Image.asset(
+                            Images.check,
+                            color: Themes.kWhiteColor,
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget customButton(icon, type) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click, // Changes cursor to hand
+      child: Material(
+        color: Themes.kTransparent,
+        child: InkWell(
+          onTap: () => controller.updateQuantity(type),
+          child: Ink(
+            color: Themes.kPrimaryColor,
+            child: Container(
+              height: 48.0,
+              padding: const EdgeInsets.all(18.0),
+              child: Image.asset(
+                icon,
+                color: Themes.kWhiteColor,
+              ),
+            ),
           ),
         ),
       ),

@@ -66,6 +66,7 @@ class _CustomDialogState extends State<CustomDialog> {
                       widget.btnText2 == "Close and Print"
                           ? "Close Shift"
                           : widget.title,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: ResponsiveHelper.getFontSize(context, 24.0),
                         fontWeight: FontWeight.bold,

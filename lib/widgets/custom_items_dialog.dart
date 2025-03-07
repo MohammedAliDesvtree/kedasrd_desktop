@@ -344,7 +344,7 @@ class CustomItemsDialog extends StatelessWidget {
             DataColumn(label: headerText(context, "Key", 'Code', size)),
             DataColumn(label: headerText(context, "Key", 'Price', size)),
             DataColumn(label: headerText(context, "Key", 'Status', size)),
-            DataColumn(label: headerText(context, "Key", 'Discount', size)),
+            DataColumn(label: headerText(context, "Key", 'Stocks', size)),
           ],
           rows: List.generate(5, (index) {
             // Create all cells for this row
@@ -355,7 +355,7 @@ class CustomItemsDialog extends StatelessWidget {
               DataCell(headerText(context, "Value", 'DOP \$512.16', size)),
               DataCell(headerText(context, "Value",
                   index % 3 != 1 ? "In Stock" : "Out Of Stock", size)),
-              DataCell(headerText(context, "Value", '\$0.00', size)),
+              DataCell(headerText(context, "Value", '18', size)),
             ];
 
             // Apply tap behavior to each cell

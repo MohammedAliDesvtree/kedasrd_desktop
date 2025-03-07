@@ -16,10 +16,14 @@ class TablesController extends GetxController {
   RxList<int> randomNumbers = <int>[].obs;
   final RxInt selectedTabIndex = 0.obs;
   final int maxTabIndex = 5; // Based on the length of settingItems
+  RxInt qtyValues = 1.obs;
+  final RxBool isSeparatedBills = false.obs;
 
   @override
   void onInit() {
     super.onInit();
+    initQuantities();
+
     ever(selectedTabIndex, (value) {
       int tableLength = getTableLength(value);
       updateRandomNumbers(tableLength);
@@ -27,6 +31,21 @@ class TablesController extends GetxController {
     // Initialize with the first tab's table length
     int initialTableLength = getTableLength(selectedTabIndex.value);
     updateRandomNumbers(initialTableLength);
+  }
+
+  void initQuantities() {
+    qtyValues = 1.obs;
+  }
+
+  void updateQuantity(bool increase) {
+    if (increase) {
+      qtyValues++;
+    } else if (qtyValues > 1) {
+      qtyValues--;
+    }
+
+    // Trigger update
+    qtyValues.refresh();
   }
 
   void updateRandomNumbers(int tableLength) {

@@ -111,4 +111,6 @@ class Images {
 
   static const String pdf = "lib/assets/icons/pdf.png";
   static const String excel = "lib/assets/icons/excel.png";
+
+  static const String check = "lib/assets/icons/ic_check.png";
 }
