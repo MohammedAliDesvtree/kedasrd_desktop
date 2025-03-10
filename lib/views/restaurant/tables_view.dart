@@ -72,7 +72,7 @@ class _TablesViewState extends State<TablesView> {
           title: "Total number of guests:\nPoloma Medrano",
           btnText1: "Done",
           child: guestView(),
-          height: size.height / 2.5,
+          height: size.height / 2.0,
         ),
         // onTap: () => Constants.openDialog(
         //   context: context,
