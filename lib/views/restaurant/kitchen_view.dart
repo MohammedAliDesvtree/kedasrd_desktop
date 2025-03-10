@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:kedasrd_windows/utils/constants.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:kedasrd_windows/utils/images.dart';
-import 'package:kedasrd_windows/utils/responsive_helper.dart';
 import 'package:kedasrd_windows/utils/themes.dart';
+import 'package:kedasrd_windows/utils/constants.dart';
+import 'package:kedasrd_windows/utils/responsive_helper.dart';
 
 import 'package:kedasrd_windows/controllers/kitchen_controller.dart';
 
@@ -24,22 +25,16 @@ class _KitchenViewState extends State<KitchenView> {
 
     return Constants.scrollbarView(
       child: SingleChildScrollView(
-        child: GridView.builder(
-          shrinkWrap: true,
-          physics:
-              const NeverScrollableScrollPhysics(), // Disable scrolling to avoid conflicts
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // Ensuring 4 items per row
-            crossAxisSpacing: 16.0,
-            mainAxisSpacing: 16.0,
-            // mainAxisExtent:
-            //     size.height, // Adjust as needed for content height
-            childAspectRatio:
-                (size.width / 3) / 394, // Adjust this ratio if needed
-          ),
-          itemCount: 8,
-          itemBuilder: (context, index) =>
-              orderView(controller.orders[index], index, size),
+        child: StaggeredGrid.count(
+          crossAxisCount: 3,
+          mainAxisSpacing: 16.0,
+          crossAxisSpacing: 16.0,
+          children: List.generate(controller.orders.length, (index) {
+            return StaggeredGridTile.fit(
+              crossAxisCellCount: 1,
+              child: orderView(controller.orders[index], index, size),
+            );
+          }),
         ),
       ),
     );
@@ -49,7 +44,7 @@ class _KitchenViewState extends State<KitchenView> {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+          padding: const EdgeInsets.all(12.0),
           decoration: BoxDecoration(
             color: Themes.kWhiteColor,
             borderRadius: BorderRadius.circular(10.0),

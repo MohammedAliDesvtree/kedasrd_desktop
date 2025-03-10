@@ -17,6 +17,6 @@ class KitchenController extends GetxController {
     orders.value = List.generate(
         16,
         (_) => List.generate(
-            random.nextInt(3) + 1, (_) => "Item ${Random().nextInt(100)}"));
+            random.nextInt(4) + 1, (_) => "Item ${Random().nextInt(100)}"));
   }
 }
