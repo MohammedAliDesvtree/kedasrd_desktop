@@ -24,6 +24,7 @@ import 'package:kedasrd_windows/widgets/custom_searchbar.dart';
 import 'package:kedasrd_windows/widgets/custom_icon_button.dart';
 
 import 'package:kedasrd_windows/controllers/drawer_controller.dart';
+import 'package:kedasrd_windows/controllers/kitchen_controller.dart';
 
 class BodyView extends StatefulWidget {
   final RxString title;
@@ -38,6 +39,7 @@ class BodyView extends StatefulWidget {
 
 class _BodyViewState extends State<BodyView> {
   final DrawerMenuController controller = Get.find<DrawerMenuController>();
+  final KitchenController kitchenController = Get.find<KitchenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -153,12 +155,14 @@ class _BodyViewState extends State<BodyView> {
       alignment: Alignment.center,
       decoration: BoxDecoration(
           color: Themes.kWhiteColor, borderRadius: BorderRadius.circular(8.0)),
-      child: Text(
-        "Total Orders : 16",
-        style: TextStyle(
-          fontSize: ResponsiveHelper.getFontSize(context, 20.0),
-          fontWeight: FontWeight.bold,
-          color: Themes.kPrimaryColor,
+      child: Obx(
+        () => Text(
+          "Total Orders : ${KitchenController.orderListLength.value}",
+          style: TextStyle(
+            fontSize: ResponsiveHelper.getFontSize(context, 20.0),
+            fontWeight: FontWeight.bold,
+            color: Themes.kPrimaryColor,
+          ),
         ),
       ),
     );

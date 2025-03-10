@@ -14,6 +14,7 @@ import 'package:kedasrd_windows/controllers/cart_controller.dart';
 import 'package:kedasrd_windows/controllers/common_controller.dart';
 import 'package:kedasrd_windows/controllers/tables_controller.dart';
 import 'package:kedasrd_windows/controllers/drawer_controller.dart';
+import 'package:kedasrd_windows/controllers/kitchen_controller.dart';
 import 'package:kedasrd_windows/controllers/auth/auth_controller.dart';
 import 'package:kedasrd_windows/controllers/auth/sign_in_controller.dart';
 
@@ -35,6 +36,7 @@ void main() async {
   Get.put(DrawerMenuController());
   Get.put(TablesController());
   Get.put(CartController());
+  Get.put(KitchenController());
 
   runApp(const MyApp());
 }
