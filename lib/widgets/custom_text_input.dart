@@ -68,6 +68,7 @@ class _CustomTextInputState extends State<CustomTextInput> {
                             : Images.passShow,
                         height: 24.0,
                         width: 24.0,
+                        color: Themes.kBlackColor.withOpacity(0.6),
                       ),
                     ),
                   ),

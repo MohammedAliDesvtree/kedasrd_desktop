@@ -71,7 +71,7 @@ class _SignInViewState extends State<SignInView> {
                             ),
                             const SizedBox(height: 8.0),
                             Text(
-                              "Log into your KEDAS Account",
+                              "Sign In",
                               style: TextStyle(
                                 fontSize:
                                     ResponsiveHelper.getFontSize(context, 22.0),
@@ -194,7 +194,7 @@ class _SignInViewState extends State<SignInView> {
               child: Text(
                 title,
                 style: TextStyle(
-                  fontSize: ResponsiveHelper.getFontSize(context, 14.0),
+                  fontSize: ResponsiveHelper.getFontSize(context, 16.0),
                   fontWeight: FontWeight.w500,
                   color: Themes.kWhiteColor,
                 ),
